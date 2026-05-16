@@ -30,6 +30,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [china-3c-marketing-copilot](skills/china-3c-marketing-copilot/) | [install](https://skills.sh/aradotso/marketing-skills/china-3c-marketing-copilot) | [killsnake01/China-Marketing-Copilot-Skill](https://github.com/killsnake01/China-Marketing-Copilot-Skill) | 2026-05-16 |
 | [r16-voltagent-seo-content-marketing-agent-skills](skills/r16-voltagent-seo-content-marketing-agent-skills/) | [install](https://skills.sh/aradotso/marketing-skills/r16-voltagent-seo-content-marketing-agent-skills) | [Gravityaespot/r16-voltagent-awesome-agent-skills-seo](https://github.com/Gravityaespot/r16-voltagent-awesome-agent-skills-seo) | 2026-05-16 |
 | [voltagent-seo-content-marketing-skills](skills/voltagent-seo-content-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/voltagent-seo-content-marketing-skills) | [Gravityaespot/r16-voltagent-awesome-agent-skills-seo](https://github.com/Gravityaespot/r16-voltagent-awesome-agent-skills-seo) | 2026-05-16 |
+| [radian-layer-41-seo-content-marketing-skill-suite](skills/radian-layer-41-seo-content-marketing-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/radian-layer-41-seo-content-marketing-skill-suite) | [RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo](https://github.com/RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
