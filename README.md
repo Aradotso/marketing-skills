@@ -33,6 +33,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [radian-layer-41-seo-content-marketing-skill-suite](skills/radian-layer-41-seo-content-marketing-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/radian-layer-41-seo-content-marketing-skill-suite) | [RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo](https://github.com/RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo) | 2026-05-16 |
 | [r01-hesreallyhim-awesome-claude-code-seo-content-marketing](skills/r01-hesreallyhim-awesome-claude-code-seo-content-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/r01-hesreallyhim-awesome-claude-code-seo-content-marketing) | [RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo](https://github.com/RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo) | 2026-05-16 |
 | [hermes-marketing-dashboard](skills/hermes-marketing-dashboard/) | [install](https://skills.sh/aradotso/marketing-skills/hermes-marketing-dashboard) | [builderz-labs/marketing-dashboard](https://github.com/builderz-labs/marketing-dashboard) | 2026-05-16 |
+| [seo-content-marketing-claude-skills](skills/seo-content-marketing-claude-skills/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-claude-skills) | [AgentTestingClamp/r02-alirezarezvani-claude-skills-seo](https://github.com/AgentTestingClamp/r02-alirezarezvani-claude-skills-seo) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
