@@ -21,6 +21,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | Skill | skills.sh | Source | Date |
 |-------|-----------|--------|------|
 | [marketingskills-ai-agent-collection](skills/marketingskills-ai-agent-collection/) | [install](https://skills.sh/aradotso/marketing-skills/marketingskills-ai-agent-collection) | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | 2026-05-16 |
+| [ai-marketing-skills-automation](skills/ai-marketing-skills-automation/) | [install](https://skills.sh/aradotso/marketing-skills/ai-marketing-skills-automation) | [ericosiu/ai-marketing-skills](https://github.com/ericosiu/ai-marketing-skills) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
