@@ -32,6 +32,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [voltagent-seo-content-marketing-skills](skills/voltagent-seo-content-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/voltagent-seo-content-marketing-skills) | [Gravityaespot/r16-voltagent-awesome-agent-skills-seo](https://github.com/Gravityaespot/r16-voltagent-awesome-agent-skills-seo) | 2026-05-16 |
 | [radian-layer-41-seo-content-marketing-skill-suite](skills/radian-layer-41-seo-content-marketing-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/radian-layer-41-seo-content-marketing-skill-suite) | [RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo](https://github.com/RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo) | 2026-05-16 |
 | [r01-hesreallyhim-awesome-claude-code-seo-content-marketing](skills/r01-hesreallyhim-awesome-claude-code-seo-content-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/r01-hesreallyhim-awesome-claude-code-seo-content-marketing) | [RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo](https://github.com/RadianLayer41/r01-hesreallyhim-awesome-claude-code-seo) | 2026-05-16 |
+| [hermes-marketing-dashboard](skills/hermes-marketing-dashboard/) | [install](https://skills.sh/aradotso/marketing-skills/hermes-marketing-dashboard) | [builderz-labs/marketing-dashboard](https://github.com/builderz-labs/marketing-dashboard) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
