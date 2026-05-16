@@ -1,0 +1,286 @@
+name: Create Marketing Skills Skill
+
+on:
+  workflow_dispatch:
+    inputs: {}
+  schedule:
+    - cron: '*/30 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: create-skill
+  cancel-in-progress: false
+
+jobs:
+  create-skill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Find fastest-growing marketing repo
+        id: trending
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          EXISTING_SLUGS=$(ls -1 skills/ 2>/dev/null | tr '\n' '|')
+          EXISTING_REPOS=$(grep -rh 'github\.com/' skills/*/SKILL.md 2>/dev/null | grep -oP 'github\.com/\K[^/)"\s]+/[^/)"\s]+' | sort -u || true)
+          echo "Existing skills: $(ls -1 skills/ 2>/dev/null | wc -l)"
+
+          SINCE_30D=$(date -d '30 days ago' +%Y-%m-%d)
+          SINCE_90D=$(date -d '90 days ago' +%Y-%m-%d)
+          SINCE_180D=$(date -d '180 days ago' +%Y-%m-%d)
+          SINCE_365D=$(date -d '365 days ago' +%Y-%m-%d)
+          TODAY=$(date +%Y-%m-%d)
+
+          fetch_repos() {
+            local QUERY="$1"
+            local LABEL="$2"
+            echo "--- ${LABEL} ---" >&2
+            local RESP
+            RESP=$(curl -s -w "\n%{http_code}" \
+              "https://api.github.com/search/repositories?q=${QUERY}&sort=stars&order=desc&per_page=30" \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github.v3+json" 2>/dev/null)
+            local HTTP_CODE
+            HTTP_CODE=$(echo "${RESP}" | tail -1)
+            local BODY
+            BODY=$(echo "${RESP}" | sed '$d')
+            if [ "${HTTP_CODE}" != "200" ] || ! echo "${BODY}" | jq -e '.items' >/dev/null 2>&1; then
+              echo "API returned HTTP ${HTTP_CODE}, using empty fallback" >&2
+              echo '{"items":[]}'
+            else
+              echo "${BODY}"
+            fi
+          }
+
+          # Niche-scoped pools for: Marketing Skills
+          # Anchored to repo NAME + curated TOPIC (not description/readme buzzword soup)
+          P1=$(fetch_repos "marketing+in:name+created:>${SINCE_180D}" "marketing in:name (180d)")
+          P2=$(fetch_repos "growth+in:name+created:>${SINCE_365D}" "growth in:name (365d)")
+          P3=$(fetch_repos "topic:marketing+created:>${SINCE_365D}" "topic:marketing (365d)")
+          P4=$(fetch_repos "topic:marketing+pushed:>${SINCE_30D}" "topic:marketing active (30d)")
+          P5=$(fetch_repos "marketing+in:name,description+created:>${SINCE_30D}" "marketing new (30d)")
+
+          RANKED=$(echo "${P1}" "${P2}" "${P3}" "${P4}" "${P5}" | jq -s --arg today "${TODAY}" '
+            [.[].items[]] |
+            unique_by(.full_name) |
+            map(
+              . + {
+                age_days: (
+                  (($today | strptime("%Y-%m-%d") | mktime) -
+                   (.created_at[:10] | strptime("%Y-%m-%d") | mktime)) / 86400 | floor | if . < 1 then 1 else . end
+                ),
+                stars_per_day: (
+                  .stargazers_count / (
+                    (($today | strptime("%Y-%m-%d") | mktime) -
+                     (.created_at[:10] | strptime("%Y-%m-%d") | mktime)) / 86400 | if . < 1 then 1 else . end
+                  ) | floor
+                )
+              }
+            ) |
+            sort_by(-.stars_per_day)
+          ')
+
+          ITEM_COUNT=$(echo "${RANKED}" | jq 'length')
+          echo "Merged and ranked ${ITEM_COUNT} marketing candidates by stars/day"
+          echo "${RANKED}" | jq -r '.[:10][] | "\(.stars_per_day) stars/day  \(.stargazers_count) total  \(.age_days)d old  \(.full_name)"'
+
+          for i in $(seq 0 $((ITEM_COUNT - 1))); do
+            REPO_FULL=$(echo "${RANKED}" | jq -r ".[$i].full_name // empty")
+            REPO_NAME=$(echo "${RANKED}" | jq -r ".[$i].name // empty")
+            REPO_DESC=$(echo "${RANKED}" | jq -r ".[$i].description // empty")
+            REPO_LANG=$(echo "${RANKED}" | jq -r ".[$i].language // \"Unknown\"")
+            REPO_STARS=$(echo "${RANKED}" | jq -r ".[$i].stargazers_count // 0")
+            REPO_TOPICS=$(echo "${RANKED}" | jq -r ".[$i].topics // [] | join(\", \")")
+            STARS_PER_DAY=$(echo "${RANKED}" | jq -r ".[$i].stars_per_day // 0")
+            AGE_DAYS=$(echo "${RANKED}" | jq -r ".[$i].age_days // 0")
+
+            [ -z "${REPO_FULL}" ] && continue
+
+            IS_FORK=$(echo "${RANKED}" | jq -r ".[$i].fork // false")
+            [ "${IS_FORK}" = "true" ] && { echo "SKIP fork: ${REPO_FULL}"; continue; }
+
+            [ -z "${REPO_DESC}" ] || [ "${REPO_DESC}" = "null" ] && { echo "SKIP no desc: ${REPO_FULL}"; continue; }
+
+            # Skip already-famous mega-repos: not "trending niche projects", and
+            # they self-tag with every buzzword topic. We want risers, not giants.
+            if [ "${REPO_STARS}" -gt 60000 ] 2>/dev/null; then
+              echo "SKIP mega-repo (${REPO_STARS} stars): ${REPO_FULL}"
+              continue
+            fi
+
+            # Relevance gate: repo NAME itself must match the Marketing Skills niche.
+            # Name is a strong niche signal; topics are buzzword soup on big repos.
+            REPO_NAME_LC=$(echo "${REPO_NAME}" | tr '[:upper:]' '[:lower:]')
+            if ! echo "${REPO_NAME_LC}" | grep -Eq 'marketing|growth-?hack|seo|cmo|ads|outbound|campaign'; then
+              echo "SKIP off-niche (name='${REPO_NAME}'): ${REPO_FULL}"
+              continue
+            fi
+
+            SKILL_SLUG=$(echo "${REPO_NAME}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/--*/-/g; s/^-//; s/-$//')
+
+            if [ -d "skills/${SKILL_SLUG}" ]; then
+              echo "SKIP exists: ${SKILL_SLUG}"
+              continue
+            fi
+
+            if echo "${EXISTING_REPOS}" | grep -qi "^${REPO_FULL}$" 2>/dev/null; then
+              echo "SKIP referenced: ${REPO_FULL}"
+              continue
+            fi
+
+            if echo "${EXISTING_SLUGS}" | grep -q "${SKILL_SLUG}" 2>/dev/null; then
+              echo "SKIP near-dupe: ${SKILL_SLUG}"
+              continue
+            fi
+
+            echo "SELECTED: ${REPO_FULL} (${REPO_STARS} stars, ${STARS_PER_DAY} stars/day, ${AGE_DAYS}d old)"
+            {
+              echo "repo_full=${REPO_FULL}"
+              echo "repo_name=${REPO_NAME}"
+              printf 'repo_desc<<_EOF_\n%s\n_EOF_\n' "${REPO_DESC}"
+              echo "repo_lang=${REPO_LANG}"
+              echo "repo_stars=${REPO_STARS}"
+              printf 'repo_topics<<_EOF_\n%s\n_EOF_\n' "${REPO_TOPICS}"
+              echo "stars_per_day=${STARS_PER_DAY}"
+              echo "skill_slug=${SKILL_SLUG}"
+            } >> "${GITHUB_OUTPUT}"
+            break
+          done
+
+      - name: Fetch repo README
+        if: steps.trending.outputs.repo_full
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ steps.trending.outputs.repo_full }}
+        run: |
+          set +e
+          curl -s "https://api.github.com/repos/${REPO_FULL}/readme" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            | jq -r '.content // empty' > /tmp/readme_b64.txt
+          if [ -s /tmp/readme_b64.txt ]; then
+            base64 -d /tmp/readme_b64.txt 2>/dev/null | head -c 12000 > /tmp/repo_readme.md
+          fi
+          curl -s "https://api.github.com/repos/${REPO_FULL}" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            | jq '{homepage, topics, license: .license.spdx_id, forks: .forks_count, open_issues: .open_issues_count, created_at, updated_at}' > /tmp/repo_meta.json 2>/dev/null
+          if [ ! -s /tmp/repo_readme.md ]; then
+            echo "No README available" > /tmp/repo_readme.md
+          fi
+          echo "README size: $(wc -c < /tmp/repo_readme.md) bytes"
+
+      - name: Generate skill via Vercel AI Gateway
+        id: generate
+        if: steps.trending.outputs.repo_full
+        env:
+          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+          REPO_FULL: ${{ steps.trending.outputs.repo_full }}
+          REPO_NAME: ${{ steps.trending.outputs.repo_name }}
+          REPO_DESC: ${{ steps.trending.outputs.repo_desc }}
+          REPO_LANG: ${{ steps.trending.outputs.repo_lang }}
+          REPO_STARS: ${{ steps.trending.outputs.repo_stars }}
+          REPO_TOPICS: ${{ steps.trending.outputs.repo_topics }}
+          STARS_PER_DAY: ${{ steps.trending.outputs.stars_per_day }}
+          SKILL_SLUG: ${{ steps.trending.outputs.skill_slug }}
+        run: |
+          set -e
+          REPO_META=$(cat /tmp/repo_meta.json 2>/dev/null || echo "{}")
+
+          PROMPT_INSTRUCTIONS="You are creating an agent skill (SKILL.md) for an open source project in the Marketing Skills niche. This skill will be installed by AI coding agents (Claude Code, Cursor, Codex, etc.) to give them expertise in using this project. Requirements: 1) Start with YAML frontmatter: name (kebab-case, descriptive), description (one line), triggers (6-8 natural phrases a user might say). 2) First line after the main heading: > Skill by [ara.so](https://ara.so) — Marketing Skills collection. 3) Cover: what the project does, how to install it, key commands/API, configuration, real code examples, common patterns, troubleshooting. 4) Include real, working code examples in the project's primary language. 5) Be thorough but practical — focus on what an AI coding agent needs to help a developer USE this project. 6) Do NOT include placeholder API keys or secrets — use env var references instead. 7) Make the skill name descriptive (e.g. lightpanda-browser not browser). 8) If the project has a CLI, document the key commands. If it's a library, show import/usage patterns. Output ONLY the SKILL.md content starting with --- (YAML frontmatter). No extra commentary."
+
+          README_CONTENT=$(cat /tmp/repo_readme.md)
+
+          FULL_PROMPT="Project: ${REPO_FULL}
+          Description: ${REPO_DESC}
+          Language: ${REPO_LANG}
+          Stars: ${REPO_STARS} (${STARS_PER_DAY} stars/day)
+          Topics: ${REPO_TOPICS}
+          Metadata: ${REPO_META}
+          Suggested slug: ${SKILL_SLUG}
+
+          README (first 12k chars):
+          ${README_CONTENT}
+
+          ---
+          ${PROMPT_INSTRUCTIONS}"
+
+          jq -n --arg prompt "${FULL_PROMPT}" '{
+            model: "anthropic/claude-sonnet-4.5",
+            max_tokens: 8000,
+            messages: [{role: "user", content: $prompt}]
+          }' > /tmp/request.json
+          echo "Request size: $(wc -c < /tmp/request.json) bytes"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" https://ai-gateway.vercel.sh/v1/chat/completions \
+            -H "content-type: application/json" \
+            -H "Authorization: Bearer ${AI_GATEWAY_API_KEY}" \
+            -d @/tmp/request.json)
+          HTTP_CODE=$(echo "${RESPONSE}" | tail -1)
+          BODY=$(echo "${RESPONSE}" | sed '$d')
+          echo "HTTP status: ${HTTP_CODE}"
+
+          if [ "${HTTP_CODE}" != "200" ]; then
+            echo "::error::AI Gateway returned HTTP ${HTTP_CODE}"
+            echo "${BODY}" | jq . 2>/dev/null || echo "${BODY}"
+            exit 1
+          fi
+
+          SKILL_CONTENT=$(echo "${BODY}" | jq -r '.choices[0].message.content // empty')
+          if [ -z "${SKILL_CONTENT}" ]; then
+            echo "::error::Failed to generate skill"
+            echo "${BODY}" | jq '.error // .type // "unknown error"' || true
+            exit 1
+          fi
+
+          GENERATED_NAME=$(echo "${SKILL_CONTENT}" | grep -m1 '^name:' | sed 's/name: *//' | tr -d "\"'" | xargs)
+          if [ -n "${GENERATED_NAME}" ]; then
+            SKILL_SLUG="${GENERATED_NAME}"
+          fi
+
+          mkdir -p "skills/${SKILL_SLUG}"
+          echo "${SKILL_CONTENT}" > "skills/${SKILL_SLUG}/SKILL.md"
+          echo "Created: skills/${SKILL_SLUG}/SKILL.md"
+          echo "skill_slug=${SKILL_SLUG}" >> "${GITHUB_OUTPUT}"
+
+      - name: Update README
+        if: steps.trending.outputs.repo_full
+        env:
+          SKILL_SLUG: ${{ steps.generate.outputs.skill_slug }}
+          REPO_FULL: ${{ steps.trending.outputs.repo_full }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          if ! grep -q "${SKILL_SLUG}" README.md 2>/dev/null; then
+            sed -i "/<!-- SKILL_INDEX -->/i | [${SKILL_SLUG}](skills/${SKILL_SLUG}/) | [install](https:\/\/skills.sh\/aradotso\/marketing-skills\/${SKILL_SLUG}) | [${REPO_FULL}](https:\/\/github.com\/${REPO_FULL}) | ${DATE} |" README.md
+          fi
+
+      - name: Commit and push
+        if: steps.trending.outputs.repo_full
+        env:
+          SKILL_SLUG: ${{ steps.generate.outputs.skill_slug }}
+          REPO_FULL: ${{ steps.trending.outputs.repo_full }}
+          STARS_PER_DAY: ${{ steps.trending.outputs.stars_per_day }}
+        run: |
+          git config user.name "ara-bot"
+          git config user.email "bot@ara.so"
+          git add -A
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "feat: add ${SKILL_SLUG} skill from ${REPO_FULL} (${STARS_PER_DAY} stars/day)"
+          git pull --rebase origin main || true
+          git push
+
+      - name: Register on skills.sh
+        if: steps.trending.outputs.repo_full
+        run: |
+          npx -y skills add Aradotso/marketing-skills --yes --global 2>&1 || true
