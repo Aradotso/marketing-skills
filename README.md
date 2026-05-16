@@ -29,6 +29,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [agentkits-marketing-automation](skills/agentkits-marketing-automation/) | [install](https://skills.sh/aradotso/marketing-skills/agentkits-marketing-automation) | [aitytech/agentkits-marketing](https://github.com/aitytech/agentkits-marketing) | 2026-05-16 |
 | [china-3c-marketing-copilot](skills/china-3c-marketing-copilot/) | [install](https://skills.sh/aradotso/marketing-skills/china-3c-marketing-copilot) | [killsnake01/China-Marketing-Copilot-Skill](https://github.com/killsnake01/China-Marketing-Copilot-Skill) | 2026-05-16 |
 | [r16-voltagent-seo-content-marketing-agent-skills](skills/r16-voltagent-seo-content-marketing-agent-skills/) | [install](https://skills.sh/aradotso/marketing-skills/r16-voltagent-seo-content-marketing-agent-skills) | [Gravityaespot/r16-voltagent-awesome-agent-skills-seo](https://github.com/Gravityaespot/r16-voltagent-awesome-agent-skills-seo) | 2026-05-16 |
+| [voltagent-seo-content-marketing-skills](skills/voltagent-seo-content-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/voltagent-seo-content-marketing-skills) | [Gravityaespot/r16-voltagent-awesome-agent-skills-seo](https://github.com/Gravityaespot/r16-voltagent-awesome-agent-skills-seo) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
