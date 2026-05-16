@@ -26,6 +26,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketing-for-founders-saas-growth](skills/marketing-for-founders-saas-growth/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-for-founders-saas-growth) | [EdoStra/Marketing-for-Founders](https://github.com/EdoStra/Marketing-for-Founders) | 2026-05-16 |
 | [seo-geo-claude-skills](skills/seo-geo-claude-skills/) | [install](https://skills.sh/aradotso/marketing-skills/seo-geo-claude-skills) | [aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) | 2026-05-16 |
 | [ios-marketing-capture-automation](skills/ios-marketing-capture-automation/) | [install](https://skills.sh/aradotso/marketing-skills/ios-marketing-capture-automation) | [ParthJadhav/ios-marketing-capture](https://github.com/ParthJadhav/ios-marketing-capture) | 2026-05-16 |
+| [agentkits-marketing-automation](skills/agentkits-marketing-automation/) | [install](https://skills.sh/aradotso/marketing-skills/agentkits-marketing-automation) | [aitytech/agentkits-marketing](https://github.com/aitytech/agentkits-marketing) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
