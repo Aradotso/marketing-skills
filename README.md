@@ -36,6 +36,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [seo-content-marketing-claude-skills](skills/seo-content-marketing-claude-skills/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-claude-skills) | [AgentTestingClamp/r02-alirezarezvani-claude-skills-seo](https://github.com/AgentTestingClamp/r02-alirezarezvani-claude-skills-seo) | 2026-05-16 |
 | [ai-marketing-claude-code-skills](skills/ai-marketing-claude-code-skills/) | [install](https://skills.sh/aradotso/marketing-skills/ai-marketing-claude-code-skills) | [BrianRWagner/ai-marketing-claude-code-skills](https://github.com/BrianRWagner/ai-marketing-claude-code-skills) | 2026-05-16 |
 | [composiohq-awesome-claude-skills-seo-content-marketing](skills/composiohq-awesome-claude-skills-seo-content-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/composiohq-awesome-claude-skills-seo-content-marketing) | [ColonyShopkeeper/r08-composiohq-awesome-claude-skills-seo](https://github.com/ColonyShopkeeper/r08-composiohq-awesome-claude-skills-seo) | 2026-05-16 |
+| [datalocastle-r03-anthropics-skills-seo](skills/datalocastle-r03-anthropics-skills-seo/) | [install](https://skills.sh/aradotso/marketing-skills/datalocastle-r03-anthropics-skills-seo) | [Datalocastle/r03-anthropics-skills-seo](https://github.com/Datalocastle/r03-anthropics-skills-seo) | 2026-05-16 |
 <!-- SKILL_INDEX -->
 
 ---
