@@ -45,6 +45,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [r06-alirezarezvani-claude-code-tresor-seo](skills/r06-alirezarezvani-claude-code-tresor-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r06-alirezarezvani-claude-code-tresor-seo) | [LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo](https://github.com/LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo) | 2026-05-17 |
 | [seo-content-marketing-skill-suite-claude](skills/seo-content-marketing-skill-suite-claude/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skill-suite-claude) | [OctagonWoodpecker/r07-getbindu-awesome-claude-code-and-skills-seo](https://github.com/OctagonWoodpecker/r07-getbindu-awesome-claude-code-and-skills-seo) | 2026-05-17 |
 | [r20-glebis-seo-content-marketing-skills](skills/r20-glebis-seo-content-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/r20-glebis-seo-content-marketing-skills) | [OhmWhaleIncrease/r20-glebis-claude-skills-seo](https://github.com/OhmWhaleIncrease/r20-glebis-claude-skills-seo) | 2026-05-17 |
+| [seo-content-marketing-commands](skills/seo-content-marketing-commands/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-commands) | [Plateeocondense/r10-wshobson-commands-seo](https://github.com/Plateeocondense/r10-wshobson-commands-seo) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
