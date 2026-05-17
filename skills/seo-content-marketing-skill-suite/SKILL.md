@@ -1,745 +1,647 @@
 ---
 name: seo-content-marketing-skill-suite
-description: SEO & content marketing command suite for keyword research, content audits, technical SEO, competitor analysis, and workflow automation
+description: Comprehensive SEO and content marketing command suite with keyword research, technical audits, SERP analysis, and content optimization workflows
 triggers:
-  - "help me with keyword research"
-  - "run an SEO audit on this site"
-  - "analyze competitor content gaps"
-  - "create an SEO content brief"
-  - "check technical SEO issues"
-  - "build a content calendar"
-  - "find backlink opportunities"
-  - "optimize page speed for SEO"
+  - analyze SEO performance for this site
+  - run a keyword research report
+  - audit technical SEO issues
+  - create a content brief for this topic
+  - check competitor SEO gaps
+  - generate a content calendar
+  - perform a full content audit
+  - optimize page speed for SEO
 ---
 
-# SEO & Content Marketing Skill Suite
+# SEO & Content Marketing Skills Suite
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-This skill suite provides **10 specialized SEO and content marketing commands** and **5 multi-step workflows** for keyword research, content audits, SERP analysis, technical SEO diagnostics, and content strategy automation. Derived from `alirezarezvani/claude-code-skill-factory` with focus on structured output, progress tracking, and actionable recommendations.
+An AI-powered SEO and content marketing command suite derived from `shanraisshan/claude-code-best-practice`. Provides structured workflows for keyword research, technical SEO audits, content optimization, competitor analysis, and strategic planning with consistent UI/UX patterns.
 
-## What This Project Does
+## What This Skill Does
 
-- **Keyword Research**: Deep clustering, opportunity scoring, SERP intent mapping
-- **Content Audits**: Quality scoring, duplication detection, cannibalization reports
-- **Technical SEO**: Crawl budget, Core Web Vitals, schema markup, indexability
-- **Competitor Analysis**: Backlink gaps, topic gaps, featured snippet opportunities
-- **Content Strategy**: Briefs, calendars, refresh workflows, AI content pipelines
-- **SERP Monitoring**: Rank tracking, volatility alerts, CTR optimization
-- **Link Building**: Prospecting, outreach templates, authority campaigns
-- **Local SEO**: NAP consistency, Google Business Profile optimization
+This skill suite enables AI coding agents to perform comprehensive SEO and content marketing analysis through:
+
+- **Keyword Research** — clustering, intent mapping, opportunity scoring
+- **Content Audits** — quality analysis, duplication detection, cannibalization reports
+- **Technical SEO** — crawl budget, Core Web Vitals, schema validation
+- **Competitor Analysis** — backlink gaps, topic gaps, featured snippet opportunities
+- **Content Strategy** — AI-generated briefs, editorial calendars, refresh workflows
+- **SERP Monitoring** — rank tracking, volatility alerts, CTR optimization
+- **Link Building** — prospect identification, outreach templates, authority campaigns
+
+Each command follows a 5-step interaction pattern with structured output, progress tracking, and actionable recommendations.
 
 ## Installation
 
-### Method 1: Manual Installation
+### Manual Installation
 
 ```bash
-# Clone to Claude Code skills directory
-mkdir -p ~/.claude/skills/
-cd ~/.claude/skills/
-git clone https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo.git seo-content-marketing-skill-suite
+# Clone the repository
+git clone https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo.git
 
-# Register with Claude Code
-# In a Claude Code session, run:
-/read ~/.claude/skills/seo-content-marketing-skill-suite/SKILL.md
+# Copy to Claude skills directory
+cp -r r15-shanraisshan-claude-code-best-practice-seo ~/.claude/skills/seo-content-marketing/
+
+# Register in Claude Code session
+/read ~/.claude/skills/seo-content-marketing/SKILL.md
 ```
 
-### Method 2: Direct Copy
+### Quick Setup
 
 ```bash
-# Copy the skill directory to your agent's skills folder
-cp -r /path/to/r04-alirezarezvani-claude-code-skill-factory-seo ~/.claude/skills/seo-content-marketing-skill-suite/
-```
+# Create skills directory if it doesn't exist
+mkdir -p ~/.claude/skills
 
-### Verification
-
-After installation, test with:
-```bash
-/keyword-research --help
+# Navigate and clone
+cd ~/.claude/skills
+git clone https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo.git seo-content-marketing
 ```
 
 ## Core Commands
 
-### 1. Keyword Research
+### Keyword Research
+
+Perform deep keyword analysis with clustering and SERP intent mapping.
 
 ```bash
-# Basic keyword research
-/keyword-research "marketing automation"
+/keyword-research <target_keyword>
 
-# Advanced with filters
-/keyword-research "SaaS marketing" --min-volume 500 --max-difficulty 40 --intent commercial
-
-# Export results
-/keyword-research "content marketing" --output csv --export keywords.csv
-```
-
-**Expected Output Structure:**
-```
-╔════════════════════════════════════════════════╗
-║  Keyword Research  —  "marketing automation"   ║
-╠════════════════════════════════════════════════╣
-║  Analyzing seed keyword …     [██████████] 100% ║
-║  Clustering variations …      [██████████] 100% ║
-║  Scoring opportunities …      [████████░░]  80% ║
-╚════════════════════════════════════════════════╝
-
-┌──────────────────────────┬────────┬────────┬──────────┬──────────┐
-│ Keyword                  │ Volume │ Diff.  │ Intent   │ Score    │
-├──────────────────────────┼────────┼────────┼──────────┼──────────┤
-│ marketing automation     │ 12,100 │   45   │ Comm.    │  🟢 85   │
-│ best marketing automation│  3,600 │   38   │ Comm.    │  🟢 92   │
-│ marketing automation tool│  2,900 │   42   │ Comm.    │  🟡 78   │
-└──────────────────────────┴────────┴────────┴──────────┴──────────┘
-```
-
-### 2. Content Audit
-
-```bash
-# Full site audit
-/content-audit https://example.com --scope full
-
-# Specific section
-/content-audit https://example.com/blog --scope section
-
-# With duplicate detection
-/content-audit https://example.com --check-duplicates --similarity-threshold 85
-
-# Export report
-/content-audit https://example.com --output md --export audit-report.md
-```
-
-**Options:**
-- `--scope`: `full`, `section`, `page`
-- `--check-duplicates`: Enable duplicate content detection
-- `--similarity-threshold`: % similarity to flag (default: 80)
-- `--output`: `md`, `json`, `csv`, `html`
-
-### 3. Technical SEO Audit
-
-```bash
-# Complete technical audit
-/technical-seo https://example.com
-
-# Specific checks
-/technical-seo https://example.com --checks crawlability,schema,vitals
-
-# Mobile-first audit
-/technical-seo https://example.com --device mobile --vitals
-
-# With fix suggestions
-/technical-seo https://example.com --suggest-fixes
-```
-
-**Available Checks:**
-- `crawlability`: Robots.txt, sitemap, internal linking
-- `schema`: Structured data markup validation
-- `vitals`: Core Web Vitals (LCP, FID, CLS)
-- `indexability`: Meta robots, canonical tags, hreflang
-- `security`: HTTPS, mixed content, security headers
-
-### 4. Competitor Gap Analysis
-
-```bash
-# Backlink gap
-/competitor-gap --type backlinks --competitors competitor1.com,competitor2.com
-
-# Topic gap
-/competitor-gap --type topics --competitors competitor1.com,competitor2.com --your-domain example.com
-
-# Featured snippet opportunities
-/competitor-gap --type snippets --competitors competitor1.com,competitor2.com
+# Examples
+/keyword-research "project management software"
+/keyword-research "vegan recipes" --cluster by-intent
+/keyword-research "best laptops" --output json
 ```
 
 **Output Structure:**
-```json
-{
-  "gap_type": "backlinks",
-  "your_domain": "example.com",
-  "competitors": ["competitor1.com", "competitor2.com"],
-  "opportunities": [
-    {
-      "domain": "authority-site.com",
-      "links_to_competitors": 3,
-      "links_to_you": 0,
-      "domain_authority": 72,
-      "priority": "high",
-      "outreach_angle": "Guest post on topic X"
-    }
-  ]
-}
-```
+- Primary keyword metrics (volume, difficulty, CPC)
+- Semantic cluster map
+- Search intent breakdown (informational/commercial/transactional)
+- Long-tail opportunity scores
+- Related questions and PAA data
 
-### 5. SEO Content Brief Generator
+### Content Audit
+
+Full-site content quality assessment with cannibalization detection.
 
 ```bash
-# Generate brief from target keyword
-/content-brief "email marketing best practices"
+/content-audit --scope <full|sample|url-list>
 
-# With custom parameters
-/content-brief "SaaS pricing strategies" --target-length 2500 --competitors 5 --include-faq
-
-# Export as template
-/content-brief "content marketing ROI" --template markdown --export brief.md
+# Examples
+/content-audit --scope full
+/content-audit --scope sample --limit 100
+/content-audit --url-list urls.txt --output md
 ```
 
-**Brief Structure:**
-```markdown
-# Content Brief: Email Marketing Best Practices
+**Metrics Analyzed:**
+- Content quality scores (uniqueness, depth, readability)
+- Keyword cannibalization patterns
+- Thin content identification
+- Orphaned page detection
+- Duplicate content percentage
 
-## Target Keyword
-Primary: "email marketing best practices"
-Secondary: ["email campaign tips", "effective email marketing"]
+### Technical SEO Audit
 
-## Search Intent
-Informational + Commercial
-
-## Target Word Count
-2,200 - 2,500 words
-
-## Recommended Structure
-1. Introduction (150-200 words)
-2. Core Best Practices (1,200 words)
-   - Segmentation strategies
-   - Subject line optimization
-   - Personalization tactics
-3. Tools & Resources (400 words)
-4. Common Mistakes (300 words)
-5. Conclusion & CTA (150 words)
-
-## NLP Terms to Include
-- subscriber engagement
-- open rate optimization
-- A/B testing
-- deliverability
-...
-
-## Competitor Analysis
-Top 5 ranking pages analyzed for structure and coverage
-```
-
-### 6. SERP Monitoring
+Comprehensive technical health check with Core Web Vitals analysis.
 
 ```bash
-# Track rankings
-/serp-monitor --keywords keywords.csv --domain example.com
+/technical-seo <domain>
 
-# Daily tracking with alerts
-/serp-monitor --keywords keywords.csv --frequency daily --alert-threshold 3
-
-# Export rank report
-/serp-monitor --keywords keywords.csv --output json --export rankings.json
+# Examples
+/technical-seo example.com
+/technical-seo https://example.com --check-mobile
+/technical-seo example.com --format report --export pdf
 ```
 
-**Keywords CSV Format:**
-```csv
-keyword,target_url,device
-marketing automation,https://example.com/marketing-automation,desktop
-best CRM software,https://example.com/crm-guide,mobile
-```
+**Audit Points:**
+- Crawlability and indexability
+- Core Web Vitals (LCP, FID, CLS)
+- Schema markup validation
+- XML sitemap health
+- Robots.txt analysis
+- Canonical tag verification
+- Mobile-friendliness score
 
-### 7. Link Prospecting
+### Competitor Gap Analysis
+
+Identify content and backlink opportunities by comparing with competitors.
 
 ```bash
-# Find backlink prospects
-/link-prospecting "marketing automation" --min-da 40 --type guest-post
+/competitor-gap <your-domain> <competitor-domains...>
 
-# Resource page opportunities
-/link-prospecting "marketing tools" --type resource-page --export prospects.csv
-
-# Broken link building
-/link-prospecting --type broken-links --competitor competitor.com
+# Examples
+/competitor-gap example.com competitor1.com competitor2.com
+/competitor-gap example.com competitor.com --focus backlinks
+/competitor-gap example.com competitor.com --type topic-gap
 ```
 
-**Prospect Types:**
-- `guest-post`: Sites accepting guest contributions
-- `resource-page`: Curated resource/tool lists
-- `broken-links`: 404s on competitor sites
-- `unlinked-mentions`: Brand mentions without links
+**Gap Types:**
+- Backlink gap (domains linking to competitors but not you)
+- Topic gap (keywords competitors rank for)
+- Featured snippet opportunities
+- Content format gaps
 
-### 8. Page Speed SEO Audit
+### Content Brief Generator
+
+AI-generated SEO content briefs with NLP term extraction.
 
 ```bash
-# Full speed audit
+/content-brief <topic> [--format <outline|full|minimal>]
+
+# Examples
+/content-brief "how to start a blog"
+/content-brief "best CRM software 2026" --format full
+/content-brief "vegan meal prep" --include-nlp-terms
+```
+
+**Brief Includes:**
+- Target keyword and variants
+- Recommended word count range
+- H2/H3 outline structure
+- NLP terms to include
+- Competitor content analysis
+- Target SERP features
+
+### SERP Monitoring
+
+Track keyword rankings with volatility alerts and CTR recommendations.
+
+```bash
+/serp-monitor <keyword-list>
+
+# Examples
+/serp-monitor "keyword1, keyword2, keyword3"
+/serp-monitor --file keywords.txt --frequency daily
+/serp-monitor --compare-to last-week
+```
+
+**Monitoring Features:**
+- Daily rank positions
+- SERP feature tracking (featured snippets, PAA, local pack)
+- Volatility scoring
+- CTR optimization suggestions
+- Competitor movement alerts
+
+### Link Prospecting
+
+Generate quality backlink prospect lists with DA/DR filtering.
+
+```bash
+/link-prospecting <niche> [--min-da <score>]
+
+# Examples
+/link-prospecting "marketing blogs" --min-da 40
+/link-prospecting "tech news sites" --min-da 50 --output csv
+/link-prospecting "food bloggers" --location US --include-email
+```
+
+**Output Includes:**
+- Domain authority / Domain rating
+- Traffic estimates
+- Niche relevance score
+- Contact information
+- Outreach email templates
+
+### Page Speed SEO
+
+Performance audit mapped to ranking impact factors.
+
+```bash
+/page-speed-seo <url>
+
+# Examples
 /page-speed-seo https://example.com
-
-# Mobile-focused
-/page-speed-seo https://example.com --device mobile --priority vitals
-
-# With fix scripts
-/page-speed-seo https://example.com --generate-fixes
+/page-speed-seo https://example.com/page --mobile
+/page-speed-seo https://example.com --compare-to competitor.com
 ```
 
-**Output includes:**
+**Analysis Points:**
 - Render-blocking resources
-- LCP elements and optimization
-- CLS contributors
-- FID improvement suggestions
-- Impact on SEO rankings
+- Largest Contentful Paint (LCP)
+- Cumulative Layout Shift (CLS)
+- First Input Delay (FID)
+- SEO ranking impact assessment
+- Prioritized fix recommendations
 
-### 9. Local SEO Audit
+### Local SEO Audit
 
-```bash
-# NAP consistency check
-/local-seo --business "Acme Marketing" --check nap-consistency
-
-# Google Business Profile optimization
-/local-seo --business "Acme Marketing" --check gbp-optimization
-
-# Citation audit
-/local-seo --business "Acme Marketing" --check citations --export citations.csv
-```
-
-**NAP Format:**
-```json
-{
-  "name": "Acme Marketing Inc.",
-  "address": "123 Main St, Suite 100, Austin, TX 78701",
-  "phone": "+1-512-555-0123",
-  "inconsistencies": [
-    {
-      "source": "yelp.com",
-      "issue": "Phone number differs: +1-512-555-0199",
-      "fix": "Update to +1-512-555-0123"
-    }
-  ]
-}
-```
-
-### 10. Content Calendar Generator
+NAP consistency check and Google Business Profile optimization.
 
 ```bash
-# Generate calendar from keyword research
-/content-calendar --keywords keywords.csv --months 3
+/local-seo <business-name> [--location <city>]
 
-# Seasonal content planning
-/content-calendar --topic "email marketing" --seasonal --months 12
-
-# Export to Google Sheets format
-/content-calendar --keywords keywords.csv --output sheets --export calendar.xlsx
+# Examples
+/local-seo "Joe's Pizza" --location "New York"
+/local-seo "Smith Dental" --check-citations
+/local-seo "ABC Plumbing" --gbp-optimize
 ```
 
-**Calendar Output:**
+**Audit Components:**
+- NAP (Name, Address, Phone) consistency across directories
+- Google Business Profile completeness
+- Local citation audit
+- Review sentiment analysis
+- Local pack ranking factors
+
+### Content Calendar
+
+Data-driven editorial calendar based on search demand and seasonality.
+
+```bash
+/content-calendar --months <number> [--topics <list>]
+
+# Examples
+/content-calendar --months 3 --topics "SEO, content marketing"
+/content-calendar --months 6 --auto-suggest
+/content-calendar --year 2026 --industry tech --export google-sheets
 ```
-┌────────────┬─────────────────────────┬──────────┬──────────┬──────────┐
-│ Pub Date   │ Topic                   │ Keyword  │ Volume   │ Priority │
-├────────────┼─────────────────────────┼──────────┼──────────┼──────────┤
-│ 2026-06-01 │ Summer Email Campaigns  │ 2,400    │ Seasonal │  🔴 High │
-│ 2026-06-08 │ Email Segmentation 101  │ 1,900    │ Evergreen│  🟡 Med  │
-│ 2026-06-15 │ Subject Line A/B Tests  │ 1,200    │ Evergreen│  🟢 Low  │
-└────────────┴─────────────────────────┴──────────┴──────────┴──────────┘
-```
+
+**Calendar Features:**
+- Search demand forecasting
+- Seasonal trend alignment
+- Topic clustering
+- Publishing frequency recommendations
+- Content format suggestions
 
 ## Multi-Step Workflows
 
-### 1. Full SEO Sprint (12 Steps)
+### Full SEO Sprint
+
+12-step comprehensive SEO campaign from audit to implementation.
 
 ```bash
-/workflows:full-seo-sprint https://example.com --scope full
+/workflows:full-seo-sprint <domain> --scope <full|quick>
+
+# Steps:
+# 1. Technical audit
+# 2. Content audit
+# 3. Backlink profile analysis
+# 4. Competitor gap analysis
+# 5. Keyword opportunity mapping
+# 6. Priority issue identification
+# 7. Quick win recommendations
+# 8. Content refresh list
+# 9. New content topics
+# 10. Technical fix roadmap
+# 11. Link building strategy
+# 12. 90-day action plan
 ```
 
-**Steps:**
-1. Technical SEO audit
-2. Content audit
-3. Keyword gap analysis
-4. Competitor benchmarking
-5. Backlink profile analysis
-6. On-page optimization recommendations
-7. Content refresh priorities
-8. New content opportunities
-9. Link building roadmap
-10. Technical fixes prioritization
-11. Implementation timeline
-12. KPI tracking setup
+### Launch SEO
 
-### 2. Pre-Launch SEO Checklist
+Pre-launch SEO checklist and validation.
 
 ```bash
-/workflows:launch-seo https://new-site.com --checklist full
+/workflows:launch-seo <staging-url>
+
+# Validates:
+# - Canonical tags
+# - Hreflang implementation
+# - XML sitemap generation
+# - Robots.txt configuration
+# - Schema markup
+# - Meta tags
+# - Page speed baseline
+# - Mobile responsiveness
+# - Indexability settings
 ```
 
-**Validates:**
-- Canonical tags
-- Hreflang (if multi-language)
-- Sitemap.xml generation and submission
-- Robots.txt configuration
-- Schema markup
-- Core Web Vitals
-- Mobile responsiveness
-- Analytics/tracking setup
+### Content Refresh
 
-### 3. Content Refresh Workflow
+Identify and optimize underperforming content.
 
 ```bash
-/workflows:content-refresh https://example.com --identify underperforming --threshold 30
+/workflows:content-refresh --min-age <months> --max-position <rank>
+
+# Process:
+# 1. Identify declining pages (rankings dropped >5 positions)
+# 2. Content quality assessment
+# 3. Keyword intent re-alignment
+# 4. Competitor content gap analysis
+# 5. Refresh recommendations (update vs rewrite vs consolidate)
+# 6. Optimization checklist per page
 ```
 
-**Process:**
-1. Identify pages with ranking decline
-2. Analyze content gaps vs. competitors
-3. Update NLP term coverage
-4. Refresh statistics/data
-5. Improve internal linking
-6. Re-optimize meta tags
-7. Schedule re-crawl request
+### Authority Building
 
-### 4. Authority Building Campaign
+End-to-end digital PR and link building campaign.
 
 ```bash
-/workflows:authority-building --topic "marketing automation" --duration 90
+/workflows:authority-building <niche> --duration <months>
+
+# Campaign includes:
+# 1. Link-worthy asset ideation
+# 2. Prospect list generation
+# 3. Outreach template creation
+# 4. Relationship mapping
+# 5. Follow-up sequences
+# 6. Success metrics tracking
+# 7. ROI reporting
 ```
 
-**Campaign Phases:**
-1. Identify linkable assets
-2. Prospect outreach targets
-3. Create outreach templates
-4. Track outreach progress
-5. Monitor link acquisition
-6. Measure authority growth
+### AI Content Pipeline
 
-### 5. AI Content Pipeline
+Automated content production from keyword to publication.
 
 ```bash
-/workflows:ai-content-pipeline --keywords keywords.csv --auto-publish false
-```
+/workflows:ai-content-pipeline --input <keyword-list>
 
-**Pipeline:**
-1. Keyword → Content brief
-2. Brief → AI-generated draft
-3. Draft → SEO optimization
-4. Optimization → Quality check
-5. Quality check → Editor review
-6. Review → Publish (manual or auto)
+# Pipeline stages:
+# 1. Keyword prioritization
+# 2. Brief generation
+# 3. AI draft creation
+# 4. SEO optimization (NLP terms, internal links, meta)
+# 5. Quality review checklist
+# 6. Publishing schedule
+# 7. Performance tracking setup
+```
 
 ## Configuration
 
-Create `.seo-config.json` in your project root:
+### Environment Variables
+
+Store API keys and configuration in environment variables:
+
+```bash
+# SEO tool integrations
+export AHREFS_API_KEY="your_ahrefs_key"
+export SEMRUSH_API_KEY="your_semrush_key"
+export GOOGLE_SEARCH_CONSOLE_CREDENTIALS="path/to/credentials.json"
+export SCREAMING_FROG_LICENSE="your_license_key"
+
+# AI content generation
+export OPENAI_API_KEY="your_openai_key"
+export ANTHROPIC_API_KEY="your_anthropic_key"
+
+# Reporting
+export GOOGLE_ANALYTICS_VIEW_ID="your_ga_view_id"
+export GOOGLE_SHEETS_API_CREDENTIALS="path/to/sheets_credentials.json"
+```
+
+### Config File
+
+Create `.seo-skills-config.json` in project root:
 
 ```json
 {
-  "default_domain": "https://example.com",
-  "serp_api_key": "${SERP_API_KEY}",
-  "ahrefs_api_key": "${AHREFS_API_KEY}",
-  "semrush_api_key": "${SEMRUSH_API_KEY}",
-  "google_psi_key": "${GOOGLE_PSI_KEY}",
+  "default_domain": "example.com",
   "output_format": "markdown",
   "export_directory": "./seo-reports",
-  "tracking": {
-    "rank_check_frequency": "daily",
-    "alert_threshold": 3,
-    "devices": ["desktop", "mobile"]
+  "keyword_research": {
+    "min_volume": 100,
+    "max_difficulty": 70,
+    "default_country": "US"
   },
-  "audit_defaults": {
-    "include_subdomains": false,
-    "max_pages": 10000,
-    "duplicate_threshold": 80,
-    "content_min_words": 300
+  "technical_audit": {
+    "check_mobile": true,
+    "core_web_vitals_threshold": "good",
+    "max_crawl_depth": 5
+  },
+  "content_audit": {
+    "min_word_count": 300,
+    "max_duplicate_percentage": 10,
+    "quality_score_threshold": 60
+  },
+  "workflows": {
+    "full_seo_sprint_duration_days": 90,
+    "content_refresh_min_age_months": 6,
+    "authority_building_outreach_volume": 50
   }
 }
 ```
 
-**Environment Variables:**
-```bash
-export SERP_API_KEY="your_serpapi_key"
-export AHREFS_API_KEY="your_ahrefs_key"
-export SEMRUSH_API_KEY="your_semrush_key"
-export GOOGLE_PSI_KEY="your_pagespeed_insights_key"
-```
+## Common Usage Patterns
 
-## Common Patterns
-
-### Pattern 1: Monthly SEO Health Check
+### Quarterly SEO Review
 
 ```bash
-#!/bin/bash
-# monthly-seo-check.sh
+# 1. Run full technical audit
+/technical-seo example.com --export pdf
 
-DOMAIN="https://example.com"
-DATE=$(date +%Y-%m)
-REPORT_DIR="./reports/${DATE}"
+# 2. Content performance analysis
+/content-audit --scope full --sort-by traffic-decline
 
-mkdir -p "${REPORT_DIR}"
+# 3. Keyword opportunity refresh
+/keyword-research --cluster by-intent --filter gaps
 
-# Technical audit
-/technical-seo "${DOMAIN}" --output json --export "${REPORT_DIR}/technical.json"
+# 4. Competitor movement check
+/competitor-gap example.com competitor1.com competitor2.com
 
-# Content audit
-/content-audit "${DOMAIN}" --scope full --output md --export "${REPORT_DIR}/content.md"
-
-# Rank tracking
-/serp-monitor --keywords keywords.csv --domain "${DOMAIN}" --output csv --export "${REPORT_DIR}/rankings.csv"
-
-# Summary report
-cat > "${REPORT_DIR}/summary.md" <<EOF
-# SEO Health Check - ${DATE}
-
-## Technical Issues
-$(jq '.critical_issues | length' "${REPORT_DIR}/technical.json") critical issues found
-
-## Content Performance
-See content.md for detailed analysis
-
-## Rankings
-See rankings.csv for position changes
-EOF
+# 5. Generate action plan
+/workflows:full-seo-sprint example.com --scope quick
 ```
 
-### Pattern 2: Competitive Intelligence Dashboard
+### New Content Campaign
 
 ```bash
-#!/bin/bash
-# competitor-intel.sh
+# 1. Research topic cluster
+/keyword-research "main topic keyword" --cluster semantic
 
-COMPETITORS="competitor1.com,competitor2.com,competitor3.com"
+# 2. Generate briefs for top 5 keywords
+for keyword in keyword1 keyword2 keyword3 keyword4 keyword5; do
+  /content-brief "$keyword" --format full
+done
 
-# Backlink gap
-/competitor-gap --type backlinks --competitors "${COMPETITORS}" --output json --export backlink-gap.json
+# 3. Create editorial calendar
+/content-calendar --months 3 --topics "keyword cluster theme"
 
-# Topic gap
-/competitor-gap --type topics --competitors "${COMPETITORS}" --output json --export topic-gap.json
-
-# Featured snippet opportunities
-/competitor-gap --type snippets --competitors "${COMPETITORS}" --output json --export snippet-opps.json
-
-# Consolidate into dashboard
-python3 build_dashboard.py backlink-gap.json topic-gap.json snippet-opps.json > dashboard.html
+# 4. Set up tracking
+/serp-monitor --file target-keywords.txt --frequency daily
 ```
 
-### Pattern 3: Content Production Pipeline
+### Recovery from Rankings Drop
 
-```python
-# content_pipeline.py
-import json
-import subprocess
+```bash
+# 1. Identify affected pages
+/serp-monitor --compare-to last-month --filter declined
 
-def generate_content_brief(keyword):
-    result = subprocess.run(
-        ['/content-brief', keyword, '--output', 'json'],
-        capture_output=True,
-        text=True
-    )
-    return json.loads(result.stdout)
+# 2. Content quality check
+/content-audit --url-list declined-urls.txt
 
-def generate_draft(brief):
-    # Integration with AI writing tool
-    # Uses brief structure and NLP terms
-    pass
+# 3. Technical issues scan
+/technical-seo example.com --focus affected-pages
 
-def optimize_for_seo(draft, brief):
-    # Apply SEO recommendations
-    # - Target word count
-    # - NLP term inclusion
-    # - Header structure
-    # - Internal linking
-    pass
+# 4. Competitor analysis
+/competitor-gap example.com --keywords affected-keywords.txt
 
-# Workflow
-keywords = ['email marketing tips', 'CRM best practices']
-for keyword in keywords:
-    brief = generate_content_brief(keyword)
-    draft = generate_draft(brief)
-    optimized = optimize_for_seo(draft, brief)
-    # Save for editor review
+# 5. Refresh strategy
+/workflows:content-refresh --url-list declined-urls.txt
+```
+
+## Output Formats
+
+All commands support multiple output formats:
+
+```bash
+# Markdown (default)
+/command --output md
+
+# JSON for programmatic use
+/command --output json
+
+# CSV for spreadsheet import
+/command --output csv
+
+# PDF report
+/command --export pdf --output-dir ./reports
+
+# Google Sheets direct export
+/command --export google-sheets --sheet-id SHEET_ID
+```
+
+## Structured Output Example
+
+Every command displays progress and results in a consistent format:
+
+```
+╔══════════════════════════════════════════════════╗
+║  Keyword Research  —  "project management"       ║
+╠══════════════════════════════════════════════════╣
+║  Fetching search volume …    [██████████] 100% ✓ ║
+║  Clustering keywords …       [██████████] 100% ✓ ║
+║  Analyzing SERP intent …     [████████░░]  80%   ║
+╚══════════════════════════════════════════════════╝
+
+PRIMARY KEYWORD METRICS
+┌──────────────────────┬──────────┬────────────┬───────┐
+│ Keyword              │ Volume   │ Difficulty │ Intent│
+├──────────────────────┼──────────┼────────────┼───────┤
+│ project management   │   74,000 │         72 │ Info  │
+│ software             │          │            │       │
+└──────────────────────┴──────────┴────────────┴───────┘
+
+SEMANTIC CLUSTERS (Top 3)
+┌────────────────────────────────────────────────────┐
+│ 🔵 Tools & Software (23 keywords, avg vol: 12,400)│
+│    • project management tools                      │
+│    • best project management software              │
+│    • free project management apps                  │
+│                                                     │
+│ 🟢 Methodology (18 keywords, avg vol: 8,200)      │
+│    • project management methodology                │
+│    • agile project management                      │
+│    • waterfall vs agile                            │
+│                                                     │
+│ 🟡 Certification (15 keywords, avg vol: 5,600)    │
+│    • PMP certification                             │
+│    • project management professional               │
+│    • how to become a project manager               │
+└────────────────────────────────────────────────────┘
+
+RECOMMENDED ACTIONS
+✓ Quick Win   — Target "free project management apps" (low difficulty, high intent)
+⚠ Medium Term — Create comparison content for "Tools & Software" cluster
+🎯 Strategic  — Build authority content for certification queries
+
+NEXT STEPS
+→ /content-brief "free project management apps" --format full
+→ /competitor-gap example.com --keywords tools-cluster.txt
+→ /content-calendar --months 3 --topics "project management"
 ```
 
 ## Troubleshooting
 
-### Command Not Found
-
-If commands aren't recognized:
-
-```bash
-# Verify installation
-ls ~/.claude/skills/seo-content-marketing-skill-suite/
-
-# Re-register skill
-/read ~/.claude/skills/seo-content-marketing-skill-suite/SKILL.md
-
-# Check Claude Code skill registry
-/skills:list
-```
-
 ### API Rate Limits
 
-If hitting rate limits on SERP/backlink APIs:
+```bash
+# If you hit rate limits, enable caching
+export SEO_SKILLS_CACHE_ENABLED=true
+export SEO_SKILLS_CACHE_TTL_HOURS=24
 
-```json
-{
-  "rate_limiting": {
-    "serp_api": {
-      "max_requests_per_minute": 60,
-      "retry_after": 60
-    },
-    "ahrefs_api": {
-      "max_requests_per_minute": 30,
-      "retry_after": 120
-    }
-  }
-}
+# Use sampling for large audits
+/content-audit --scope sample --limit 500
+/technical-seo example.com --max-pages 1000
 ```
 
-### Large Site Audits Timing Out
-
-For sites with 10,000+ pages:
+### Slow Crawls
 
 ```bash
-# Use sampling
-/content-audit https://large-site.com --sample 1000 --strategy random
+# Reduce crawl depth
+/technical-seo example.com --max-depth 3
 
-# Or segment by directory
-/content-audit https://large-site.com/blog --scope section
-/content-audit https://large-site.com/products --scope section
+# Use parallel processing
+export SEO_SKILLS_PARALLEL_REQUESTS=5
+
+# Skip external resources
+/technical-seo example.com --skip-external
 ```
 
-### Export/Output Issues
-
-If exports fail:
+### Missing Dependencies
 
 ```bash
-# Verify directory exists
-mkdir -p ./seo-reports
+# If command fails with "module not found"
+# Check required integrations are configured
+echo $AHREFS_API_KEY
+echo $GOOGLE_SEARCH_CONSOLE_CREDENTIALS
 
-# Check permissions
-chmod 755 ./seo-reports
-
-# Use absolute paths
-/content-audit https://example.com --export /full/path/to/report.md
+# Verify API access
+/test-connections --verbose
 ```
 
-### Inaccurate Keyword Data
-
-If keyword volumes seem off:
+### Export Failures
 
 ```bash
-# Use multiple data sources
-/keyword-research "target keyword" --sources semrush,ahrefs,google --average-volumes
+# Check write permissions
+ls -la ./seo-reports
 
-# Specify location
-/keyword-research "local service" --location "Austin, TX" --language en
+# Set alternative export directory
+/command --export-dir ~/Documents/seo-reports
+
+# Use stdout if file export fails
+/command --output json > output.json
 ```
 
 ## Integration Examples
 
-### With Google Analytics
-
-```python
-# ga_integration.py
-from google.analytics.data_v1beta import BetaAnalyticsDataClient
-import subprocess
-import json
-
-def get_underperforming_pages(property_id):
-    client = BetaAnalyticsDataClient()
-    # Fetch pages with declining traffic
-    # Return list of URLs
-
-def refresh_content(urls):
-    for url in urls:
-        # Generate refresh recommendations
-        result = subprocess.run(
-            ['/workflows:content-refresh', url],
-            capture_output=True,
-            text=True
-        )
-        print(f"Refresh plan for {url}:\n{result.stdout}")
-
-# Run monthly
-underperforming = get_underperforming_pages("properties/123456")
-refresh_content(underperforming)
-```
-
-### With Google Search Console
-
-```python
-# gsc_integration.py
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-import subprocess
-
-credentials = service_account.Credentials.from_service_account_file(
-    'service-account.json',
-    scopes=['https://www.googleapis.com/auth/webmasters.readonly']
-)
-
-service = build('searchconsole', 'v1', credentials=credentials)
-
-# Get pages with impressions but low CTR
-response = service.searchanalytics().query(
-    siteUrl='https://example.com',
-    body={
-        'startDate': '2026-04-01',
-        'endDate': '2026-04-30',
-        'dimensions': ['page'],
-        'rowLimit': 100
-    }
-).execute()
-
-low_ctr_pages = [
-    row['keys'][0] for row in response['rows']
-    if row['ctr'] < 0.02  # Less than 2% CTR
-]
-
-# Optimize meta tags for low CTR pages
-for page in low_ctr_pages:
-    subprocess.run(['/technical-seo', page, '--optimize-meta'])
-```
-
-## Advanced Usage
-
-### Custom Scoring Algorithms
-
-Override default opportunity scoring:
-
-```json
-{
-  "scoring": {
-    "keyword_opportunity": {
-      "volume_weight": 0.4,
-      "difficulty_weight": 0.3,
-      "intent_weight": 0.2,
-      "trend_weight": 0.1
-    },
-    "content_quality": {
-      "word_count_weight": 0.2,
-      "readability_weight": 0.15,
-      "nlp_coverage_weight": 0.25,
-      "internal_links_weight": 0.15,
-      "external_links_weight": 0.1,
-      "freshness_weight": 0.15
-    }
-  }
-}
-```
-
-### Batch Processing
+### Export to Google Sheets
 
 ```bash
-# Process multiple domains
-cat domains.txt | while read domain; do
-  /technical-seo "$domain" --output json --export "reports/${domain//\//_}.json"
-done
+# Authenticate with Google Sheets API
+export GOOGLE_SHEETS_API_CREDENTIALS="/path/to/credentials.json"
 
-# Batch keyword research
-cat keywords.txt | while read keyword; do
-  /keyword-research "$keyword" --output csv --export "keywords/${keyword// /_}.csv"
-done
+# Export directly
+/keyword-research "topic" --export google-sheets --sheet-id "YOUR_SHEET_ID"
+/content-audit --scope full --export google-sheets --create-new
+```
+
+### Continuous Monitoring
+
+```bash
+# Set up daily cron job
+# crontab -e
+0 9 * * * /path/to/claude --skill seo-content-marketing /serp-monitor --file keywords.txt --email-alerts admin@example.com
+```
+
+### Integrate with CI/CD
+
+```bash
+# Pre-deployment SEO check
+#!/bin/bash
+if /workflows:launch-seo https://staging.example.com --strict; then
+  echo "SEO validation passed"
+  exit 0
+else
+  echo "SEO issues detected, blocking deployment"
+  exit 1
+fi
 ```
 
 ## Best Practices
 
-1. **Run Technical Audits Weekly**: Catch issues before they impact rankings
-2. **Monitor Core Web Vitals Continuously**: Set up automated alerts for CLS/LCP/FID regressions
-3. **Refresh Top Content Quarterly**: Keep top-ranking pages updated with latest data
-4. **Track Competitor Movement Monthly**: Stay ahead of competitive content updates
-5. **Generate Content Briefs Before Writing**: Ensure SEO-optimized structure from the start
-6. **Export Reports for Stakeholders**: Use `--output md` or `--output html` for sharing
-7. **Version Control Your Keyword Lists**: Track keyword strategy evolution over time
+1. **Always verify domain ownership** before running audits on third-party sites
+2. **Use sampling** for initial analysis of large sites (>10k pages)
+3. **Export results** regularly to track progress over time
+4. **Set up monitoring** for critical keywords immediately after optimization
+5. **Review competitor analysis** monthly to stay ahead of market changes
+6. **Refresh content audits** quarterly to catch quality decay early
+7. **Validate technical fixes** after implementation using `/technical-seo`
 
-## License
+## Resources
 
-MIT — free to use, modify, and distribute.
+- **Source Repository**: https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo
+- **Parent Project**: https://github.com/shanraisshan/claude-code-best-practice
+- **License**: MIT
 
 ---
 
-**Source Repository**: [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo)
-
-**Derived From**: [alirezarezvani/claude-code-skill-factory](https://github.com/alirezarezvani/claude-code-skill-factory)
+*Last updated: 2026-05-11*
