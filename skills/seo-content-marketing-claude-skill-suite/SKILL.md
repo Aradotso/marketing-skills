@@ -1,287 +1,312 @@
 ---
 name: seo-content-marketing-claude-skill-suite
-description: SEO & Content Marketing command suite with keyword research, content audits, technical SEO, and structured workflows for Claude Code agents
+description: SEO & content marketing automation suite with keyword research, content audits, technical SEO, SERP analysis and AI content workflows
 triggers:
-  - "run an SEO audit on this website"
-  - "generate a content brief for this keyword"
-  - "analyze competitor content gaps"
-  - "check technical SEO issues"
-  - "create a keyword research report"
-  - "build a content calendar"
-  - "find backlink opportunities"
-  - "audit page speed for SEO"
+  - "analyze SEO performance for this site"
+  - "generate keyword research and content brief"
+  - "audit technical SEO and page speed issues"
+  - "find competitor content gaps and backlink opportunities"
+  - "create data-driven content calendar"
+  - "check Core Web Vitals and crawl budget"
+  - "build AI content pipeline from keyword to publish"
+  - "run full SEO audit and action plan"
 ---
 
 # SEO & Content Marketing Skills Suite
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-This skill suite provides Claude Code agents with expertise in SEO & Content Marketing tasks, derived from the `alirezarezvani/claude-code-skill-factory` scaffold. It delivers 10 specialized commands and 5 multi-step workflows with consistent structured output for keyword research, content audits, SERP analysis, technical SEO, and content strategy.
+**r06-alirezarezvani-claude-code-tresor-seo** is a comprehensive SEO and content marketing automation suite that provides 10 specialized commands and 5 multi-step workflows for keyword research, content audits, technical SEO analysis, SERP monitoring, and AI-powered content creation. Derived from [alirezarezvani/claude-code-tresor](https://github.com/alirezarezvani/claude-code-tresor), it delivers structured, actionable insights with visual progress tracking and prioritized action plans.
 
-## What This Project Does
-
-The SEO & Content Marketing Skills Suite enables AI coding agents to:
-
-- **Keyword Research**: Deep clustering, opportunity scoring, SERP intent mapping
-- **Content Audits**: Quality scoring, duplication detection, cannibalization reports
-- **Technical SEO**: Crawl budget analysis, Core Web Vitals, schema validation
-- **Competitor Analysis**: Backlink gaps, topic gaps, featured snippet opportunities
-- **Content Creation**: AI-generated briefs with outlines, NLP terms, word targets
-- **SERP Monitoring**: Rank tracking, volatility alerts, CTR optimization
-- **Link Building**: Prospect lists with DA/DR filters, outreach templates
-- **Performance**: Page speed diagnostics mapped to ranking impact
-- **Local SEO**: NAP consistency, GBP optimization, citation audits
-- **Planning**: Data-driven editorial calendars from search demand
-
-All commands provide structured, actionable output with progress tracking, findings tables, and prioritized action plans.
+---
 
 ## Installation
 
-### Clone into Claude Skills Directory
+### Basic Setup
 
 ```bash
-# Create skills directory if it doesn't exist
+# Clone the repository
+git clone https://github.com/LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo.git
+
+# Navigate to directory
+cd r06-alirezarezvani-claude-code-tresor-seo
+
+# Copy to Claude skills directory
 mkdir -p ~/.claude/skills/
-
-# Clone this skill suite
-git clone https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo.git \
-  ~/.claude/skills/seo-content-marketing-suite/
-
-# Or download and extract
-cd ~/.claude/skills/
-curl -L https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo/archive/main.tar.gz | tar xz
-mv r04-alirezarezvani-claude-code-skill-factory-seo-main seo-content-marketing-suite
+cp -r . ~/.claude/skills/seo-content-marketing/
 ```
 
-### Register in Claude Code
+### Register with Claude Code
 
 In a Claude Code session:
 
-```
-/read ~/.claude/skills/seo-content-marketing-suite/SKILL.md
+```bash
+/read ~/.claude/skills/seo-content-marketing/SKILL.md
 ```
 
-Or add to your project's `.claude/skills/` directory for automatic loading.
+Or manually load the skill context:
+
+```bash
+# From project root
+cat SKILL.md | pbcopy  # macOS
+# Then paste into Claude Code conversation
+```
+
+---
 
 ## Core Commands
 
 ### 1. Keyword Research
 
-Performs deep keyword clustering, opportunity scoring, and SERP intent mapping.
+Deep keyword clustering with SERP intent mapping and opportunity scoring.
 
 ```bash
-/keyword-research <target>
-/keyword-research "saas marketing" --cluster --export csv
-```
-
-**Output Structure:**
-
-```
-╔════════════════════════════════════════════════════╗
-║  Keyword Research — "saas marketing"               ║
-╠════════════════════════════════════════════════════╣
-║  Fetching keywords …      [██████████] 100%  ✓     ║
-║  Clustering terms …       [██████████] 100%  ✓     ║
-║  Scoring opportunities …  [██████████] 100%  ✓     ║
-╚════════════════════════════════════════════════════╝
-
-┌──────────────────────┬────────┬──────┬────────┬──────────┐
-│ Keyword              │ Volume │ KD   │ Intent │ Priority │
-├──────────────────────┼────────┼──────┼────────┼──────────┤
-│ saas marketing       │  8,100 │   45 │ Info   │  🟢 High │
-│ b2b saas marketing   │  1,600 │   38 │ Info   │  🟢 High │
-│ saas content mkt     │    720 │   29 │ Info   │  🟡 Med  │
-│ saas marketing tools │    590 │   52 │ Comm   │  🟠 Low  │
-└──────────────────────┴────────┴──────┴────────┴──────────┘
-```
-
-**Configuration:**
-
-- `--cluster`: Enable semantic clustering
-- `--intent`: Add SERP intent analysis
-- `--export <format>`: csv, json, md
-
-### 2. Content Audit
-
-Full-site content quality scoring, duplication check, and cannibalization detection.
-
-```bash
-/content-audit --scope full --output md
-/content-audit --url https://example.com/blog --export report.md
-```
-
-**Example Output:**
-
-```
-╔════════════════════════════════════════════════════╗
-║  Content Audit — example.com                       ║
-╠════════════════════════════════════════════════════╣
-║  Crawling pages …       [████████░░]  80%  124/155 ║
-║  Analyzing content …    [██████████] 100%     ✓    ║
-║  Detecting duplicates … [██████████] 100%     ✓    ║
-╚════════════════════════════════════════════════════╝
-
-📊 Summary Metrics:
-• Total pages: 155
-• Quality score: 73/100 ⚠
-• Duplicate content: 12 pages 🔴
-• Cannibalization: 5 clusters 🟠
-• Thin content (<300w): 23 pages 🟡
-
-🔍 Top Issues:
-
-┌─────────────────────┬────────┬──────────┬──────────┐
-│ Issue               │ Pages  │ Severity │ Impact   │
-├─────────────────────┼────────┼──────────┼──────────┤
-│ Duplicate title     │     18 │  🔴 High │  -15 pts │
-│ Missing H1          │     12 │  🔴 High │  -12 pts │
-│ Thin content        │     23 │  🟠 Med  │   -8 pts │
-│ No internal links   │      9 │  🟡 Low  │   -3 pts │
-└─────────────────────┴────────┴──────────┴──────────┘
+/keyword-research "ecommerce analytics tools"
 ```
 
 **Options:**
 
-- `--scope`: `full`, `path`, `single`
-- `--output`: `md`, `json`, `html`
-- `--threshold`: Minimum quality score (default: 60)
+```bash
+/keyword-research <target> \
+  --country us \
+  --language en \
+  --volume-min 100 \
+  --difficulty-max 60 \
+  --intent commercial \
+  --output json
+```
+
+**Output structure:**
+
+- Keyword clusters by topic
+- Search volume + trend data
+- Keyword difficulty (0-100)
+- SERP intent classification (informational/commercial/transactional/navigational)
+- Opportunity score (volume ÷ difficulty)
+- Related questions and "People Also Ask"
+
+**Example response:**
+
+```
+┌─────────────────────────┬────────┬────────┬──────────────┬─────────┐
+│ Keyword                 │ Volume │ Diff.  │ Intent       │ Opp.    │
+├─────────────────────────┼────────┼────────┼──────────────┼─────────┤
+│ ecommerce analytics     │  8 100 │     45 │ Commercial   │  180.0  │
+│ shopify analytics       │  4 400 │     38 │ Commercial   │  115.8  │
+│ google analytics setup  │  2 900 │     52 │ Informational│   55.8  │
+│ conversion tracking     │  1 600 │     41 │ Commercial   │   39.0  │
+└─────────────────────────┴────────┴────────┴──────────────┴─────────┘
+```
+
+---
+
+### 2. Content Audit
+
+Full-site content quality analysis with duplication and cannibalization detection.
+
+```bash
+/content-audit --scope full --output md
+```
+
+**Options:**
+
+```bash
+/content-audit \
+  --scope full|section|url \
+  --target /blog \
+  --min-words 300 \
+  --check-duplicates \
+  --check-cannibalization \
+  --export csv
+```
+
+**Checks:**
+
+- Missing/duplicate title tags and meta descriptions
+- Thin content (word count < threshold)
+- Keyword cannibalization (multiple pages targeting same keyword)
+- Content freshness (last updated date)
+- Internal linking structure
+- Image alt text coverage
+- Readability scores
+
+**Example findings:**
+
+```
+🔴 CRITICAL (12 pages)
+  - 8 pages with duplicate title tags
+  - 4 pages with <300 words
+
+🟠 HIGH PRIORITY (34 pages)
+  - 21 pages missing meta description
+  - 13 pages with cannibalization issues
+
+🟡 MEDIUM (67 pages)
+  - 45 pages not updated in 12+ months
+  - 22 pages with low internal link count
+```
+
+---
 
 ### 3. Technical SEO Audit
 
 Crawl budget, Core Web Vitals, schema markup, and indexability analysis.
 
 ```bash
-/technical-seo https://example.com
-/technical-seo --depth 3 --export json
+/technical-seo
 ```
 
-**Checks Performed:**
+**Options:**
 
-- Robots.txt validation
-- XML sitemap structure
-- Canonical tags
-- Hreflang implementation
-- Schema.org markup
+```bash
+/technical-seo \
+  --url https://example.com \
+  --user-agent googlebot \
+  --check-vitals \
+  --check-schema \
+  --check-mobile \
+  --depth 5
+```
+
+**Audits:**
+
+- Robots.txt and sitemap.xml validation
+- HTTP status codes (301/302/404/500)
+- Canonical tag implementation
+- Hreflang for multilingual sites
 - Core Web Vitals (LCP, FID, CLS)
-- Mobile usability
-- HTTPS/security headers
+- Schema markup validation (JSON-LD)
+- Mobile-friendliness
+- HTTPS implementation
+- Page speed (FCP, TTI, TBT)
 
-**Example Findings:**
+**Sample output:**
 
+```json
+{
+  "core_web_vitals": {
+    "lcp": { "value": 2.1, "rating": "good", "threshold": 2.5 },
+    "fid": { "value": 85, "rating": "good", "threshold": 100 },
+    "cls": { "value": 0.08, "rating": "good", "threshold": 0.1 }
+  },
+  "indexability": {
+    "total_pages": 1204,
+    "indexable": 1180,
+    "blocked_robots": 18,
+    "noindex": 6
+  },
+  "schema_coverage": {
+    "pages_with_schema": 892,
+    "valid_schema": 874,
+    "errors": 18
+  }
+}
 ```
-✓ Robots.txt: Valid, allows all critical paths
-✗ Sitemap: Missing lastmod timestamps (155 URLs)
-⚠ Canonicals: 12 pages missing canonical tags
-✓ Schema: Product markup valid on 89% of pages
-✗ Core Web Vitals: LCP failing on 23% of pages
-✓ Mobile: 98% pages mobile-friendly
-⚠ HTTPS: Mixed content warnings on 5 pages
-```
+
+---
 
 ### 4. Competitor Gap Analysis
 
-Backlink gap, topic gap, and featured snippet opportunity identification.
+Backlink gap, topic gap, and featured snippet opportunities.
 
 ```bash
-/competitor-gap --target example.com --competitors competitor1.com,competitor2.com
-/competitor-gap --focus backlinks --export csv
+/competitor-gap https://example.com --competitors competitor1.com,competitor2.com
 ```
 
-**Analysis Types:**
+**Analysis includes:**
 
-1. **Backlink Gap**: Domains linking to competitors but not to you
-2. **Topic Gap**: Keywords competitors rank for that you don't
-3. **Snippet Gap**: Featured snippets held by competitors
+- Keywords competitors rank for (that you don't)
+- Backlink sources competitors have (that you don't)
+- Featured snippet opportunities
+- Content topics with high competitor coverage
+- Domain authority comparison
 
-**Output:**
+**Example gap report:**
 
 ```
-🔗 Backlink Gap (Top 20 opportunities):
+KEYWORD GAP (Top 20 opportunities)
+┌──────────────────────────┬─────────┬──────────────┐
+│ Keyword                  │ Volume  │ Comp. Rank   │
+├──────────────────────────┼─────────┼──────────────┤
+│ best crm for startups    │   3 600 │ #3, #5       │
+│ sales automation tools   │   2 900 │ #4, #7       │
+│ pipeline management      │   1 800 │ #2, #6       │
+└──────────────────────────┴─────────┴──────────────┘
 
-┌──────────────────────┬────┬────┬──────────┬──────────┐
-│ Referring Domain     │ DR │ TF │ You      │ Comp 1   │
-├──────────────────────┼────┼────┼──────────┼──────────┤
-│ industry-blog.com    │ 67 │ 45 │  ✗ None  │  ✓ 3 lnk │
-│ tech-review.co       │ 72 │ 51 │  ✗ None  │  ✓ 5 lnk │
-│ saas-directory.io    │ 58 │ 38 │  ✗ None  │  ✓ 1 lnk │
-└──────────────────────┴────┴────┴──────────┴──────────┘
-
-📄 Topic Gap (Top keywords to target):
-
-┌──────────────────────┬────────┬──────┬──────────┐
-│ Keyword              │ Volume │ KD   │ Comp Pos │
-├──────────────────────┼────────┼──────┼──────────┤
-│ saas metrics         │  3,600 │   42 │  Pos 3   │
-│ churn rate calc      │  1,200 │   35 │  Pos 5   │
-│ mrr vs arr           │    880 │   28 │  Pos 2   │
-└──────────────────────┴────────┴──────┴──────────┘
+BACKLINK GAP (High-authority domains)
+  - techcrunch.com (DR 93) → competitor1.com
+  - forbes.com (DR 94) → competitor1.com, competitor2.com
+  - entrepreneur.com (DR 91) → competitor2.com
 ```
 
-### 5. Content Brief Generator
+---
+
+### 5. Content Brief Generation
 
 AI-generated SEO content brief with outline, NLP terms, and word count targets.
 
 ```bash
-/content-brief "saas marketing strategies"
-/content-brief --keyword "b2b content marketing" --format md
+/content-brief "how to choose crm software"
 ```
 
-**Brief Components:**
+**Options:**
+
+```bash
+/content-brief <keyword> \
+  --intent informational \
+  --serp-analysis \
+  --include-questions \
+  --include-nlp-terms \
+  --target-length 2000
+```
+
+**Brief includes:**
+
+- Primary and secondary keywords
+- Recommended word count (based on top 10 SERP)
+- Content outline (H2/H3 structure from top-ranking pages)
+- NLP terms and entities to include
+- Questions to answer
+- Internal linking suggestions
+- Media recommendations (images, videos, charts)
+
+**Sample brief:**
 
 ```markdown
-# Content Brief: SaaS Marketing Strategies
+# Content Brief: How to Choose CRM Software
 
 ## Target Keyword
-- Primary: `saas marketing strategies` (Vol: 1,900, KD: 48)
-- Secondary: `b2b saas marketing`, `saas growth tactics`
+- Primary: how to choose crm software (1,900/mo, KD 42)
+- Secondary: best crm for small business, crm selection criteria
 
-## Search Intent
-**Informational** — Users want comprehensive guides and actionable strategies
+## Recommended Length
+2,200 words (avg. of top 10: 2,187 words)
 
-## Target Metrics
-- Word count: 2,400–2,800 words
-- Reading level: Grade 10–12
-- Internal links: 5–7
-- External links: 3–5 authoritative sources
-
-## Outline
-
-### 1. Introduction (150–200w)
-- Hook: Current state of SaaS competition
-- What this guide covers
-- Who it's for
-
-### 2. Core SaaS Marketing Channels (800–1,000w)
-#### 2.1 Content Marketing
-- Blog strategy for SaaS
-- SEO-driven content calendar
-- Case studies & whitepapers
-
-#### 2.2 Product-Led Growth
-- Free trial optimization
-- In-app messaging
-- Referral programs
-
-[... continues with full outline ...]
+## Outline (from SERP analysis)
+1. What is CRM Software?
+2. Key Features to Look For
+   - Contact management
+   - Sales pipeline tracking
+   - Integration capabilities
+   - Mobile access
+3. How to Evaluate CRM Options
+   - Define your requirements
+   - Consider team size
+   - Budget planning
+4. Top CRM Solutions Comparison
+5. Implementation Best Practices
 
 ## NLP Terms to Include
-Must include (10+): `customer acquisition`, `churn rate`, `lifetime value`, 
-`product-market fit`, `conversion funnel`, `freemium model`, `retention`, 
-`onboarding`, `MRR`, `CAC`
+contact management, sales pipeline, lead tracking, customer data,
+integration, automation, reporting, mobile app, cloud-based
 
-Recommended (5+): `PLG`, `bottom-up sales`, `land and expand`, `usage-based`
-
-## Competitor Analysis
-Top 3 ranking pages:
-1. hubspot.com/marketing/saas (2,850w, Pos 1)
-2. neilpatel.com/blog/saas-marketing (3,200w, Pos 2)
-3. cxl.com/blog/saas-marketing-guide (2,600w, Pos 3)
-
-## Visual Assets
-- Strategy framework diagram
-- Channel comparison table
-- Funnel optimization infographic
+## Questions to Answer
+- What are the must-have CRM features?
+- How much should I budget for CRM?
+- What's the difference between cloud and on-premise CRM?
 ```
+
+---
 
 ### 6. SERP Monitor
 
@@ -289,475 +314,761 @@ Daily rank tracking with volatility alerts and CTR optimization tips.
 
 ```bash
 /serp-monitor --keywords keywords.csv --frequency daily
-/serp-monitor --url example.com/blog --alert slack
 ```
 
-**Tracking Dashboard:**
+**Configuration:**
+
+```bash
+# Create keywords.csv
+keyword,target_url,location
+"ecommerce analytics","/products/analytics","United States"
+"shopify reporting","/blog/shopify-guide","United States"
+```
+
+**Tracking output:**
 
 ```
-╔════════════════════════════════════════════════════╗
-║  SERP Monitor — example.com                        ║
-║  Last updated: 2026-05-11 09:00 UTC                ║
-╠════════════════════════════════════════════════════╣
+┌────────────────────────┬──────┬──────┬────────┬──────────┐
+│ Keyword                │ Rank │ Prev │ Change │ CTR Est. │
+├────────────────────────┼──────┼──────┼────────┼──────────┤
+│ ecommerce analytics    │    4 │    6 │ ▲ +2   │  8.2%    │
+│ shopify reporting      │    8 │    7 │ ▼ -1   │  3.1%    │
+│ conversion tracking    │   12 │   11 │ ▼ -1   │  1.8%    │
+└────────────────────────┴──────┴──────┴────────┴──────────┘
 
-📈 Performance Summary (Last 7 days):
-
-┌──────────────────────┬─────────┬──────────┬─────────┐
-│ Metric               │ Current │ Δ 7d     │ Status  │
-├──────────────────────┼─────────┼──────────┼─────────┤
-│ Avg. Position        │    12.3 │  ↑ +2.1  │  🟢 Up  │
-│ Keywords in Top 10   │      37 │  ↑ +5    │  🟢 Up  │
-│ Total Impressions    │ 45,200  │  ↑ +8.2% │  🟢 Up  │
-│ CTR                  │   3.8 % │  ↓ -0.3% │  🟡 -   │
-└──────────────────────┴─────────┴──────────┴─────────┘
-
-🔔 Alerts:
-
-⚠ High volatility detected for "saas pricing" (Pos 5→14→7)
-✓ "content marketing roi" entered Top 3 (Pos 8→3)
-🔴 "email marketing tools" dropped out of Top 10 (Pos 9→15)
+🎯 CTR Optimization Tips:
+  - "ecommerce analytics" (#4): Test year in title (2024/2025)
+  - "shopify reporting" (#8): Add power word to meta description
 ```
+
+---
 
 ### 7. Link Prospecting
 
-Quality backlink prospect list with DA/DR filters and outreach templates.
+Quality backlink prospect discovery with outreach templates.
 
 ```bash
-/link-prospecting --topic "saas marketing" --min-dr 40
-/link-prospecting --export prospects.csv --template outreach
+/link-prospecting --topic "marketing automation" --min-dr 40
 ```
 
-**Prospect Criteria:**
+**Filters:**
 
-- Domain Rating (DR) / Domain Authority (DA)
-- Traffic estimate
-- Relevance score
-- Contact availability
-- Outreach difficulty
+```bash
+/link-prospecting \
+  --topic "marketing automation" \
+  --min-dr 40 \
+  --max-dr 80 \
+  --link-type guest-post|resource-page|broken-link \
+  --country us \
+  --limit 100
+```
+
+**Prospect output:**
+
+```csv
+domain,dr,topic_relevance,contact_email,outreach_angle
+marketingland.com,78,0.92,editor@marketingland.com,guest-post
+contentmarketinginstitute.com,76,0.89,submissions@cmi.com,expert-roundup
+hubspot.com/marketing,94,0.87,blog@hubspot.com,data-study
+```
+
+**Included outreach templates:**
+
+- Guest post pitch
+- Resource page addition
+- Broken link replacement
+- Expert quote/roundup
+- Data/study promotion
+
+---
+
+### 8. Page Speed SEO Analysis
+
+Render-blocking resource analysis, Core Web Vitals diagnosis, and ranking impact assessment.
+
+```bash
+/page-speed-seo https://example.com/page
+```
+
+**Metrics analyzed:**
+
+```
+Performance Score: 78/100
+
+Core Web Vitals:
+  LCP: 2.8s  ⚠ (target: <2.5s)  -3 ranking positions est.
+  FID: 120ms ⚠ (target: <100ms) -1 ranking positions est.
+  CLS: 0.05  ✓ (target: <0.1)
+
+Render-blocking resources (8):
+  - /css/main.css (124 KB) → defer non-critical CSS
+  - /js/analytics.js (87 KB) → async load
+  - /js/jquery.min.js (91 KB) → consider removal
+
+Optimization recommendations:
+  1. Enable text compression (saves 312 KB)
+  2. Serve images in WebP format (saves 890 KB)
+  3. Eliminate render-blocking resources (saves 1.2s LCP)
+  4. Reduce JavaScript execution time (saves 840ms)
+```
+
+---
+
+### 9. Local SEO Audit
+
+NAP consistency, Google Business Profile optimization, and citation analysis.
+
+```bash
+/local-seo --business "Coffee Shop Name" --location "Seattle, WA"
+```
+
+**Checks:**
+
+- NAP (Name, Address, Phone) consistency across directories
+- Google Business Profile completeness
+- Local citation count and quality
+- Schema markup (LocalBusiness)
+- Review count and rating
+- Local keyword rankings
+- Competitor local pack analysis
+
+**Sample report:**
+
+```
+Google Business Profile Score: 72/100
+  ✓ Business name, address, phone
+  ✓ Business hours
+  ✓ Categories (primary + 4 secondary)
+  ⚠ Only 12 photos (recommend 25+)
+  ⚠ Missing Q&A content
+  ✗ No posts in last 30 days
+
+NAP Consistency: 84% (42/50 citations)
+  Issues found on:
+    - yelp.com (wrong phone number)
+    - yellowpages.com (old address)
+
+Citation Opportunities (15 high-priority):
+  - Apple Maps
+  - Bing Places
+  - Better Business Bureau
+```
+
+---
+
+### 10. Content Calendar Generation
+
+Data-driven editorial calendar from search demand and seasonality.
+
+```bash
+/content-calendar --topics topics.txt --months 3
+```
+
+**Input format (topics.txt):**
+
+```
+email marketing tips
+marketing automation workflows
+lead generation strategies
+social media marketing
+```
 
 **Output:**
 
 ```
-🎯 Link Prospects: SaaS Marketing
+┌────────┬─────────────────────────────┬────────┬──────────┬──────────┐
+│ Date   │ Topic                       │ Volume │ Trend    │ Intent   │
+├────────┼─────────────────────────────┼────────┼──────────┼──────────┤
+│ Jun 5  │ Summer email campaigns      │  3 200 │ ▲ +45%   │ Info     │
+│ Jun 12 │ Marketing automation ROI    │  1 800 │ ▲ +12%   │ Comm     │
+│ Jun 19 │ Lead magnet ideas           │  2 400 │ → stable │ Info     │
+│ Jun 26 │ Social media calendar tools │  1 600 │ ▲ +8%    │ Comm     │
+└────────┴─────────────────────────────┴────────┴──────────┴──────────┘
 
-Filters: DR ≥40, Relevance ≥7/10, Traffic ≥5k/mo
-
-┌──────────────────────┬────┬─────────┬──────────┬──────────┐
-│ Domain               │ DR │ Traffic │ Relevnce │ Contact  │
-├──────────────────────┼────┼─────────┼──────────┼──────────┤
-│ saas-review.com      │ 68 │  45k/mo │   9/10   │  ✓ Email │
-│ marketing-blog.io    │ 62 │  32k/mo │   8/10   │  ✓ Form  │
-│ growth-hacks.co      │ 54 │  18k/mo │   8/10   │  ✓ Email │
-│ tech-insights.net    │ 48 │  12k/mo │   7/10   │  ⚠ None  │
-└──────────────────────┴────┴─────────┴──────────┴──────────┘
-
-📧 Outreach Template Generated:
-→ /output/outreach-template-saas-marketing.md
+Seasonality insights:
+  - "email marketing" peaks in January, September
+  - "social media marketing" steady demand year-round
+  - "lead generation" spikes Q4 (budget planning season)
 ```
 
-### 8. Page Speed SEO Analysis
-
-Render-blocking diagnostics, LCP/CLS/FID analysis mapped to ranking impact.
-
-```bash
-/page-speed-seo https://example.com/page
-/page-speed-seo --mobile --export report.json
-```
-
-**Metrics Analyzed:**
-
-- Largest Contentful Paint (LCP)
-- First Input Delay (FID)
-- Cumulative Layout Shift (CLS)
-- Time to First Byte (TTFB)
-- Total Blocking Time (TBT)
-- Render-blocking resources
-
-**Ranking Impact Mapping:**
-
-```
-🚀 Page Speed SEO — example.com/page
-
-Core Web Vitals Status: ⚠ Needs Improvement
-
-┌──────────────┬──────────┬──────────┬──────────┬──────────┐
-│ Metric       │ Score    │ Target   │ Status   │ SEO Δ    │
-├──────────────┼──────────┼──────────┼──────────┼──────────┤
-│ LCP          │  3.8 s   │  <2.5 s  │  🟠 Slow │  -5 pts  │
-│ FID          │   85 ms  │ <100 ms  │  ✓ Good  │    —     │
-│ CLS          │  0.18    │  <0.1    │  🔴 Poor │  -8 pts  │
-│ TTFB         │  1.2 s   │  <0.8 s  │  🟠 Slow │  -3 pts  │
-└──────────────┴──────────┴──────────┴──────────┴──────────┘
-
-Estimated Ranking Impact: -16 positions
-
-🔧 Critical Fixes (Ranked by Impact):
-
-1. 🔴 Reduce CLS (0.18 → <0.1) — +8 ranking pts
-   • Add width/height to images (12 affected)
-   • Preload web fonts
-   • Reserve ad slot space
-
-2. 🟠 Improve LCP (3.8s → 2.5s) — +5 ranking pts
-   • Optimize hero image (2.1 MB → ~200 KB)
-   • Remove render-blocking CSS (3 files)
-   • Enable lazy loading below fold
-
-3. 🟡 Reduce TTFB (1.2s → 0.8s) — +3 ranking pts
-   • Enable server-side caching
-   • Use CDN for static assets
-```
-
-### 9. Local SEO Audit
-
-NAP consistency, Google Business Profile optimization, and local citation audit.
-
-```bash
-/local-seo "Business Name" --location "New York, NY"
-/local-seo --citations --export csv
-```
-
-**Audit Components:**
-
-```
-📍 Local SEO Audit — Business Name (New York, NY)
-
-1️⃣ NAP Consistency Check:
-
-✓ Google Business Profile: ✓ Consistent
-✗ Yelp: Phone mismatch (555-0100 vs 555-0101)
-✓ Facebook: ✓ Consistent
-⚠ YellowPages: Address variant ("St" vs "Street")
-
-Consistency Score: 75% (⚠ Needs work)
-
-2️⃣ Google Business Profile:
-
-✓ Verified: Yes
-✓ Category: Primary + 2 secondary
-⚠ Photos: 12 (target: 20+)
-✗ Posts: Last post 45 days ago (target: weekly)
-✓ Reviews: 4.6★ (87 reviews)
-⚠ Q&A: 3 unanswered questions
-
-3️⃣ Citation Audit (Top 50 directories):
-
-┌──────────────────────┬──────────┬──────────┬──────────┐
-│ Directory            │ Listed   │ NAP      │ Action   │
-├──────────────────────┼──────────┼──────────┼──────────┤
-│ Google Business      │  ✓ Yes   │  ✓ Match │    —     │
-│ Bing Places          │  ✓ Yes   │  ✓ Match │    —     │
-│ Yelp                 │  ✓ Yes   │  ✗ Phone │  Fix     │
-│ YellowPages          │  ✓ Yes   │  ⚠ Addr  │  Fix     │
-│ Foursquare           │  ✗ No    │    —     │  Add     │
-└──────────────────────┴──────────┴──────────┴──────────┘
-
-📊 Local Pack Ranking (Target keywords):
-• "plumber new york": Not in pack
-• "emergency plumber nyc": Position 8 (⚠ Just outside)
-• "24 hour plumber manhattan": Position 3 (✓ In pack)
-```
-
-### 10. Content Calendar Generator
-
-Data-driven editorial calendar built from search demand and seasonality.
-
-```bash
-/content-calendar --topics "saas,marketing,sales" --months 3
-/content-calendar --keywords keywords.csv --export calendar.csv
-```
-
-**Calendar Structure:**
-
-```
-📅 Content Calendar — Q2 2026 (May–Jul)
-
-Strategy: Search demand + seasonality + competitor gap filling
-
-Week of May 12, 2026
-┌─────────────────────────────────────────────────────────┐
-│ Mon: [Blog] "SaaS Pricing Models Explained"             │
-│      KW: saas pricing (Vol: 1,600, KD: 42)              │
-│      Format: 2,500w guide | Est: 8h                     │
-│                                                          │
-│ Wed: [Video] "How to Calculate SaaS Metrics"            │
-│      KW: saas metrics (Vol: 3,600, KD: 38)              │
-│      Format: 12min tutorial | Est: 6h                   │
-│                                                          │
-│ Fri: [Infographic] "SaaS Sales Funnel Stages"           │
-│      KW: saas sales funnel (Vol: 720, KD: 35)           │
-│      Format: Visual + 800w post | Est: 5h               │
-└─────────────────────────────────────────────────────────┘
-
-Week of May 19, 2026
-┌─────────────────────────────────────────────────────────┐
-│ Mon: [Pillar] "Complete Guide to B2B Content Marketing" │
-│      KW: b2b content marketing (Vol: 2,400, KD: 51)     │
-│      Format: 4,000w pillar + 5 clusters | Est: 16h      │
-│                                                          │
-│ Thu: [Case Study] "How [Client] Reduced Churn 40%"      │
-│      KW: reduce saas churn (Vol: 590, KD: 44)           │
-│      Format: 1,800w case study | Est: 10h               │
-└─────────────────────────────────────────────────────────┘
-
-📊 Monthly Targets:
-• Posts: 12 (4/week)
-• Total words: 28,000
-• Target traffic: +15% MoM
-• Avg. time investment: 6h/post
-```
+---
 
 ## Multi-Step Workflows
 
 ### Full SEO Sprint
 
-12-step comprehensive SEO sprint from audit to execution.
+Complete 12-step SEO audit and action plan.
 
 ```bash
-/workflows:full-seo-sprint https://example.com --duration 4weeks
+/workflow:full-seo-sprint https://example.com --scope full
 ```
 
-**Sprint Steps:**
+**Steps:**
 
-1. Technical SEO audit
-2. Content audit
-3. Competitor gap analysis
-4. Keyword research & mapping
-5. On-page optimization priorities
-6. Content refresh plan
-7. New content pipeline
-8. Internal linking structure
-9. Backlink acquisition strategy
-10. Local SEO (if applicable)
-11. Tracking & monitoring setup
-12. 30/60/90 day roadmap
+1. Technical SEO audit (crawl, indexability, speed)
+2. On-page SEO analysis (titles, meta, headings)
+3. Content quality audit
+4. Keyword research and mapping
+5. Competitor gap analysis
+6. Backlink profile audit
+7. Local SEO check (if applicable)
+8. Core Web Vitals measurement
+9. Mobile-friendliness test
+10. Schema markup validation
+11. Prioritized action plan generation
+12. Quick wins vs. long-term roadmap
 
-**Example Progress:**
+**Progress tracking:**
 
 ```
-╔════════════════════════════════════════════════════╗
-║  SEO Sprint — example.com                          ║
-║  Week 1/4 — Foundation & Analysis                  ║
-╠════════════════════════════════════════════════════╣
-║  ✓ Step 1: Technical audit complete                ║
-║  ✓ Step 2: Content audit complete                  ║
-║  → Step 3: Competitor analysis [████░░░░░░] 40%    ║
-║  ⏳ Step 4: Keyword research (pending)              ║
-╚════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════╗
+║  Full SEO Sprint — example.com                   ║
+╠══════════════════════════════════════════════════╣
+║  Step  1/12: Technical audit     [████████████] ✓║
+║  Step  2/12: On-page analysis    [████████████] ✓║
+║  Step  3/12: Content audit       [████████░░░░] 75%║
+║  Step  4/12: Keyword research    [░░░░░░░░░░░░]  0%║
+╚══════════════════════════════════════════════════╝
 ```
 
-### Launch SEO Checklist
+---
 
-Pre-launch SEO validation with canonical, hreflang, and sitemap checks.
+### Launch SEO Workflow
+
+Pre-launch SEO validation checklist.
 
 ```bash
-/workflows:launch-seo https://staging.example.com --production https://example.com
+/workflow:launch-seo https://staging.example.com
 ```
 
-**Checklist Items:**
+**Validation steps:**
 
 ```
-✅ Pre-Launch SEO Checklist
-
-🔍 Technical Setup
-☐ Robots.txt configured (allow crawling in prod, block in staging)
-☐ XML sitemap generated and submitted
-☐ Canonical tags pointing to production URLs
-☐ Hreflang tags (if multilingual)
-☐ 301 redirects from old URLs mapped
-☐ 404 page customized with search/nav
-☐ SSL certificate installed and HTTPS enforced
-
-📄 On-Page Essentials
-☐ All pages have unique title tags (<60 chars)
-☐ All pages have unique meta descriptions (<160 chars)
-☐ H1 tags present and unique on all pages
-☐ Image alt text added (focus on key images)
-☐ Internal linking structure reviewed
-☐ Schema.org markup implemented (Organization, Product, etc.)
-
-⚙️ Performance & UX
-☐ Core Web Vitals passing (LCP <2.5s, FID <100ms, CLS <0.1)
-☐ Mobile-friendly test passed
-☐ Page speed >80 (mobile + desktop)
-☐ No render-blocking resources in critical path
-
-🔗 Off-Page Setup
-☐ Google Search Console verified
-☐ Google Analytics 4 installed
-☐ Bing Webmaster Tools verified
-☐ Google Business Profile created (if local)
-☐ Social media profiles linked
-
-📊 Tracking & Monitoring
-☐ Rank tracking setup for target keywords
-☐ Conversion tracking configured
-☐ Uptime monitoring enabled
-☐ Crawl budget monitoring (enterprise sites)
+□ Robots.txt configured (disallow staging, allow production)
+□ Sitemap.xml generated and submitted
+□ Canonical tags pointing to production URLs
+□ Hreflang tags (if multilingual)
+□ 301 redirects mapped (if migration)
+□ Google Analytics + Search Console installed
+□ Core Web Vitals passing
+□ Mobile-friendly test passed
+□ SSL certificate installed
+□ Structured data implemented and validated
+□ Meta tags (title, description) on all pages
+□ Image alt text present
+□ No broken links (internal/external)
+□ Page speed optimized (score >80)
+□ Social meta tags (OG, Twitter Cards)
 ```
+
+---
 
 ### Content Refresh Workflow
 
-Identify and refresh underperforming pages to recover rankings.
+Identify and optimize underperforming content.
 
 ```bash
-/workflows:content-refresh --min-age 6months --rank-drop 5
+/workflow:content-refresh --age 180 --traffic-drop 30
 ```
 
-**Workflow Phases:**
+**Process:**
 
-1. **Identify**: Pages that dropped >5 positions in last 6 months
-2. **Analyze**: What competitors updated, new SERP features
-3. **Prioritize**: By traffic loss potential
-4. **Refresh**: Update stats, add sections, improve depth
-5. **Republish**: Update date, re-promote
-6. **Monitor**: Track ranking recovery
+1. Identify pages with traffic drop >30% in last 6 months
+2. Analyze SERP changes (new competitors, intent shift)
+3. Check for keyword cannibalization
+4. Review content freshness and accuracy
+5. Generate refresh recommendations:
+   - Update statistics and examples
+   - Add new sections based on SERP analysis
+   - Improve internal linking
+   - Optimize title/meta for CTR
+   - Add or update media
+6. Track post-refresh performance
 
-**Example Report:**
+**Sample refresh plan:**
 
+```markdown
+## Page: /blog/email-marketing-tips (published 2022-03-15)
+
+Traffic: 2,400/mo → 1,100/mo (-54%)
+Ranking: #3 → #8 for "email marketing tips"
+
+SERP Changes:
+  - 3 new comprehensive guides published in 2024
+  - Average word count increased from 1,800 to 2,600
+  - Video content now appearing in 6/10 results
+
+Refresh Actions:
+  1. Expand from 1,850 to 2,800 words
+  2. Add 2024 statistics and examples
+  3. Create embedded video (tips overview)
+  4. Add sections:
+     - AI-powered email personalization
+     - Privacy regulations (iOS Mail Privacy Protection)
+  5. Update title: "17 Email Marketing Tips" → "21 Email Marketing Tips That Work in 2024"
+  6. Improve internal links to related guides
 ```
-📉 Content Refresh Candidates (Top 10 by impact)
 
-┌──────────────────────┬──────┬────────┬──────────┬──────────┐
-│ URL                  │ Rank │ Δ Rank │ Traffic  │ Priority │
-├──────────────────────┼──────┼────────┼──────────┼──────────┤
-│ /saas-metrics-guide  │   12 │  ↓ -8  │  -450/mo │  🔴 High │
-│ /content-mkt-roi     │    9 │  ↓ -6  │  -320/mo │  🔴 High │
-│ /email-best-practice │    7 │  ↓ -5  │  -180/mo │  🟠 Med  │
-└──────────────────────┴──────┴────────┴──────────┴──────────┘
+---
 
-🔧 Recommended Updates for /saas-metrics-guide:
+### Authority Building Workflow
 
-1. Add 2026 benchmarks (competitor added)
-2. Expand "churn rate" section (+400 words)
-3. Add calculator tool embed
-4. Update 3 outdated screenshots
-5. Add schema FAQ markup for 5 common questions
-6. Improve internal linking to product pages
-```
-
-### Authority Building Campaign
-
-End-to-end digital PR and link-building workflow.
+End-to-end digital PR and link-building campaign.
 
 ```bash
-/workflows:authority-building --duration 12weeks --target-links 50
+/workflow:authority-building --niche "B2B SaaS" --duration 90
 ```
 
-**Campaign Phases:**
+**Campaign structure:**
 
-1. **Research**: Competitor backlinks, industry publications
-2. **Content**: Linkable assets (data studies, tools, guides)
-3. **Outreach**: Personalized pitches to prospects
-4. **Relationships**: Build journalist/blogger relationships
-5. **Monitoring**: Track placements and link acquisition
-6. **Reporting**: ROI analysis and attribution
+```
+Week 1-2: Research & Planning
+  □ Identify high-authority targets (DR 60+)
+  □ Analyze competitor backlink profiles
+  □ Create data/research asset
+  □ Design visual assets (infographics, charts)
+
+Week 3-6: Content Creation
+  □ Publish original research/study
+  □ Create expert roundup content
+  □ Develop comprehensive guides
+  □ Guest post pitches (10 targets)
+
+Week 7-10: Outreach
+  □ Personalized outreach (50 contacts)
+  □ Follow-up sequence (3 emails)
+  □ Track responses and placements
+  □ Monitor backlink acquisition
+
+Week 11-12: Amplification
+  □ Promote placements on social
+  □ Email existing network
+  □ Repurpose content (LinkedIn, Medium)
+  □ Measure DR/traffic impact
+```
+
+---
 
 ### AI Content Pipeline
 
-Automated keyword → brief → draft → optimize → publish workflow.
+Automated keyword-to-publish content workflow.
 
 ```bash
-/workflows:ai-content-pipeline --keywords keywords.csv --auto-brief
+/workflow:ai-content-pipeline --input keywords.csv --auto-publish false
 ```
 
-**Pipeline Stages:**
+**Pipeline stages:**
 
 ```
-📝 AI Content Pipeline
-
-Stage 1: Keyword Selection
-→ Input: keywords.csv (250 keywords)
-→ Prioritization: Volume × (100 - KD) × Relevance
-→ Output: Top 20 keywords for next 4 weeks
-
-Stage 2: Brief Generation
-→ For each keyword: /content-brief
-→ Auto-generate outline, NLP terms, word targets
-→ Human review: Approve/modify briefs
-
-Stage 3: Draft Creation
-→ AI-assisted writing (Claude/GPT-4)
-→ Follow brief structure
-→ Include required NLP terms
-→ Target word count ±10%
-
-Stage 4: Optimization
-→ On-page SEO check (title, meta, headings)
-→ Readability score (target: Grade 10-12)
-→ Internal/external link insertion
-→ Image optimization and alt text
-
-Stage 5: Review & Publish
-→ Human editor review
-→ Plagiarism check
-→ Publish to CMS
-→ Submit to GSC for indexing
-→ Add to SERP monitoring
-
-📊 Pipeline Metrics (Last 30 days):
-• Articles published: 18
-• Avg. time per article: 4.2h
-• Avg. ranking (30d): Position 12.8
-• Traffic generated: +2,340 sessions
+Input: keywords.csv
+  ↓
+① Keyword Analysis
+  - Search volume, difficulty, intent
+  - SERP analysis for top 10
+  ↓
+② Brief Generation
+  - Outline from top-ranking content
+  - NLP terms and entities
+  - Word count target
+  ↓
+③ AI Draft Creation
+  - Generate content sections
+  - Include statistics and examples
+  - Optimize for target keywords
+  ↓
+④ SEO Optimization
+  - Title tag (55-60 chars, keyword-front)
+  - Meta description (150-160 chars, CTA)
+  - Heading structure (H1, H2, H3)
+  - Internal linking suggestions
+  - Image alt text generation
+  ↓
+⑤ Quality Check
+  - Plagiarism scan
+  - Readability score (Flesch-Kincaid)
+  - Keyword density check
+  - Fact-checking pass
+  ↓
+⑥ Review & Publish
+  - Human review (if --auto-publish false)
+  - Schedule publication
+  - Submit to Search Console
+  - Track initial rankings
 ```
+
+**Configuration:**
+
+```bash
+# config/ai-pipeline.yaml
+model: gpt-4
+temperature: 0.7
+max_tokens: 3000
+auto_publish: false
+human_review_required: true
+plagiarism_threshold: 15
+readability_target: 60  # Flesch Reading Ease
+keyword_density_max: 2.5
+```
+
+---
 
 ## Configuration
 
 ### Environment Variables
 
-Set these in your environment or `.env` file:
-
 ```bash
-# SEO APIs
+# Required for data providers
 export SEMRUSH_API_KEY=your_semrush_key
 export AHREFS_API_KEY=your_ahrefs_key
-export MOZ_ACCESS_ID=your_moz_id
-export MOZ_SECRET_KEY=your_moz_secret
+export SERPAPI_KEY=your_serpapi_key
 
-# Search Console
-export GSC_CLIENT_ID=your_google_client_id
-export GSC_CLIENT_SECRET=your_google_client_secret
-
-# Analytics
-export GA4_PROPERTY_ID=your_ga4_property
-export GA4_CREDENTIALS_PATH=/path/to/credentials.json
-
-# Monitoring
-export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK
-export DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR/WEBHOOK
-
-# Content AI
+# Optional for enhanced features
 export OPENAI_API_KEY=your_openai_key
-export ANTHROPIC_API_KEY=your_anthropic_key
+export GOOGLE_SEARCH_CONSOLE_CLIENT_ID=your_gsc_client_id
+export GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET=your_gsc_secret
+export SCREAMING_FROG_LICENSE=your_sf_license
 ```
 
-### Skill Configuration File
+### Configuration File
 
-Create `~/.claude/skills/seo-content-marketing-suite/config.yml`:
+Create `~/.seo-skills/config.yaml`:
 
 ```yaml
 # Default settings
 defaults:
-  export_format: markdown
-  min_dr: 30
-  keyword_volume_min: 100
-  content_min_words: 800
-  
+  country: us
+  language: en
+  output_format: markdown
+  progress_display: true
+
+# Data sources (priority order)
+data_sources:
+  keyword_data: semrush  # or ahrefs, google_keyword_planner
+  backlink_data: ahrefs  # or semrush, moz
+  serp_data: serpapi     # or semrush, ahrefs
+
 # Command-specific settings
-commands:
-  keyword_research:
-    default_cluster: true
-    max_results: 200
-    intent_analysis: true
+keyword_research:
+  min_volume: 100
+  max_difficulty: 60
+  cluster_threshold: 0.7
+
+content_audit:
+  min_word_count: 300
+  freshness_threshold_days: 365
+  cannibalization_similarity: 0.85
+
+technical_seo:
+  crawl_depth: 5
+  user_agent: googlebot
+  respect_robots_txt: true
+  follow_redirects: true
+
+# Workflow settings
+workflows:
+  full_seo_sprint:
+    include_local_seo: auto  # auto, true, false
+    parallel_execution: true
+  
+  ai_content_pipeline:
+    auto_publish: false
+    require_human_review: true
+    plagiarism_check: true
+```
+
+---
+
+## Common Usage Patterns
+
+### Pattern 1: New Site SEO Setup
+
+```bash
+# Step 1: Technical foundation
+/technical-seo --url https://newsite.com
+
+# Step 2: Keyword research
+/keyword-research "main product category" --export csv
+
+# Step 3: Create content calendar
+/content-calendar --topics keywords.csv --months 6
+
+# Step 4: Generate first batch of briefs
+for keyword in $(cat priority-keywords.txt); do
+  /content-brief "$keyword" --output md
+done
+```
+
+### Pattern 2: Competitor Analysis Deep-Dive
+
+```bash
+# Identify gaps
+/competitor-gap https://yoursite.com \
+  --competitors comp1.com,comp2.com,comp3.com \
+  --export json
+
+# Extract specific opportunities
+jq '.keyword_gap[] | select(.volume > 1000 and .difficulty < 50)' gaps.json
+
+# Create content plan from gaps
+/content-calendar --keywords gap-keywords.csv --months 3
+```
+
+### Pattern 3: Content Recovery
+
+```bash
+# Find underperforming content
+/content-audit --scope full --min-traffic-drop 30
+
+# Analyze specific pages
+for url in $(cat underperforming.txt); do
+  /serp-monitor --url "$url" --analyze-changes
+done
+
+# Generate refresh plans
+/workflow:content-refresh --urls underperforming.txt --batch 10
+```
+
+### Pattern 4: Monthly SEO Reporting
+
+```bash
+#!/bin/bash
+# monthly-seo-report.sh
+
+DOMAIN="example.com"
+REPORT_DIR="reports/$(date +%Y-%m)"
+mkdir -p "$REPORT_DIR"
+
+# Technical health
+/technical-seo --url https://$DOMAIN > "$REPORT_DIR/technical.md"
+
+# Rankings
+/serp-monitor --keywords tracked.csv > "$REPORT_DIR/rankings.csv"
+
+# Content performance
+/content-audit --scope full > "$REPORT_DIR/content-audit.md"
+
+# Backlink growth
+/competitor-gap https://$DOMAIN \
+  --focus backlinks \
+  > "$REPORT_DIR/backlinks.md"
+
+# Combine into single report
+cat "$REPORT_DIR"/*.md > "$REPORT_DIR/monthly-report-$(date +%Y-%m).md"
+```
+
+---
+
+## Troubleshooting
+
+### Issue: "API rate limit exceeded"
+
+**Cause:** Too many requests to SEO data provider (SEMrush, Ahrefs, etc.)
+
+**Solution:**
+
+```bash
+# Check current rate limits
+/debug:rate-limits
+
+# Enable request caching
+export SEO_SKILLS_CACHE_ENABLED=true
+export SEO_SKILLS_CACHE_TTL=86400  # 24 hours
+
+# Or reduce parallel requests
+/keyword-research <target> --parallel 1
+```
+
+### Issue: "Crawl blocked by robots.txt"
+
+**Cause:** Target site blocks automated crawlers
+
+**Solution:**
+
+```bash
+# Check robots.txt
+curl https://example.com/robots.txt
+
+# Use different user agent
+/technical-seo --url https://example.com --user-agent "Mozilla/5.0"
+
+# Or skip crawl and use API data only
+/technical-seo --url https://example.com --mode api-only
+```
+
+### Issue: "Schema validation errors"
+
+**Cause:** Invalid JSON-LD structured data
+
+**Solution:**
+
+```bash
+# Validate specific schema
+/technical-seo --url https://example.com/page \
+  --check-schema \
+  --schema-type Article \
+  --verbose
+
+# Get detailed error messages
+{
+  "errors": [
+    {
+      "type": "MISSING_REQUIRED_FIELD",
+      "field": "datePublished",
+      "message": "Article schema requires datePublished"
+    }
+  ],
+  "fix": "Add <meta property=\"article:published_time\" content=\"2024-01-15\">"
+}
+```
+
+### Issue: "Keyword data unavailable"
+
+**Cause:** API key missing or keyword not in database
+
+**Solution:**
+
+```bash
+# Verify API configuration
+/debug:check-apis
+
+# Fall back to alternative data source
+/keyword-research "target keyword" --source google_keyword_planner
+
+# Or use approximate data
+/keyword-research "target keyword" --allow-estimates
+```
+
+### Issue: "Content brief generation fails"
+
+**Cause:** Insufficient SERP data or API errors
+
+**Solution:**
+
+```bash
+# Retry with manual SERP analysis
+/content-brief "keyword" --serp-manual --top 5
+
+# Or provide custom outline
+/content-brief "keyword" --outline custom-outline.md
+
+# Skip SERP analysis entirely
+/content-brief "keyword" --skip-serp-analysis
+```
+
+---
+
+## Advanced Features
+
+### Custom Scoring Algorithms
+
+Override default opportunity scoring:
+
+```yaml
+# config/scoring.yaml
+keyword_opportunity:
+  formula: "(volume / difficulty) * intent_multiplier"
+  intent_multiplier:
+    transactional: 1.5
+    commercial: 1.2
+    informational: 1.0
+    navigational: 0.5
+
+content_quality:
+  weights:
+    word_count: 0.2
+    readability: 0.15
+    internal_links: 0.15
+    external_links: 0.1
+    freshness: 0.2
+    engagement: 0.2
+```
+
+### Webhook Integration
+
+Send results to external systems:
+
+```bash
+# config/webhooks.yaml
+webhooks:
+  - event: audit_complete
+    url: https://your-system.com/api/seo-audit
+    headers:
+      Authorization: "Bearer ${WEBHOOK_TOKEN}"
     
-  content_audit:
-    quality_threshold: 60
-    thin_content_limit: 300
-    duplicate_similarity: 0.85
-    
-  technical_seo:
-    max_depth: 5
-    timeout: 300
-    user_agent: "SEO-Audit-Bot/1.0"
-    
+  - event: ranking_change
+    url: https://slack.com/api/webhook/${SLACK_WEBHOOK_ID}
+    condition: "abs(rank_change) >= 3"
+```
+
+### CI/CD Integration
+
+```yaml
+# .github/workflows/seo-checks.yml
+name: SEO Quality Checks
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'pages/**'
+
+jobs:
+  seo-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install SEO Skills
+        run: |
+          git clone https://github.com/LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo.git
+          cd r06-alirezarezvani-claude-code-tresor-seo
+          npm install  # if applicable
+      
+      - name: Check meta tags
+        run: |
+          /technical-seo --url ${{ github.event.pull_request.head.repo.html_url }} \
+            --check-meta \
+            --fail-on-error
+      
+      - name: Validate schema
+        run: |
+          /technical-seo --url ${{ github.event.pull_request.head.repo.html_url }} \
+            --check-schema \
+            --fail-on-error
+```
+
+---
+
+## Integration Examples
+
+### Export to Google Sheets
+
+```bash
+# Install gsheets dependency
+pip install gspread oauth2client
+
+# Export keyword research
+/keyword-research "topic" --export gsheets --sheet "SEO Research"
+```
+
+### Import from Google Search Console
+
+```bash
+# Authenticate
+/integrations:gsc-auth
+
+# Import performance data
+/integrations:gsc-import \
+  --property https://example.com \
+  --start-date 2024-01-01 \
+  --end-date 2024-03-31 \
+  --dimension page \
+  --output csv
+```
+
+### Notion Database Sync
+
+```yaml
+# config/integrations.yaml
+notion:
+  token: ${NOTION_TOKEN}
