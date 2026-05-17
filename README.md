@@ -48,6 +48,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [seo-content-marketing-commands](skills/seo-content-marketing-commands/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-commands) | [Plateeocondense/r10-wshobson-commands-seo](https://github.com/Plateeocondense/r10-wshobson-commands-seo) | 2026-05-17 |
 | [claude-code-seo-content-marketing-suite](skills/claude-code-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/claude-code-seo-content-marketing-suite) | [PrefectFlourish22/r18-anthropics-claude-code-seo](https://github.com/PrefectFlourish22/r18-anthropics-claude-code-seo) | 2026-05-17 |
 | [seo-content-marketing-claude-code-skill-suite](skills/seo-content-marketing-claude-code-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-claude-code-skill-suite) | [PrefectFlourish22/r18-anthropics-claude-code-seo](https://github.com/PrefectFlourish22/r18-anthropics-claude-code-seo) | 2026-05-17 |
+| [founder-marketing-skills](skills/founder-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/founder-marketing-skills) | [ScaleBrick/founder-marketing-skills](https://github.com/ScaleBrick/founder-marketing-skills) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
