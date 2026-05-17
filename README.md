@@ -38,6 +38,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [composiohq-awesome-claude-skills-seo-content-marketing](skills/composiohq-awesome-claude-skills-seo-content-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/composiohq-awesome-claude-skills-seo-content-marketing) | [ColonyShopkeeper/r08-composiohq-awesome-claude-skills-seo](https://github.com/ColonyShopkeeper/r08-composiohq-awesome-claude-skills-seo) | 2026-05-16 |
 | [datalocastle-r03-anthropics-skills-seo](skills/datalocastle-r03-anthropics-skills-seo/) | [install](https://skills.sh/aradotso/marketing-skills/datalocastle-r03-anthropics-skills-seo) | [Datalocastle/r03-anthropics-skills-seo](https://github.com/Datalocastle/r03-anthropics-skills-seo) | 2026-05-16 |
 | [r13-danielrosehill-claude-slash-commands-seo](skills/r13-danielrosehill-claude-slash-commands-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r13-danielrosehill-claude-slash-commands-seo) | [Dimensionparail/r13-danielrosehill-claude-slash-commands-seo](https://github.com/Dimensionparail/r13-danielrosehill-claude-slash-commands-seo) | 2026-05-16 |
+| [fabled-packer-redeem-seo-content-marketing-suite](skills/fabled-packer-redeem-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/fabled-packer-redeem-seo-content-marketing-suite) | [FabledPackerRedeem/r05-jqueryscript-awesome-claude-code-seo](https://github.com/FabledPackerRedeem/r05-jqueryscript-awesome-claude-code-seo) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
