@@ -49,6 +49,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [claude-code-seo-content-marketing-suite](skills/claude-code-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/claude-code-seo-content-marketing-suite) | [PrefectFlourish22/r18-anthropics-claude-code-seo](https://github.com/PrefectFlourish22/r18-anthropics-claude-code-seo) | 2026-05-17 |
 | [seo-content-marketing-claude-code-skill-suite](skills/seo-content-marketing-claude-code-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-claude-code-skill-suite) | [PrefectFlourish22/r18-anthropics-claude-code-seo](https://github.com/PrefectFlourish22/r18-anthropics-claude-code-seo) | 2026-05-17 |
 | [founder-marketing-skills](skills/founder-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/founder-marketing-skills) | [ScaleBrick/founder-marketing-skills](https://github.com/ScaleBrick/founder-marketing-skills) | 2026-05-17 |
+| [r14-borghei-claude-skills-seo](skills/r14-borghei-claude-skills-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r14-borghei-claude-skills-seo) | [SheenEmpress/r14-borghei-claude-skills-seo](https://github.com/SheenEmpress/r14-borghei-claude-skills-seo) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
