@@ -40,6 +40,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [r13-danielrosehill-claude-slash-commands-seo](skills/r13-danielrosehill-claude-slash-commands-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r13-danielrosehill-claude-slash-commands-seo) | [Dimensionparail/r13-danielrosehill-claude-slash-commands-seo](https://github.com/Dimensionparail/r13-danielrosehill-claude-slash-commands-seo) | 2026-05-16 |
 | [fabled-packer-redeem-seo-content-marketing-suite](skills/fabled-packer-redeem-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/fabled-packer-redeem-seo-content-marketing-suite) | [FabledPackerRedeem/r05-jqueryscript-awesome-claude-code-seo](https://github.com/FabledPackerRedeem/r05-jqueryscript-awesome-claude-code-seo) | 2026-05-17 |
 | [r09-travisvn-awesome-claude-skills-seo](skills/r09-travisvn-awesome-claude-skills-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r09-travisvn-awesome-claude-skills-seo) | [Fieldterruffle/r09-travisvn-awesome-claude-skills-seo](https://github.com/Fieldterruffle/r09-travisvn-awesome-claude-skills-seo) | 2026-05-17 |
+| [seo-content-marketing-skill-factory](skills/seo-content-marketing-skill-factory/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skill-factory) | [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
