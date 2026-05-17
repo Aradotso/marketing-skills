@@ -43,6 +43,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [seo-content-marketing-skill-factory](skills/seo-content-marketing-skill-factory/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skill-factory) | [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo) | 2026-05-17 |
 | [seo-content-marketing-claude-skill-suite](skills/seo-content-marketing-claude-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-claude-skill-suite) | [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo) | 2026-05-17 |
 | [r06-alirezarezvani-claude-code-tresor-seo](skills/r06-alirezarezvani-claude-code-tresor-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r06-alirezarezvani-claude-code-tresor-seo) | [LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo](https://github.com/LairLightningDerrick/r06-alirezarezvani-claude-code-tresor-seo) | 2026-05-17 |
+| [seo-content-marketing-skill-suite-claude](skills/seo-content-marketing-skill-suite-claude/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skill-suite-claude) | [OctagonWoodpecker/r07-getbindu-awesome-claude-code-and-skills-seo](https://github.com/OctagonWoodpecker/r07-getbindu-awesome-claude-code-and-skills-seo) | 2026-05-17 |
 <!-- SKILL_INDEX -->
 
 ---
