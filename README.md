@@ -62,6 +62,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [bmad-marketing-growth-module](skills/bmad-marketing-growth-module/) | [install](https://skills.sh/aradotso/marketing-skills/bmad-marketing-growth-module) | [MatthiasMRC/bmad-marketing-growth](https://github.com/MatthiasMRC/bmad-marketing-growth) | 2026-05-18 |
 | [marketing-orchestrator-skill](skills/marketing-orchestrator-skill/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-orchestrator-skill) | [bryanengel72/marketing-orchestrator](https://github.com/bryanengel72/marketing-orchestrator) | 2026-05-18 |
 | [claude-code-marketing-skills](skills/claude-code-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/claude-code-marketing-skills) | [cognyai/claude-code-marketing-skills](https://github.com/cognyai/claude-code-marketing-skills) | 2026-05-18 |
+| [llm-sentry-geo-marketing](skills/llm-sentry-geo-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/llm-sentry-geo-marketing) | [daijinma/geo_marketing](https://github.com/daijinma/geo_marketing) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
