@@ -51,6 +51,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [founder-marketing-skills](skills/founder-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/founder-marketing-skills) | [ScaleBrick/founder-marketing-skills](https://github.com/ScaleBrick/founder-marketing-skills) | 2026-05-17 |
 | [r14-borghei-claude-skills-seo](skills/r14-borghei-claude-skills-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r14-borghei-claude-skills-seo) | [SheenEmpress/r14-borghei-claude-skills-seo](https://github.com/SheenEmpress/r14-borghei-claude-skills-seo) | 2026-05-17 |
 | [seo-content-marketing-skills-suite](skills/seo-content-marketing-skills-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skills-suite) | [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo) | 2026-05-17 |
+| [magicstarfishboost-seo-content-marketing-skill-suite](skills/magicstarfishboost-seo-content-marketing-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/magicstarfishboost-seo-content-marketing-skill-suite) | [MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo](https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
