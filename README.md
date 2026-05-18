@@ -61,6 +61,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [digital-marketing-pro-claude-plugin](skills/digital-marketing-pro-claude-plugin/) | [install](https://skills.sh/aradotso/marketing-skills/digital-marketing-pro-claude-plugin) | [indranilbanerjee/digital-marketing-pro](https://github.com/indranilbanerjee/digital-marketing-pro) | 2026-05-18 |
 | [bmad-marketing-growth-module](skills/bmad-marketing-growth-module/) | [install](https://skills.sh/aradotso/marketing-skills/bmad-marketing-growth-module) | [MatthiasMRC/bmad-marketing-growth](https://github.com/MatthiasMRC/bmad-marketing-growth) | 2026-05-18 |
 | [marketing-orchestrator-skill](skills/marketing-orchestrator-skill/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-orchestrator-skill) | [bryanengel72/marketing-orchestrator](https://github.com/bryanengel72/marketing-orchestrator) | 2026-05-18 |
+| [claude-code-marketing-skills](skills/claude-code-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/claude-code-marketing-skills) | [cognyai/claude-code-marketing-skills](https://github.com/cognyai/claude-code-marketing-skills) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
