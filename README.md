@@ -64,6 +64,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [claude-code-marketing-skills](skills/claude-code-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/claude-code-marketing-skills) | [cognyai/claude-code-marketing-skills](https://github.com/cognyai/claude-code-marketing-skills) | 2026-05-18 |
 | [llm-sentry-geo-marketing](skills/llm-sentry-geo-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/llm-sentry-geo-marketing) | [daijinma/geo_marketing](https://github.com/daijinma/geo_marketing) | 2026-05-18 |
 | [marketing-os-starter](skills/marketing-os-starter/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-os-starter) | [ericosiu/marketing-os-starter](https://github.com/ericosiu/marketing-os-starter) | 2026-05-18 |
+| [tech-marketing-framework](skills/tech-marketing-framework/) | [install](https://skills.sh/aradotso/marketing-skills/tech-marketing-framework) | [j1ngg/tech-marketing-framework](https://github.com/j1ngg/tech-marketing-framework) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
