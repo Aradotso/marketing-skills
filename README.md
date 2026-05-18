@@ -53,6 +53,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [seo-content-marketing-skills-suite](skills/seo-content-marketing-skills-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-skills-suite) | [JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo](https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo) | 2026-05-17 |
 | [magicstarfishboost-seo-content-marketing-skill-suite](skills/magicstarfishboost-seo-content-marketing-skill-suite/) | [install](https://skills.sh/aradotso/marketing-skills/magicstarfishboost-seo-content-marketing-skill-suite) | [MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo](https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo) | 2026-05-18 |
 | [splitflucover93-r12-seo-content-marketing-suite](skills/splitflucover93-r12-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/splitflucover93-r12-seo-content-marketing-suite) | [Splitflucover93/r12-vincenthopf-my-claude-code-seo](https://github.com/Splitflucover93/r12-vincenthopf-my-claude-code-seo) | 2026-05-18 |
+| [r19-iannuttall-claude-agents-seo](skills/r19-iannuttall-claude-agents-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r19-iannuttall-claude-agents-seo) | [macrohelpclippers/r19-iannuttall-claude-agents-seo](https://github.com/macrohelpclippers/r19-iannuttall-claude-agents-seo) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
