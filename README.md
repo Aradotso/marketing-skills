@@ -58,6 +58,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [seo-content-marketing-command-suite](skills/seo-content-marketing-command-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-command-suite) | [retrocenterspark24/r11-qdhenry-claude-command-suite-seo](https://github.com/retrocenterspark24/r11-qdhenry-claude-command-suite-seo) | 2026-05-18 |
 | [email-marketing-bible-skill](skills/email-marketing-bible-skill/) | [install](https://skills.sh/aradotso/marketing-skills/email-marketing-bible-skill) | [CosmoBlk/email-marketing-bible](https://github.com/CosmoBlk/email-marketing-bible) | 2026-05-18 |
 | [developer-marketing-jobs-board](skills/developer-marketing-jobs-board/) | [install](https://skills.sh/aradotso/marketing-skills/developer-marketing-jobs-board) | [Infrasity-Labs/developer-marketing-jobs](https://github.com/Infrasity-Labs/developer-marketing-jobs) | 2026-05-18 |
+| [digital-marketing-pro-claude-plugin](skills/digital-marketing-pro-claude-plugin/) | [install](https://skills.sh/aradotso/marketing-skills/digital-marketing-pro-claude-plugin) | [indranilbanerjee/digital-marketing-pro](https://github.com/indranilbanerjee/digital-marketing-pro) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
