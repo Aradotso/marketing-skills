@@ -1,863 +1,568 @@
 ---
 name: seo-content-marketing-skill-suite
-description: SEO & Content Marketing command suite with keyword research, content audits, SERP analysis, technical SEO checks and link prospecting
+description: SEO & content marketing automation with keyword research, content audits, SERP analysis, technical SEO checks and workflow orchestration
 triggers:
-  - analyze SEO performance for this site
-  - run a content audit on my website
-  - find keyword opportunities for my target
-  - check technical SEO issues and page speed
-  - build a content calendar from search demand
-  - analyze competitor backlink gaps
-  - generate an SEO content brief
-  - monitor SERP rankings and volatility
+  - analyze keywords for SEO
+  - run content audit on website
+  - check technical SEO issues
+  - generate content brief for topic
+  - analyze competitor SEO gaps
+  - monitor SERP rankings
+  - create content calendar from search data
+  - audit local SEO setup
 ---
 
-# SEO & Content Marketing Skills Suite
+# SEO & Content Marketing Skill Suite
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-**r04-alirezarezvani-claude-code-skill-factory-seo** is a specialized command suite for SEO professionals and content marketers. It provides 10 domain-specific slash commands and 5 multi-step workflows for keyword research, content audits, SERP analysis, technical SEO diagnostics, and content strategy automation.
+This skill suite provides structured SEO and content marketing automation derived from best-practice workflows. It offers 10 specialized commands and 5 multi-step workflows for keyword research, content audits, SERP analysis, technical SEO diagnostics, and content strategy planning.
 
-Derived from [alirezarezvani/claude-code-skill-factory](https://github.com/alirezarezvani/claude-code-skill-factory), this suite extends the skill scaffolding framework with structured output UI, progress tracking, and prioritized action plans.
+## What This Project Does
 
----
+The suite automates common SEO and content marketing tasks through a consistent command interface:
+
+- **Keyword Research**: Clustering, opportunity scoring, SERP intent mapping
+- **Content Audits**: Quality scoring, duplication detection, cannibalization reports
+- **Technical SEO**: Crawl budget, Core Web Vitals, schema markup, indexability
+- **Competitor Analysis**: Backlink gaps, topic gaps, featured snippet opportunities
+- **Content Strategy**: Brief generation, editorial calendars, refresh workflows
+- **Monitoring**: Rank tracking, volatility alerts, CTR optimization
+
+All commands use structured output with progress tracking, findings tables, action plans, and follow-up recommendations.
 
 ## Installation
 
-### Method 1: Clone to Skills Directory
-
 ```bash
-# Create skills directory if it doesn't exist
-mkdir -p ~/.claude/skills
+# Clone into Claude skills directory
+mkdir -p ~/.claude/skills/
+cp -r . ~/.claude/skills/seo-content-marketing-skill-suite/
 
-# Clone the repository
-git clone https://github.com/JaguarPillage/r04-alirezarezvani-claude-code-skill-factory-seo.git \
-  ~/.claude/skills/seo-content-marketing
-
-# Register in Claude Code
-# In your Claude Code session:
-/read ~/.claude/skills/seo-content-marketing/SKILL.md
+# Or install from repository
+git clone https://github.com/MagicStarfishBoost/r15-shanraisshan-claude-code-best-practice-seo.git \
+  ~/.claude/skills/seo-content-marketing-skill-suite/
 ```
 
-### Method 2: Manual Copy
+**Register in Claude Code session:**
 
 ```bash
-# Copy the skill directory into your project
-cp -r /path/to/r04-alirezarezvani-claude-code-skill-factory-seo ./skills/
-
-# Load the skill
-/read ./skills/r04-alirezarezvani-claude-code-skill-factory-seo/SKILL.md
+/read ~/.claude/skills/seo-content-marketing-skill-suite/SKILL.md
 ```
-
----
 
 ## Core Commands
 
-### 1. Keyword Research
+### Keyword Research
 
-**Trigger:** `/keyword-research <target>`
-
-Performs deep keyword clustering, opportunity scoring, and SERP intent mapping.
-
-**Options:**
-- `--depth <shallow|deep|comprehensive>` — analysis depth (default: deep)
-- `--min-volume <number>` — minimum monthly search volume
-- `--max-difficulty <number>` — maximum keyword difficulty (0-100)
-- `--intent <informational|commercial|transactional>` — filter by search intent
-- `--output <json|md|csv>` — output format (default: md)
-
-**Example:**
+Deep keyword analysis with clustering and opportunity scoring:
 
 ```bash
-/keyword-research "project management software" --depth comprehensive --min-volume 500 --output md
+/keyword-research <target>
+
+# Examples
+/keyword-research "project management software"
+/keyword-research --domain example.com --export csv
+/keyword-research "saas analytics" --volume-min 1000
 ```
 
-**Expected Output Structure:**
+**Output structure:**
+- Keyword clusters by search intent
+- Volume, difficulty, and opportunity scores
+- SERP feature analysis (featured snippets, PAA, etc.)
+- Priority ranking with traffic potential
 
-```markdown
-# Keyword Research: project management software
+### Content Audit
 
-## Summary
-- Total keywords found: 247
-- High-opportunity (low comp, high vol): 34
-- Content gaps identified: 12
-- Recommended clusters: 8
-
-## Top Opportunities
-
-| Keyword | Volume | Difficulty | Intent | Opportunity Score |
-|---------|--------|------------|--------|-------------------|
-| project management tools for small teams | 2,400 | 28 | Commercial | 94/100 |
-| free project management software | 8,100 | 67 | Informational | 76/100 |
-| project tracking templates | 1,900 | 22 | Informational | 91/100 |
-
-## Keyword Clusters
-
-### Cluster 1: Getting Started (Informational)
-- project management basics (3,600 vol, 24 diff)
-- what is project management software (1,300 vol, 18 diff)
-- project management for beginners (880 vol, 21 diff)
-
-**Content Recommendation:** Ultimate guide format, 2,500+ words
-
----
-```
-
-### 2. Content Audit
-
-**Trigger:** `/content-audit [domain]`
-
-Full-site content quality scoring, duplicate detection, and cannibalization analysis.
-
-**Options:**
-- `--scope <full|partial|urls>` — audit scope
-- `--urls <file.txt>` — specific URLs to audit
-- `--metrics <quality,duplication,performance>` — comma-separated metrics
-- `--threshold <number>` — minimum quality score (0-100)
-
-**Example:**
+Full-site content quality and performance analysis:
 
 ```bash
-/content-audit example.com --scope full --metrics quality,duplication,performance
+/content-audit --scope <full|partial> --output <md|csv|json>
+
+# Examples
+/content-audit --scope full --output md
+/content-audit --url https://example.com/blog --depth 2
+/content-audit --check-duplicates --cannibalization-report
 ```
 
-**Expected Output:**
+**Key metrics analyzed:**
+- Content quality scores (thin content detection)
+- Duplicate/near-duplicate detection
+- Keyword cannibalization matrix
+- Missing metadata (titles, descriptions, H1)
+- Internal linking opportunities
 
-```markdown
-# Content Audit: example.com
+### Technical SEO Audit
 
-## Crawl Summary
-- Total pages crawled: 1,204
-- Pages analyzed: 1,180
-- Issues found: 247
-- Audit duration: 12m 34s
-
-## Quality Distribution
-
-🔴 Critical (0-40): 23 pages
-🟠 Poor (41-60): 89 pages
-🟡 Fair (61-75): 234 pages
-🟢 Good (76-100): 834 pages
-
-## Top Issues
-
-| Issue | Pages Affected | Severity | Impact |
-|-------|----------------|----------|--------|
-| Thin content (<300 words) | 127 | 🔴 High | Low rankings, high bounce |
-| Duplicate title tags | 45 | 🟠 Medium | Indexation confusion |
-| Keyword cannibalization | 34 | 🔴 High | Split ranking authority |
-| Missing meta descriptions | 302 | 🟡 Low | Lower CTR |
-
-## Action Plan
-
-### Quick Wins (1-2 weeks)
-- [ ] Add meta descriptions to 302 pages
-- [ ] Consolidate 12 duplicate product pages
-- [ ] Expand 34 thin content pages to 800+ words
-
-### Medium-term (1-2 months)
-- [ ] Resolve 34 cannibalization clusters
-- [ ] Update 89 poor-quality pages
-- [ ] Implement canonical tags on 67 near-duplicate pages
-```
-
-### 3. Technical SEO Audit
-
-**Trigger:** `/technical-seo [domain]`
-
-Crawl budget analysis, Core Web Vitals, schema markup validation, and indexability checks.
-
-**Options:**
-- `--checks <all|speed|schema|crawl|indexability>` — specific checks to run
-- `--device <desktop|mobile|both>` — device type for speed tests
-- `--output-format <detailed|summary>` — report detail level
-
-**Example:**
+Infrastructure and technical optimization checks:
 
 ```bash
-/technical-seo example.com --checks all --device both --output-format detailed
+/technical-seo <domain>
+
+# Examples
+/technical-seo example.com
+/technical-seo --check-schema --validate-hreflang
+/technical-seo --core-web-vitals --mobile-first
 ```
 
-**Expected Output:**
+**Audit areas:**
+- Crawl budget optimization (robots.txt, XML sitemaps)
+- Core Web Vitals (LCP, FID, CLS)
+- Schema markup validation
+- Canonical and hreflang setup
+- Mobile-friendliness and indexability
 
-```markdown
-# Technical SEO Audit: example.com
+### Competitor Gap Analysis
 
-## Core Web Vitals (Mobile)
-
-| Metric | Value | Status | Threshold |
-|--------|-------|--------|-----------|
-| LCP (Largest Contentful Paint) | 2.1s | 🟢 Good | <2.5s |
-| FID (First Input Delay) | 87ms | 🟡 Needs Improvement | <100ms |
-| CLS (Cumulative Layout Shift) | 0.18 | 🟠 Poor | <0.1 |
-
-## Indexability Issues
-
-🔴 **Critical**
-- 23 pages blocked by robots.txt but linked internally
-- 12 pages with noindex but in sitemap.xml
-- 5 orphan pages (no internal links)
-
-🟠 **Medium**
-- 67 redirect chains (3+ hops)
-- 34 pages with slow server response (>600ms)
-
-## Schema Markup
-
-✓ Valid schema on 892 pages
-✗ Missing schema on 312 pages
-⚠ Schema errors on 18 pages
-
-**Recommended schema types:**
-- Product schema for 156 product pages
-- FAQ schema for 78 support pages
-- BreadcrumbList for all pages
-
-## Action Checklist
-
-1. Fix CLS issues (replace dynamic ads with fixed dimensions)
-2. Remove noindex from 12 sitemap URLs
-3. Add redirects for 23 blocked pages or remove internal links
-4. Implement breadcrumb schema site-wide
-5. Break 67 redirect chains into single 301s
-```
-
-### 4. Competitor Gap Analysis
-
-**Trigger:** `/competitor-gap <your-domain> <competitor-domains...>`
-
-Backlink gap, topic gap, and featured snippet opportunity analysis.
-
-**Options:**
-- `--analysis <backlinks|content|snippets|all>` — gap analysis type
-- `--min-dr <number>` — minimum domain rating for backlink sources
-- `--limit <number>` — max results per category
-
-**Example:**
+Identify opportunities from competitor comparison:
 
 ```bash
-/competitor-gap example.com competitor1.com competitor2.com --analysis all --min-dr 30
+/competitor-gap <your-domain> <competitor-domain>
+
+# Examples
+/competitor-gap example.com competitor.com
+/competitor-gap --backlinks --topics --featured-snippets
+/competitor-gap mysite.com rival.com --export report.md
 ```
 
-**Expected Output:**
+**Analysis includes:**
+- Backlink gap (DA/DR quality backlinks they have)
+- Topic/keyword gap (ranking keywords you're missing)
+- Featured snippet opportunities
+- Content format gaps
 
-```markdown
-# Competitor Gap Analysis
+### Content Brief Generation
 
-## Backlink Gap
-
-**Competitors rank with these links (you don't have):**
-
-| Referring Domain | DR | Competitors Linking | Suggested Page |
-|------------------|-----|---------------------|----------------|
-| industry-news.com | 72 | competitor1, competitor2 | /blog/industry-trends |
-| software-review-site.com | 68 | competitor1 | /product-comparison |
-| expert-blog.com | 54 | competitor2 | /case-studies |
-
-**Action:** 34 link prospects identified → `/link-prospecting` for outreach templates
-
-## Content Gap
-
-**Topics competitors rank for (you don't):**
-
-| Topic Cluster | Competitor Pages | Est. Traffic | Difficulty |
-|---------------|------------------|--------------|------------|
-| Project management methodologies | 12 | 8,400/mo | 42 |
-| Remote team collaboration | 8 | 5,200/mo | 38 |
-| Agile vs Waterfall comparison | 5 | 3,100/mo | 51 |
-
-## Featured Snippet Opportunities
-
-You rank #2-5 for these queries with featured snippets:
-
-| Query | Your Position | Snippet Type | Current Holder |
-|-------|---------------|--------------|----------------|
-| what is agile project management | #3 | Paragraph | competitor1.com |
-| project management templates | #2 | List | competitor2.com |
-| kanban vs scrum | #4 | Table | competitor1.com |
-
-**Optimization:** Target paragraph snippets with 40-60 word definitions in H2 sections
-```
-
-### 5. SEO Content Brief Generator
-
-**Trigger:** `/content-brief <target-keyword>`
-
-AI-generated SEO content brief with outline, NLP terms, word count targets, and competitor analysis.
-
-**Options:**
-- `--competitors <urls>` — comma-separated competitor URLs to analyze
-- `--intent <informational|commercial|transactional>` — search intent
-- `--format <blog-post|landing-page|product-page>` — content type
-
-**Example:**
+AI-generated SEO content briefs:
 
 ```bash
-/content-brief "how to choose project management software" \
-  --competitors "competitor1.com/guide,competitor2.com/article" \
-  --intent informational \
-  --format blog-post
+/content-brief <topic>
+
+# Examples
+/content-brief "how to choose project management software"
+/content-brief "b2b email marketing" --word-count 2000
+/content-brief --target-keyword "seo tools" --serp-top-10
 ```
 
-**Expected Output:**
+**Brief components:**
+- Target keyword and related NLP terms
+- Recommended outline with H2/H3 structure
+- Word count targets based on SERP analysis
+- Questions to answer (PAA integration)
+- Internal linking recommendations
 
-```markdown
-# Content Brief: "how to choose project management software"
+### SERP Monitoring
 
-## Target Metrics
-- **Primary Keyword:** how to choose project management software
-- **Search Volume:** 2,400/mo
-- **Keyword Difficulty:** 34
-- **Search Intent:** Informational (buying-guide)
-- **Target Word Count:** 2,200-2,800 words
-- **Target Reading Level:** Grade 8-10
-
-## SERP Analysis
-
-**Current Top 3:**
-1. competitor1.com/guide (2,847 words, DR 68, 12 backlinks)
-2. competitor2.com/article (1,923 words, DR 54, 8 backlinks)
-3. industry-blog.com/post (3,104 words, DR 71, 34 backlinks)
-
-**Common Elements:**
-- Comparison tables (feature matrix)
-- Pros/cons lists for each software type
-- Pricing breakdowns
-- Use-case scenarios
-- FAQ section (8-12 questions)
-
-## Recommended Outline
-
-### H1: How to Choose Project Management Software: Complete 2026 Guide
-
-### H2: What is Project Management Software?
-- Brief definition (40-60 words for snippet optimization)
-- Types of PM software (bullet list)
-
-### H2: 7 Key Factors When Choosing PM Software
-- H3: Team Size & Scalability
-- H3: Budget & Pricing Models
-- H3: Feature Requirements (task tracking, time tracking, reporting)
-- H3: Integration Capabilities
-- H3: Ease of Use & Learning Curve
-- H3: Mobile Access & Remote Work Features
-- H3: Security & Compliance
-
-### H2: Popular Project Management Software Compared
-- [Comparison table with 5-7 tools]
-
-### H2: How to Evaluate PM Software (Step-by-Step)
-1. Assess your team's needs
-2. Set a budget range
-3. Create a feature checklist
-4. Test free trials
-5. Check integration compatibility
-6. Read user reviews
-7. Make your decision
-
-### H2: Common Mistakes to Avoid
-- Bullet list of 5-7 mistakes
-
-### H2: FAQ
-- 10 questions based on "People Also Ask" SERP feature
-
-### H2: Conclusion & Next Steps
-- Summary + CTA
-
-## NLP Terms to Include
-
-**Entity Coverage:**
-- Asana, Trello, Monday.com, Jira, ClickUp (competitor tools)
-- Gantt chart, Kanban board, sprint planning (features)
-- Small business, enterprise, remote team (audience segments)
-
-**Semantic Keywords (use 60%+ of these):**
-- project management tool selection
-- software comparison
-- team collaboration platform
-- task management features
-- pricing plans
-- free trial
-- integration options
-- user interface
-- reporting capabilities
-
-## Content Requirements
-
-- [ ] Include at least one comparison table
-- [ ] Add 2-3 custom screenshots or diagrams
-- [ ] Write 40-60 word definition for snippet optimization
-- [ ] Create FAQ section with schema markup
-- [ ] Internal link to product comparison page
-- [ ] External link to 2-3 authoritative sources (e.g., PMI.org)
-- [ ] Add jump links for long sections
-- [ ] Mobile-friendly formatting (short paragraphs, subheadings every 200-300 words)
-
-## Meta Tags
-
-**Title (58 chars):** How to Choose Project Management Software [2026 Guide]
-
-**Meta Description (155 chars):** Complete guide to choosing the right project management software for your team. Compare features, pricing, integrations & more. Updated 2026.
-
-## Next Steps
-
-1. Use `/ai-content-pipeline` to draft this brief
-2. Run `/serp-monitor` to track ranking progress after publish
-3. Set up `/link-prospecting` campaign to build backlinks
-```
-
-### 6. SERP Monitor
-
-**Trigger:** `/serp-monitor <keywords-file|keyword>`
-
-Daily rank tracking with volatility alerts and CTR optimization recommendations.
-
-**Options:**
-- `--domain <domain>` — your domain to track
-- `--frequency <daily|weekly>` — monitoring frequency
-- `--device <desktop|mobile|both>` — device type
-- `--location <country-code>` — geographic location
-
-**Example:**
+Track rankings with volatility alerts:
 
 ```bash
-/serp-monitor keywords.txt --domain example.com --frequency daily --device both
+/serp-monitor <domain>
+
+# Examples
+/serp-monitor example.com --keywords keyword-list.csv
+/serp-monitor --daily --alert-threshold 3
+/serp-monitor mysite.com --ctr-analysis
 ```
 
-**Expected Input (keywords.txt):**
+**Tracking features:**
+- Daily rank tracking for target keywords
+- Volatility alerts (position changes > threshold)
+- CTR optimization recommendations
+- SERP feature wins/losses
 
-```
-project management software
-best project management tools
-free project management app
-agile project management
-kanban board software
-```
+### Link Prospecting
 
-**Expected Output:**
-
-```markdown
-# SERP Monitor Report: example.com
-
-## Ranking Summary (Last 7 Days)
-
-| Keyword | Current | Previous | Change | Volatility | CTR |
-|---------|---------|----------|--------|------------|-----|
-| project management software | #4 | #5 | ↑1 🟢 | Low | 8.2% |
-| best project management tools | #8 | #7 | ↓1 🔴 | Medium | 3.1% |
-| free project management app | #12 | #15 | ↑3 🟢 | High | 1.4% |
-| agile project management | #6 | #6 | — | Low | 5.7% |
-| kanban board software | #3 | #2 | ↓1 🔴 | Medium | 11.3% |
-
-## Alerts
-
-🔴 **High Volatility Detected**
-- "free project management app" moved from #15 to #9 to #12 (3-day period)
-- Likely cause: SERP feature changes (People Also Ask box added)
-
-🟠 **CTR Opportunity**
-- "best project management tools" at #8 has 3.1% CTR (expected: 5-6%)
-- **Action:** Rewrite title tag to include year and power words
-
-## CTR Optimization Suggestions
-
-**Keyword:** best project management tools (#8, 3.1% CTR)
-
-Current title: `Best Project Management Tools | Example.com`
-
-Suggested titles:
-- `11 Best Project Management Tools in 2026 (Expert Tested)`
-- `Best Project Management Software: Top 11 Tools Compared [2026]`
-- `The 11 Best Project Management Tools for Teams (2026 Guide)`
-
-**Expected CTR improvement:** +2-3 percentage points
-
-## Next Steps
-
-1. Update title tag for "best project management tools"
-2. Monitor "free project management app" for SERP feature optimization
-3. Set up featured snippet tracking for "agile project management"
-```
-
-### 7. Link Prospecting
-
-**Trigger:** `/link-prospecting <topic|url>`
-
-Quality backlink prospect discovery with DA/DR filters and outreach templates.
-
-**Options:**
-- `--min-dr <number>` — minimum Domain Rating
-- `--max-dr <number>` — maximum Domain Rating (avoid tier-1 sites you can't get)
-- `--type <guest-post|resource-page|broken-link|unlinked-mention>` — prospecting method
-- `--limit <number>` — max prospects to return
-
-**Example:**
+Quality backlink prospect identification:
 
 ```bash
-/link-prospecting "project management" --min-dr 30 --max-dr 70 --type guest-post --limit 50
+/link-prospecting <niche>
+
+# Examples
+/link-prospecting "saas marketing"
+/link-prospecting --da-min 30 --dr-min 25
+/link-prospecting "project management" --templates
 ```
 
-**Expected Output:**
+**Output:**
+- Prospect list with DA/DR scores
+- Contact information discovery
+- Outreach email templates
+- Relevance scoring
 
-```markdown
-# Link Prospecting: project management
+### Page Speed SEO Analysis
 
-## Prospect Summary
-- Total prospects found: 127
-- Filtered by DR 30-70: 48
-- Guest post opportunities: 34
-- Resource page opportunities: 14
-
-## Top Prospects (Guest Posts)
-
-| Domain | DR | Traffic | Contact | Notes |
-|--------|-----|---------|---------|-------|
-| pm-insights.com | 54 | 45K/mo | editor@pm-insights.com | Accepts guest posts, bio link allowed |
-| business-tools-blog.com | 48 | 28K/mo | Form | Weekly guest post slot, 1,500+ words |
-| startup-resources.io | 61 | 67K/mo | submissions@startup-resources.io | High editorial standards, 2-3 week review |
-
-## Outreach Template (Guest Post)
-
-**Subject:** Guest Post Idea: [Your Topic] for [Their Site]
-
----
-
-Hi [Name],
-
-I'm [Your Name] from [Your Company], and I've been following [Their Site] for [specific reason — e.g., your recent article on agile methodologies].
-
-I'd love to contribute a guest post on **[specific topic]** — I noticed you haven't covered [angle] yet, and I think your audience would find it valuable.
-
-**Proposed outline:**
-- [H2 heading 1]
-- [H2 heading 2]
-- [H2 heading 3]
-
-I've written for [Site 1], [Site 2], and [Site 3] (links: [URLs]).
-
-Would this be a good fit for [Their Site]?
-
-Best,
-[Your Name]
-
----
-
-## Resource Page Opportunities
-
-| Page URL | DR | Anchor Context | Suggested Pitch |
-|----------|-----|----------------|-----------------|
-| industry-tools.com/resources | 58 | "Project management tools and guides" | Pitch your ultimate guide as a comprehensive resource |
-| startup-toolkit.io/pm-resources | 52 | Lists 20+ PM tools | Suggest adding your tool with brief description |
-
-## Next Steps
-
-1. Export prospect list: `/export prospects.csv`
-2. Set up email sequences in your outreach tool
-3. Track responses in `/link-prospecting --track`
-4. Follow up after 5-7 days if no response
-```
-
-### 8. Page Speed SEO Analysis
-
-**Trigger:** `/page-speed-seo <url>`
-
-Render-blocking resource detection, LCP/CLS/FID diagnosis mapped to ranking impact.
-
-**Options:**
-- `--device <desktop|mobile|both>` — device type
-- `--throttling <none|3g|4g>` — network throttling
-- `--report <summary|detailed>` — report detail level
-
-**Example:**
+Performance diagnostics mapped to ranking impact:
 
 ```bash
-/page-speed-seo https://example.com/product-page --device mobile --throttling 4g --report detailed
+/page-speed-seo <url>
+
+# Examples
+/page-speed-seo https://example.com
+/page-speed-seo --mobile --desktop --lighthouse
+/page-speed-seo mysite.com/page --render-blocking
 ```
 
-**Expected Output:**
+**Diagnostics:**
+- Render-blocking resources
+- LCP, CLS, FID measurements
+- Image optimization opportunities
+- Critical path analysis
+- Ranking impact estimation
 
-```markdown
-# Page Speed SEO: example.com/product-page (Mobile, 4G)
+### Local SEO Audit
 
-## Performance Score: 68/100 🟠
-
-### Core Web Vitals
-
-| Metric | Value | Status | Impact on Rankings |
-|--------|-------|--------|-------------------|
-| LCP | 3.8s | 🔴 Poor | **High** — LCP >2.5s negatively impacts mobile rankings |
-| FID | 120ms | 🟡 Needs Improvement | Medium — May affect engagement metrics |
-| CLS | 0.24 | 🔴 Poor | **High** — CLS >0.1 causes user frustration, increases bounce rate |
-
-## Issues Ranked by SEO Impact
-
-### 🔴 Critical (Fix Immediately)
-
-**1. Render-Blocking Resources (LCP Impact: -1.2s)**
-- `/css/main.css` (247 KB) — blocks rendering
-- `/js/analytics.js` (89 KB) — blocks main thread
-- **Fix:** Inline critical CSS, defer non-critical CSS, async analytics script
-
-**2. Cumulative Layout Shift from Ads (CLS: 0.18)**
-- Dynamic ad slots cause layout shifts
-- **Fix:** Reserve fixed dimensions for ad slots (300x250, 728x90)
-
-**3. Large Images Not Optimized (LCP Impact: -0.8s)**
-- `hero-image.jpg` (1.2 MB) — uncompressed
-- **Fix:** Compress to WebP, use `srcset` for responsive images
-
-### 🟠 Medium Priority
-
-**4. JavaScript Execution Time (FID Impact: +40ms)**
-- Main thread blocked for 680ms during load
-- **Fix:** Code-split large bundles, defer non-essential JS
-
-**5. Server Response Time (Impact: -0.3s)**
-- TTFB: 580ms (target: <200ms)
-- **Fix:** Enable caching, use CDN, optimize database queries
-
-### 🟡 Low Priority
-
-**6. Unused CSS (Savings: 67 KB)**
-- 34% of CSS unused on this page
-- **Fix:** Remove unused Bootstrap components, critical CSS extraction
-
-## Implementation Guide
-
-### Quick Wins (1-2 days)
-
-```html
-<!-- BEFORE -->
-<link rel="stylesheet" href="/css/main.css">
-<script src="/js/analytics.js"></script>
-
-<!-- AFTER -->
-<style>
-  /* Critical CSS inlined here (above-the-fold styles) */
-  .hero { ... }
-  .nav { ... }
-</style>
-<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
-
-<script async src="/js/analytics.js"></script>
-```
-
-```html
-<!-- Fix layout shift from ads -->
-<div class="ad-slot" style="min-height: 250px; width: 300px;">
-  <!-- Ad code here -->
-</div>
-```
-
-### Image Optimization
+Local search optimization checks:
 
 ```bash
-# Convert to WebP
-cwebp hero-image.jpg -q 80 -o hero-image.webp
+/local-seo <business-name> <location>
 
-# Generate responsive sizes
-convert hero-image.jpg -resize 800x hero-image-800w.jpg
-convert hero-image.jpg -resize 1200x hero-image-1200w.jpg
-convert hero-image.jpg -resize 1600x hero-image-1600w.jpg
+# Examples
+/local-seo "Acme Coffee" "Seattle, WA"
+/local-seo --nap-consistency --gbp-optimize
+/local-seo mybusiness seattle --citations
 ```
 
-```html
-<picture>
-  <source srcset="hero-image-800w.webp 800w,
-                  hero-image-1200w.webp 1200w,
-                  hero-image-1600w.webp 1600w"
-          type="image/webp">
-  <img src="hero-image.jpg"
-       srcset="hero-image-800w.jpg 800w,
-               hero-image-1200w.jpg 1200w,
-               hero-image-1600w.jpg 1600w"
-       sizes="(max-width: 800px) 100vw, 800px"
-       alt="Project management dashboard"
-       loading="lazy">
-</picture>
+**Audit areas:**
+- NAP (Name, Address, Phone) consistency
+- Google Business Profile optimization
+- Local citation audit
+- Review management recommendations
+- Local schema markup
+
+### Content Calendar
+
+Data-driven editorial planning:
+
+```bash
+/content-calendar --months <n>
+
+# Examples
+/content-calendar --months 3 --keywords keyword-list.csv
+/content-calendar --seasonality --search-demand
+/content-calendar Q1-2026 --export calendar.csv
 ```
 
-### Server-Side Fixes
+**Calendar features:**
+- Search demand forecasting
+- Seasonality analysis
+- Topic distribution
+- Publishing frequency recommendations
+- Content type mix
 
-```nginx
-# Nginx caching config
-location ~* \.(jpg|jpeg|png|webp|css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
+## Multi-Step Workflows
+
+### Full SEO Sprint
+
+12-step comprehensive SEO campaign:
+
+```bash
+/workflows:full-seo-sprint <target> --scope <full|focused>
+
+# Example
+/workflows:full-seo-sprint example.com --scope full
+```
+
+**Sprint steps:**
+1. Technical SEO audit
+2. Content audit
+3. Competitor gap analysis
+4. Keyword research and mapping
+5. Content strategy planning
+6. On-page optimization
+7. Internal linking optimization
+8. Schema markup implementation
+9. Page speed optimization
+10. Link building campaign
+11. Monitoring setup
+12. Reporting dashboard
+
+### Launch SEO Checklist
+
+Pre-launch SEO validation:
+
+```bash
+/workflows:launch-seo <domain>
+
+# Example
+/workflows:launch-seo newsite.com --checklist
+```
+
+**Checklist items:**
+- Canonical URL setup
+- Hreflang tags (if multi-language)
+- XML sitemap submission
+- Robots.txt configuration
+- Google Search Console setup
+- Analytics tracking
+- Core Web Vitals baseline
+
+### Content Refresh Workflow
+
+Recover lost rankings through content updates:
+
+```bash
+/workflows:content-refresh <domain>
+
+# Example
+/workflows:content-refresh example.com --underperforming-threshold 50
+```
+
+**Workflow:**
+1. Identify underperforming pages (rank drops)
+2. Analyze current vs. top-ranking content
+3. Generate refresh recommendations
+4. Prioritize by traffic recovery potential
+5. Track post-refresh performance
+
+### Authority Building Campaign
+
+End-to-end link building and digital PR:
+
+```bash
+/workflows:authority-building <niche>
+
+# Example
+/workflows:authority-building "saas marketing" --duration 90
+```
+
+**Campaign stages:**
+1. Link gap analysis
+2. Prospect identification
+3. Content asset creation (linkable assets)
+4. Outreach campaign execution
+5. Relationship management
+6. Link acquisition tracking
+
+### AI Content Pipeline
+
+Automated content production workflow:
+
+```bash
+/workflows:ai-content-pipeline <keyword-list>
+
+# Example
+/workflows:ai-content-pipeline keywords.csv --auto-publish false
+```
+
+**Pipeline stages:**
+1. Keyword selection and prioritization
+2. Content brief generation
+3. AI-assisted draft creation
+4. SEO optimization
+5. Quality review
+6. Publishing (manual approval or automated)
+
+## Configuration
+
+Create `.seo-config.json` in your project root:
+
+```json
+{
+  "defaultDomain": "example.com",
+  "apiKeys": {
+    "searchConsole": "${GOOGLE_SEARCH_CONSOLE_API_KEY}",
+    "semrush": "${SEMRUSH_API_KEY}",
+    "ahrefs": "${AHREFS_API_KEY}",
+    "moz": "${MOZ_API_KEY}"
+  },
+  "thresholds": {
+    "minWordCount": 300,
+    "minKeywordDensity": 0.5,
+    "maxKeywordDensity": 2.5,
+    "minDA": 20,
+    "minDR": 15,
+    "coreWebVitalsLCP": 2.5,
+    "coreWebVitalsFID": 100,
+    "coreWebVitalsCLS": 0.1
+  },
+  "workflows": {
+    "fullSeoSprint": {
+      "duration": 90,
+      "checkpoints": [30, 60, 90]
+    }
+  },
+  "reporting": {
+    "format": "markdown",
+    "includeCharts": true,
+    "exportPath": "./seo-reports/"
+  }
 }
-
-# Enable compression
-gzip on;
-gzip_types text/css application/javascript image/svg+xml;
 ```
 
-## Estimated Impact
-
-**After implementing fixes:**
-- LCP: 3.8s → 2.1s (↓1.7s) 🟢
-- FID: 120ms → 75ms (↓45ms) 🟢
-- CLS: 0.24 → 0.08 (↓0.16) 🟢
-- **Performance Score: 68 → 92**
-- **Ranking Impact:** Potential +2-5 positions for mobile queries
-
-## Next Steps
-
-1. Implement critical CSS inlining
-2. Fix ad layout shift
-3. Optimize images to WebP
-4. Re-test after changes: `/page-speed-seo <url> --device mobile`
-5. Monitor Core Web Vitals in Search Console
-```
-
-### 9. Local SEO Audit
-
-**Trigger:** `/local-seo <business-name> <location>`
-
-NAP consistency check, Google Business Profile optimization, and local citation audit.
-
-**Options:**
-- `--gmb-profile <url>` — Google Business Profile URL
-- `--competitors <names>` — comma-separated competitor names
-- `--radius <miles>` — local search radius
-
-**Example:**
+**Environment variables:**
 
 ```bash
-/local-seo "Acme Plumbing" "Austin, TX" --gmb-profile https://g.page/acme-plumbing-austin --competitors "Best Plumbing,Quick Fix Plumbing"
+export GOOGLE_SEARCH_CONSOLE_API_KEY="your-key"
+export SEMRUSH_API_KEY="your-key"
+export AHREFS_API_KEY="your-key"
+export MOZ_API_KEY="your-key"
 ```
 
-**Expected Output:**
+## Command Output Format
 
-```markdown
-# Local SEO Audit: Acme Plumbing (Austin, TX)
-
-## Google Business Profile Score: 74/100 🟡
-
-### Profile Completeness
-
-| Element | Status | Impact |
-|---------|--------|--------|
-| Business name | ✓ Correct | — |
-| Address | ✓ Verified | — |
-| Phone | ✓ Consistent | — |
-| Website | ✓ Linked | — |
-| Hours | ✗ Missing holiday hours | Medium |
-| Categories | ⚠ Only 1 of 10 used | High |
-| Description | ⚠ 87 chars (recommend 750) | Medium |
-| Photos | ⚠ 12 photos (recommend 50+) | High |
-| Posts | ✗ No posts in 30 days | Medium |
-| Q&A | ⚠ 3 unanswered questions | Low |
-| Reviews | ✓ 47 reviews (4.6 stars) | — |
-
-### Recommendations
-
-**1. Add More Categories**
-- Primary: Plumber ✓
-- Suggested additions: Emergency plumbing, Water heater repair, Drain cleaning, Leak detection
-
-**2. Expand Description (87 → 750 chars)**
-
-Current:
-> Acme Plumbing provides plumbing services in Austin, TX.
-
-Suggested:
-> Acme Plumbing is Austin's trusted emergency plumber, serving Travis County since 2005. We specialize in water heater repair, drain cleaning, leak detection, and sewer line replacement. Our licensed, insured plumbers are available 24/7 for emergency plumbing services. We proudly serve Austin, Round Rock, Cedar Park, and Pflugerville with same-day service. Family-owned, locally operated. Call (512) 555-1234 for fast, reliable plumbing repairs.
-
-**3. Upload More Photos**
-- Team photos: 3 (add 5-7 more)
-- Before/after: 0 (add 10-15)
-- Service photos: 6 (good)
-- Vehicle/branding: 3 (add 2-3 more)
-
-## NAP Consistency Audit
-
-**Your NAP:**
-- Name: Acme Plumbing
-- Address: 123 Main St, Austin, TX 78701
-- Phone: (512) 555-1234
-
-### Citations Found: 34
-
-| Source | NAP Match | Status |
-|--------|-----------|--------|
-| Yelp | ✓ Exact match | 🟢 Good |
-| BBB | ⚠ Phone: (512) 555-1235 | 🟠 Fix |
-| YellowPages | ✓ Exact match | 🟢 Good |
-| HomeAdvisor | ⚠ Address: 123 Main Street | 🟡 Minor |
-| Angi | ✗ Old address: 456 Oak Ave | 🔴 Critical |
-
-**Inconsistencies found:** 7 citations with incorrect NAP
-
-### Missing Citations (High-Priority)
-
-- [ ] Nextdoor
-- [ ] Thumbtack
-- [ ] Porch
-- [ ] Local.com
-- [ ] Manta
-
-## Competitor Comparison (3-Mile Radius)
-
-| Business | GMB Reviews | Avg Rating | Photos | Posts/Month |
-|----------|-------------|------------|--------|-------------|
-| **Acme Plumbing** | 47 | 4.6 ⭐ | 12 | 0 |
-| Best Plumbing | 89 | 4.8 ⭐ | 64 | 4 |
-| Quick Fix Plumbing | 123 | 4.4 ⭐ | 38 | 2 |
-
-**Gap Analysis:**
-- You need 42 more reviews to match Quick Fix
-- Upload 26 more photos to match Quick Fix
-- Post 2-4 times/month to match competitors
-
-## Review Strategy
-
-**Current review velocity:** 2.1 reviews/month
-
-**Suggested actions:**
-1. Send review request emails to recent customers (template below)
-2. Add QR code to invoices linking to GMB review page
-3. Train technicians to ask for reviews after service
-4. Respond to all reviews (currently 18 unanswered)
-
-**Review Request Email Template:**
+All commands follow a consistent 5-step structure:
 
 ```
-Subject: How was our plumbing service?
-
-Hi [Customer Name],
-
-Thanks for choosing Acme Plumbing for your recent [service type] in [city].
-
-We'd love to hear about your experience! Your feedback helps us improve and helps other Austin homeowners find reliable plumbing services.
-
-[Leave a Google Review →]
-
-If there's anything we can do to improve, please reply to this email.
-
-Thanks again!
-[Your Name]
-Acme Plumbing
-(512) 555-1234
+① Scope Confirmation  — verify target and options
+② Live Analysis       — progress bar with real-time updates
+③ Findings Table      — structured results sorted by severity
+④ Action Plan         — prioritized recommendations with time estimates
+⑤ Next Steps          — suggested follow-up commands
 ```
 
-## Local Content Opportunities
+**Severity indicators:**
+- 🔴 Critical (immediate action required)
+- 🟠 High (address within 1 week)
+- 🟡 Medium (address within 1 month)
+- 🟢 Low (nice-to-have improvements)
 
-**Keyword gaps (competitors rank, you don't):**
-- "emergency plumber austin" — 1,200 local searches/mo
-- "water heater repair austin" — 680 local searches/mo
-- "austin plumber near me" — 2,100 local searches/mo
+## Common Patterns
 
-**Suggested content:**
-1. Service area pages for each suburb (Round Rock, Cedar Park, etc.)
-2. FAQ page targeting "plumber austin" + question keywords
-3. Blog posts: "Common Plumbing Problems in Austin Homes" (local angle)
+### Keyword Research → Content Brief → Publish
 
-## Action Plan
+```bash
+# 1. Research keywords
+/keyword-research "saas analytics tools" --export keywords.csv
 
-### This Week
-- [ ] Fix NAP inconsistencies on BBB and Angi
-- [ ] Add 9 more categories to GMB
-- [ ] Expand GMB description to 750 characters
-- [ ] Answer 3 unanswered Q&A questions
-- [
+# 2. Generate content brief for top opportunity
+/content-brief "best saas analytics tools 2026" --word-count 2500
+
+# 3. Create draft (use brief output)
+# ... content creation ...
+
+# 4. Optimize before publish
+/technical-seo --check-schema --validate-metadata
+```
+
+### Site Audit → Fix → Monitor
+
+```bash
+# 1. Full technical audit
+/technical-seo example.com --scope full --output audit-report.md
+
+# 2. Content quality check
+/content-audit --scope full --cannibalization-report
+
+# 3. Implement fixes based on priorities
+# ... technical improvements ...
+
+# 4. Set up monitoring
+/serp-monitor example.com --keywords target-keywords.csv --daily
+```
+
+### Competitor Analysis → Gap Filling
+
+```bash
+# 1. Identify gaps
+/competitor-gap mysite.com competitor.com --backlinks --topics
+
+# 2. Prospect for similar backlinks
+/link-prospecting "my-niche" --da-min 30 --similar-to competitor.com
+
+# 3. Find missing topic opportunities
+/keyword-research --competitor-keywords competitor.com --not-ranking mysite.com
+
+# 4. Create content calendar
+/content-calendar --months 6 --gap-keywords gap-list.csv
+```
+
+## Troubleshooting
+
+### "Crawl rate limited"
+
+Reduce crawl speed in config:
+
+```json
+{
+  "crawl": {
+    "delayMs": 1000,
+    "maxConcurrent": 3
+  }
+}
+```
+
+### "API quota exceeded"
+
+Commands fall back to free methods when API keys missing. For full features:
+
+```bash
+# Check which APIs are configured
+grep -r "API_KEY" .seo-config.json
+
+# Set missing keys
+export SEMRUSH_API_KEY="your-key"
+```
+
+### "Core Web Vitals data unavailable"
+
+Requires public site with sufficient traffic:
+
+```bash
+# Use Lighthouse instead
+/page-speed-seo https://example.com --lighthouse --mobile
+```
+
+### "Keyword data not found"
+
+Try broader match or synonyms:
+
+```bash
+# Use broader match type
+/keyword-research "project management" --match-type broad
+
+# Include synonyms
+/keyword-research "pm software" --synonyms true
+```
+
+### "Workflow checkpoint failed"
+
+Resume from last successful step:
+
+```bash
+# Check workflow state
+cat .seo-workflows/full-seo-sprint-state.json
+
+# Resume from step N
+/workflows:full-seo-sprint example.com --resume-from 5
+```
+
+## Integration Examples
+
+### Export to Google Sheets
+
+```bash
+/keyword-research "my topic" --export csv
+# Then import CSV to Google Sheets via Apps Script
+```
+
+### Slack Alerts for Rank Changes
+
+```bash
+# Monitor with webhook
+/serp-monitor example.com \
+  --webhook "${SLACK_WEBHOOK_URL}" \
+  --alert-threshold 3
+```
+
+### CI/CD SEO Testing
+
+```bash
+# Pre-deploy SEO validation
+/technical-seo staging.example.com \
+  --exit-code-on-errors \
+  --critical-only
+```
+
+## Performance Notes
+
+- **Keyword research**: ~30s for 100 keywords
+- **Content audit**: ~2-5 min per 1000 pages
+- **Technical SEO**: ~1-3 min for typical site
+- **Competitor gap**: ~2-4 min depending on site size
+
+Use `--scope partial` and `--depth` limits for faster results during development.
+
+## Further Documentation
+
+- Full command reference: See `/commands/` directory
+- Workflow definitions: See `/workflows/` directory
+- Original project: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)
+- Example reports: See `/examples/` directory
