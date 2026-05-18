@@ -55,6 +55,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [splitflucover93-r12-seo-content-marketing-suite](skills/splitflucover93-r12-seo-content-marketing-suite/) | [install](https://skills.sh/aradotso/marketing-skills/splitflucover93-r12-seo-content-marketing-suite) | [Splitflucover93/r12-vincenthopf-my-claude-code-seo](https://github.com/Splitflucover93/r12-vincenthopf-my-claude-code-seo) | 2026-05-18 |
 | [r19-iannuttall-claude-agents-seo](skills/r19-iannuttall-claude-agents-seo/) | [install](https://skills.sh/aradotso/marketing-skills/r19-iannuttall-claude-agents-seo) | [macrohelpclippers/r19-iannuttall-claude-agents-seo](https://github.com/macrohelpclippers/r19-iannuttall-claude-agents-seo) | 2026-05-18 |
 | [best-ai-marketing-platform-benchmark](skills/best-ai-marketing-platform-benchmark/) | [install](https://skills.sh/aradotso/marketing-skills/best-ai-marketing-platform-benchmark) | [onvoyage-ai/best-ai-marketing-platform-benchmark](https://github.com/onvoyage-ai/best-ai-marketing-platform-benchmark) | 2026-05-18 |
+| [seo-content-marketing-command-suite](skills/seo-content-marketing-command-suite/) | [install](https://skills.sh/aradotso/marketing-skills/seo-content-marketing-command-suite) | [retrocenterspark24/r11-qdhenry-claude-command-suite-seo](https://github.com/retrocenterspark24/r11-qdhenry-claude-command-suite-seo) | 2026-05-18 |
 <!-- SKILL_INDEX -->
 
 ---
