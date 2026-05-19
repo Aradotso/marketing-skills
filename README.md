@@ -73,6 +73,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [he4rt-marketing-extension](skills/he4rt-marketing-extension/) | [install](https://skills.sh/aradotso/marketing-skills/he4rt-marketing-extension) | [he4rt/marketing-extension](https://github.com/he4rt/marketing-extension) | 2026-05-19 |
 | [marketing-selling-point-generator](skills/marketing-selling-point-generator/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-selling-point-generator) | [danidai098-arch/marketing-selling-point-generator](https://github.com/danidai098-arch/marketing-selling-point-generator) | 2026-05-19 |
 | [rustyseo-toolkit](skills/rustyseo-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/rustyseo-toolkit) | [mascanho/RustySEO](https://github.com/mascanho/RustySEO) | 2026-05-19 |
+| [30x-growth-marketing-panel](skills/30x-growth-marketing-panel/) | [install](https://skills.sh/aradotso/marketing-skills/30x-growth-marketing-panel) | [norahe0304-art/30x-growth-marketing-panel](https://github.com/norahe0304-art/30x-growth-marketing-panel) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
