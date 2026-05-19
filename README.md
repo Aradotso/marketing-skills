@@ -76,6 +76,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [30x-growth-marketing-panel](skills/30x-growth-marketing-panel/) | [install](https://skills.sh/aradotso/marketing-skills/30x-growth-marketing-panel) | [norahe0304-art/30x-growth-marketing-panel](https://github.com/norahe0304-art/30x-growth-marketing-panel) | 2026-05-19 |
 | [awesome-marketing-skills-library](skills/awesome-marketing-skills-library/) | [install](https://skills.sh/aradotso/marketing-skills/awesome-marketing-skills-library) | [plushyta/Awesome-Marketing-Skills](https://github.com/plushyta/Awesome-Marketing-Skills) | 2026-05-19 |
 | [facebook-ads-library-mcp-server](skills/facebook-ads-library-mcp-server/) | [install](https://skills.sh/aradotso/marketing-skills/facebook-ads-library-mcp-server) | [proxy-intell/facebook-ads-library-mcp](https://github.com/proxy-intell/facebook-ads-library-mcp) | 2026-05-19 |
+| [pymc-marketing-mmm-clv](skills/pymc-marketing-mmm-clv/) | [install](https://skills.sh/aradotso/marketing-skills/pymc-marketing-mmm-clv) | [pymc-labs/pymc-marketing](https://github.com/pymc-labs/pymc-marketing) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
