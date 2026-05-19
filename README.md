@@ -71,6 +71,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [codex-marketing-skills](skills/codex-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/codex-marketing-skills) | [rbrown101010/codex-marketing-skills](https://github.com/rbrown101010/codex-marketing-skills) | 2026-05-19 |
 | [he4rt-twitter-engagement-tracker](skills/he4rt-twitter-engagement-tracker/) | [install](https://skills.sh/aradotso/marketing-skills/he4rt-twitter-engagement-tracker) | [he4rt/marketing-extension](https://github.com/he4rt/marketing-extension) | 2026-05-19 |
 | [he4rt-marketing-extension](skills/he4rt-marketing-extension/) | [install](https://skills.sh/aradotso/marketing-skills/he4rt-marketing-extension) | [he4rt/marketing-extension](https://github.com/he4rt/marketing-extension) | 2026-05-19 |
+| [marketing-selling-point-generator](skills/marketing-selling-point-generator/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-selling-point-generator) | [danidai098-arch/marketing-selling-point-generator](https://github.com/danidai098-arch/marketing-selling-point-generator) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
