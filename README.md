@@ -75,6 +75,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [rustyseo-toolkit](skills/rustyseo-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/rustyseo-toolkit) | [mascanho/RustySEO](https://github.com/mascanho/RustySEO) | 2026-05-19 |
 | [30x-growth-marketing-panel](skills/30x-growth-marketing-panel/) | [install](https://skills.sh/aradotso/marketing-skills/30x-growth-marketing-panel) | [norahe0304-art/30x-growth-marketing-panel](https://github.com/norahe0304-art/30x-growth-marketing-panel) | 2026-05-19 |
 | [awesome-marketing-skills-library](skills/awesome-marketing-skills-library/) | [install](https://skills.sh/aradotso/marketing-skills/awesome-marketing-skills-library) | [plushyta/Awesome-Marketing-Skills](https://github.com/plushyta/Awesome-Marketing-Skills) | 2026-05-19 |
+| [facebook-ads-library-mcp-server](skills/facebook-ads-library-mcp-server/) | [install](https://skills.sh/aradotso/marketing-skills/facebook-ads-library-mcp-server) | [proxy-intell/facebook-ads-library-mcp](https://github.com/proxy-intell/facebook-ads-library-mcp) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
