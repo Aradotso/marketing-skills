@@ -68,6 +68,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [claude-email-marketing-skill](skills/claude-email-marketing-skill/) | [install](https://skills.sh/aradotso/marketing-skills/claude-email-marketing-skill) | [jacquescorbytuech/email-marketing-skill](https://github.com/jacquescorbytuech/email-marketing-skill) | 2026-05-18 |
 | [threads-growth-skill](skills/threads-growth-skill/) | [install](https://skills.sh/aradotso/marketing-skills/threads-growth-skill) | [krumjahn/threads-growth-skill](https://github.com/krumjahn/threads-growth-skill) | 2026-05-18 |
 | [reddit-marketing-agent](skills/reddit-marketing-agent/) | [install](https://skills.sh/aradotso/marketing-skills/reddit-marketing-agent) | [lucaswalter/reddit-marketing-agent](https://github.com/lucaswalter/reddit-marketing-agent) | 2026-05-18 |
+| [codex-marketing-skills](skills/codex-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/codex-marketing-skills) | [rbrown101010/codex-marketing-skills](https://github.com/rbrown101010/codex-marketing-skills) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
