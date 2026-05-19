@@ -69,6 +69,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [threads-growth-skill](skills/threads-growth-skill/) | [install](https://skills.sh/aradotso/marketing-skills/threads-growth-skill) | [krumjahn/threads-growth-skill](https://github.com/krumjahn/threads-growth-skill) | 2026-05-18 |
 | [reddit-marketing-agent](skills/reddit-marketing-agent/) | [install](https://skills.sh/aradotso/marketing-skills/reddit-marketing-agent) | [lucaswalter/reddit-marketing-agent](https://github.com/lucaswalter/reddit-marketing-agent) | 2026-05-18 |
 | [codex-marketing-skills](skills/codex-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/codex-marketing-skills) | [rbrown101010/codex-marketing-skills](https://github.com/rbrown101010/codex-marketing-skills) | 2026-05-19 |
+| [he4rt-twitter-engagement-tracker](skills/he4rt-twitter-engagement-tracker/) | [install](https://skills.sh/aradotso/marketing-skills/he4rt-twitter-engagement-tracker) | [he4rt/marketing-extension](https://github.com/he4rt/marketing-extension) | 2026-05-19 |
 <!-- SKILL_INDEX -->
 
 ---
