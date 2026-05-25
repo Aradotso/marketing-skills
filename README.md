@@ -79,6 +79,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [pymc-marketing-mmm-clv](skills/pymc-marketing-mmm-clv/) | [install](https://skills.sh/aradotso/marketing-skills/pymc-marketing-mmm-clv) | [pymc-labs/pymc-marketing](https://github.com/pymc-labs/pymc-marketing) | 2026-05-19 |
 | [awesome-marketing-science-guide](skills/awesome-marketing-science-guide/) | [install](https://skills.sh/aradotso/marketing-skills/awesome-marketing-science-guide) | [shakostats/Awesome-Marketing-Science](https://github.com/shakostats/Awesome-Marketing-Science) | 2026-05-19 |
 | [claude-marketing-skills](skills/claude-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/claude-marketing-skills) | [thatrebeccarae/claude-marketing](https://github.com/thatrebeccarae/claude-marketing) | 2026-05-19 |
+| [openclaw-marketing-skills](skills/openclaw-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/openclaw-marketing-skills) | [LeoYeAI/openclaw-marketing-skills](https://github.com/LeoYeAI/openclaw-marketing-skills) | 2026-05-25 |
 <!-- SKILL_INDEX -->
 
 ---
