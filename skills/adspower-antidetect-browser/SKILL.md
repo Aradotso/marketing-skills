@@ -1,458 +1,412 @@
 ---
 name: adspower-antidetect-browser
-description: Manage AdsPower antidetect browser profiles for multi-account marketing automation and campaign management
+description: Manage AdsPower antidetect browser profiles for multi-account marketing automation and campaigns
 triggers:
-  - how do I create AdsPower browser profiles
-  - automate AdsPower browser sessions
-  - manage multiple accounts with AdsPower
-  - set up AdsPower API automation
-  - configure AdsPower fingerprint profiles
-  - integrate AdsPower with marketing automation
-  - control AdsPower browsers programmatically
-  - launch AdsPower profiles via API
+  - how do I use AdsPower for multi-account management
+  - set up AdsPower browser profiles for marketing automation
+  - configure AdsPower antidetect browser profiles
+  - automate campaigns with AdsPower browser
+  - manage multiple browser profiles with AdsPower
+  - integrate AdsPower API for browser automation
+  - create AdsPower profiles for marketing teams
+  - use AdsPower for RPA and multi-account workflows
 ---
 
-# AdsPower Antidetect Browser Automation
+# AdsPower Antidetect Browser
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-AdsPower is an antidetect browser that allows marketing teams to manage multiple accounts across platforms without fingerprint detection. It creates isolated browser profiles with unique fingerprints, enabling safe multi-account operations for social media marketing, e-commerce, advertising campaigns, and automated workflows.
+AdsPower is an antidetect browser solution designed for managing multiple browser profiles with unique fingerprints. It enables marketing teams to run multi-account campaigns, automation workflows, and RPA tasks while avoiding detection and account bans across platforms like social media, e-commerce, and advertising networks.
 
-## Overview
+## What AdsPower Does
 
-AdsPower provides:
-- **Isolated Browser Profiles**: Each profile has unique browser fingerprints (canvas, WebGL, fonts, etc.)
-- **API Control**: Programmatic profile creation, configuration, and browser automation
-- **Proxy Management**: Per-profile proxy configuration for different geolocations
-- **Team Collaboration**: Cloud sync and profile sharing across team members
-- **RPA Integration**: Compatible with Selenium, Puppeteer, and Playwright for automation
+- **Multi-Account Management**: Create and manage hundreds of isolated browser profiles
+- **Fingerprint Customization**: Unique canvas, WebGL, fonts, timezone, and other browser fingerprints per profile
+- **Team Collaboration**: Share profiles and manage permissions across marketing teams
+- **Automation Support**: Integrate with Selenium, Puppeteer, Playwright for RPA workflows
+- **Cloud Sync**: Synchronize profiles across devices via cloud storage
+- **Proxy Management**: Assign different proxies to each profile for geo-targeting
 
 ## Installation
 
-AdsPower runs as a local application with an API server. Download from the official website and install the desktop application.
+AdsPower is a desktop application with API support:
 
-### Starting the API Server
+1. Download from official source
+2. Install the desktop client for your OS (Windows/Mac)
+3. Launch AdsPower and create an account
+4. Enable API access in Settings → API
 
-The AdsPower application runs a local API server (default: `http://localhost:50325`).
+## API Configuration
 
-## API Authentication
+AdsPower provides a local REST API (default port: 50325) for automation:
 
-Most AdsPower API calls require the application to be running locally. The API uses a simple REST interface without authentication for local connections.
+```bash
+# Check API is running
+curl http://localhost:50325/api/v1/status
+```
 
-Base URL: `http://localhost:50325/api/v1`
+Set environment variables for API access:
 
-## Core API Operations
+```bash
+export ADSPOWER_API_URL="http://localhost:50325"
+export ADSPOWER_API_KEY="your_api_key_from_settings"
+```
 
-### Listing Browser Profiles
+## Core API Endpoints
+
+### List All Profiles
 
 ```python
 import requests
 import os
 
-ADSPOWER_API = os.getenv('ADSPOWER_API_URL', 'http://localhost:50325/api/v1')
+API_URL = os.getenv('ADSPOWER_API_URL', 'http://localhost:50325')
+API_KEY = os.getenv('ADSPOWER_API_KEY')
 
-def list_profiles(group_id=None, page=1, page_size=100):
+def list_profiles(page=1, page_size=50):
     """List all browser profiles"""
-    params = {
-        'page': page,
-        'page_size': page_size
-    }
-    if group_id:
-        params['group_id'] = group_id
-    
-    response = requests.get(f'{ADSPOWER_API}/user/list', params=params)
-    data = response.json()
-    
-    if data['code'] == 0:
-        return data['data']['list']
-    else:
-        raise Exception(f"Error listing profiles: {data['msg']}")
+    response = requests.get(
+        f"{API_URL}/api/v1/user/list",
+        params={
+            'page_size': page_size,
+            'page': page
+        },
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
+    return response.json()
 
-# Get all profiles
 profiles = list_profiles()
-for profile in profiles:
+print(f"Total profiles: {profiles['data']['count']}")
+for profile in profiles['data']['list']:
     print(f"Profile: {profile['name']} (ID: {profile['user_id']})")
 ```
 
-### Creating a New Profile
+### Create a New Profile
 
 ```python
-def create_profile(name, proxy_config=None, fingerprint_config=None):
-    """Create a new browser profile"""
+def create_profile(name, group_id=0, proxy_config=None):
+    """Create a new browser profile with custom fingerprint"""
     payload = {
         'name': name,
-        'group_id': '0',  # Default group
-        'domain_name': '',
-        'open_urls': [],
-        'repeat_config': ['0']
+        'group_id': group_id,
+        'fingerprint_config': {
+            'automatic_timezone': 1,
+            'webrtc': 'proxy',
+            'location': 'proxy',
+            'language': ['en-US', 'en'],
+            'ua': 'random',
+            'screen_resolution': 'random',
+            'fonts': 'random',
+            'canvas': 'random',
+            'webgl_image': 'random',
+            'webgl_metadata': 'random',
+            'audio': 'random'
+        }
     }
     
-    # Add proxy configuration
     if proxy_config:
-        payload['user_proxy_config'] = {
-            'proxy_soft': 'other',  # no_proxy, other, luminati, etc.
-            'proxy_type': proxy_config.get('type', 'http'),  # http, https, socks5
-            'proxy_host': proxy_config.get('host'),
-            'proxy_port': proxy_config.get('port'),
-            'proxy_user': proxy_config.get('username', ''),
-            'proxy_password': proxy_config.get('password', '')
-        }
+        payload['user_proxy_config'] = proxy_config
     
-    # Add fingerprint customization
-    if fingerprint_config:
-        payload['fingerprint_config'] = fingerprint_config
-    
-    response = requests.post(f'{ADSPOWER_API}/user/create', json=payload)
-    data = response.json()
-    
-    if data['code'] == 0:
-        return data['data']['id']
-    else:
-        raise Exception(f"Error creating profile: {data['msg']}")
+    response = requests.post(
+        f"{API_URL}/api/v1/user/create",
+        json=payload,
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
+    return response.json()
 
 # Create profile with proxy
-proxy = {
-    'type': 'http',
-    'host': os.getenv('PROXY_HOST'),
-    'port': os.getenv('PROXY_PORT'),
-    'username': os.getenv('PROXY_USER'),
-    'password': os.getenv('PROXY_PASS')
-}
-
-profile_id = create_profile('Marketing Campaign Profile 1', proxy_config=proxy)
-print(f"Created profile: {profile_id}")
+new_profile = create_profile(
+    name='Campaign Profile 1',
+    proxy_config={
+        'proxy_type': 'http',
+        'proxy_host': 'proxy.example.com',
+        'proxy_port': '8080',
+        'proxy_user': os.getenv('PROXY_USERNAME'),
+        'proxy_password': os.getenv('PROXY_PASSWORD')
+    }
+)
+print(f"Created profile ID: {new_profile['data']['id']}")
 ```
 
-### Starting a Browser Profile
+### Start a Profile Browser
 
 ```python
 def start_profile(profile_id, headless=False):
-    """Start a browser profile and get automation connection details"""
-    params = {
-        'user_id': profile_id,
-        'headless': 1 if headless else 0
-    }
-    
-    response = requests.get(f'{ADSPOWER_API}/browser/start', params=params)
+    """Launch a browser profile"""
+    response = requests.get(
+        f"{API_URL}/api/v1/browser/start",
+        params={
+            'user_id': profile_id,
+            'headless': 1 if headless else 0
+        },
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
     data = response.json()
-    
-    if data['code'] == 0:
-        return {
-            'selenium_address': data['data']['ws']['selenium'],
-            'webdriver_path': data['data']['webdriver'],
-            'debug_port': data['data']['debug_port']
-        }
-    else:
-        raise Exception(f"Error starting profile: {data['msg']}")
+    return {
+        'webdriver': data['data']['webdriver'],
+        'debug_port': data['data']['debug_port'],
+        'ws_endpoint': data['data']['ws']
+    }
 
-# Start profile and get connection info
-connection = start_profile(profile_id)
-print(f"Selenium: {connection['selenium_address']}")
-print(f"Chrome DevTools: {connection['debug_port']}")
+profile_session = start_profile('abc123')
+print(f"WebDriver path: {profile_session['webdriver']}")
+print(f"Debug port: {profile_session['debug_port']}")
 ```
 
-### Stopping a Browser Profile
+### Stop a Profile Browser
 
 ```python
 def stop_profile(profile_id):
-    """Stop a running browser profile"""
-    params = {'user_id': profile_id}
-    
-    response = requests.get(f'{ADSPOWER_API}/browser/stop', params=params)
-    data = response.json()
-    
-    if data['code'] == 0:
-        return True
-    else:
-        raise Exception(f"Error stopping profile: {data['msg']}")
+    """Close a running browser profile"""
+    response = requests.get(
+        f"{API_URL}/api/v1/browser/stop",
+        params={'user_id': profile_id},
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
+    return response.json()
 
-stop_profile(profile_id)
+stop_profile('abc123')
 ```
 
-## Selenium Integration
+## Automation with Selenium
 
 ```python
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 def connect_to_adspower_profile(profile_id):
     """Connect Selenium to an AdsPower profile"""
     # Start the profile
-    connection = start_profile(profile_id)
+    session = start_profile(profile_id)
     
     # Configure Chrome options
-    chrome_options = Options()
-    chrome_options.add_experimental_option('debuggerAddress', f"127.0.0.1:{connection['debug_port']}")
-    
-    # Create driver
-    driver = webdriver.Chrome(
-        executable_path=connection['webdriver_path'],
-        options=chrome_options
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option(
+        'debuggerAddress', 
+        f"127.0.0.1:{session['debug_port']}"
     )
     
+    # Connect to the browser
+    driver = webdriver.Chrome(
+        service=Service(session['webdriver']),
+        options=chrome_options
+    )
     return driver
 
-# Use with Selenium
-driver = connect_to_adspower_profile(profile_id)
+# Use in automation workflow
+driver = connect_to_adspower_profile('abc123')
 driver.get('https://example.com')
 print(driver.title)
+
+# Perform marketing automation tasks
+driver.find_element('id', 'username').send_keys('marketing_account')
+driver.find_element('id', 'password').send_keys(os.getenv('ACCOUNT_PASSWORD'))
+driver.find_element('id', 'login-button').click()
+
+# Clean up
 driver.quit()
-stop_profile(profile_id)
+stop_profile('abc123')
 ```
 
-## Puppeteer Integration
+## Automation with Puppeteer
 
 ```javascript
 const puppeteer = require('puppeteer-core');
 const axios = require('axios');
 
-const ADSPOWER_API = process.env.ADSPOWER_API_URL || 'http://localhost:50325/api/v1';
+const API_URL = process.env.ADSPOWER_API_URL || 'http://localhost:50325';
+const API_KEY = process.env.ADSPOWER_API_KEY;
 
-async function connectToAdsPowerProfile(profileId) {
-  // Start the profile
-  const response = await axios.get(`${ADSPOWER_API}/browser/start`, {
-    params: { user_id: profileId }
-  });
-  
-  if (response.data.code !== 0) {
-    throw new Error(`Failed to start profile: ${response.data.msg}`);
-  }
-  
-  const { ws } = response.data.data;
-  
-  // Connect Puppeteer
-  const browser = await puppeteer.connect({
-    browserWSEndpoint: ws.puppeteer,
-    defaultViewport: null
-  });
-  
-  return browser;
+async function connectToProfile(profileId) {
+    // Start the profile
+    const response = await axios.get(`${API_URL}/api/v1/browser/start`, {
+        params: { user_id: profileId },
+        headers: { Authorization: `Bearer ${API_KEY}` }
+    });
+    
+    const wsEndpoint = response.data.data.ws;
+    
+    // Connect Puppeteer
+    const browser = await puppeteer.connect({
+        browserWSEndpoint: wsEndpoint,
+        defaultViewport: null
+    });
+    
+    return browser;
 }
 
-async function stopProfile(profileId) {
-  await axios.get(`${ADSPOWER_API}/browser/stop`, {
-    params: { user_id: profileId }
-  });
+async function runAutomation(profileId) {
+    const browser = await connectToProfile(profileId);
+    const pages = await browser.pages();
+    const page = pages[0] || await browser.newPage();
+    
+    // Run your automation
+    await page.goto('https://example.com');
+    await page.type('#email', 'marketing@example.com');
+    await page.click('#submit');
+    
+    await browser.disconnect();
 }
 
-// Usage
-(async () => {
-  const profileId = 'your_profile_id';
-  const browser = await connectToAdsPowerProfile(profileId);
-  
-  const pages = await browser.pages();
-  const page = pages[0];
-  
-  await page.goto('https://example.com');
-  console.log(await page.title());
-  
-  await browser.disconnect();
-  await stopProfile(profileId);
-})();
+runAutomation('abc123');
 ```
 
-## Profile Management Patterns
+## Common Patterns
 
-### Batch Profile Creation
+### Bulk Profile Management
 
 ```python
-def create_campaign_profiles(campaign_name, count, proxy_list):
+def create_campaign_profiles(count, campaign_name, proxies):
     """Create multiple profiles for a marketing campaign"""
-    profile_ids = []
+    profiles = []
     
     for i in range(count):
-        proxy = proxy_list[i % len(proxy_list)]
-        name = f"{campaign_name} - Profile {i+1}"
-        
-        profile_id = create_profile(name, proxy_config=proxy)
-        profile_ids.append(profile_id)
-        print(f"Created: {name} ({profile_id})")
+        proxy = proxies[i % len(proxies)]
+        profile = create_profile(
+            name=f'{campaign_name} - Profile {i+1}',
+            proxy_config={
+                'proxy_type': 'http',
+                'proxy_host': proxy['host'],
+                'proxy_port': proxy['port'],
+                'proxy_user': proxy.get('username'),
+                'proxy_password': proxy.get('password')
+            }
+        )
+        profiles.append(profile['data']['id'])
+        print(f"Created profile {i+1}/{count}")
     
-    return profile_ids
+    return profiles
 
-# Create 10 profiles for a campaign
+# Create 10 profiles for campaign
 proxies = [
-    {'type': 'http', 'host': '10.0.0.1', 'port': '8080'},
-    {'type': 'http', 'host': '10.0.0.2', 'port': '8080'},
-    # Add more proxies
+    {'host': 'proxy1.com', 'port': '8080'},
+    {'host': 'proxy2.com', 'port': '8080'},
 ]
-
-campaign_profiles = create_campaign_profiles('Facebook Ads Q1', 10, proxies)
+campaign_profiles = create_campaign_profiles(10, 'Holiday Campaign 2026', proxies)
 ```
 
-### Profile Groups Management
+### Profile Group Management
 
 ```python
-def create_group(group_name):
-    """Create a profile group"""
-    payload = {'group_name': group_name}
-    response = requests.post(f'{ADSPOWER_API}/group/create', json=payload)
-    data = response.json()
-    return data['data']['group_id'] if data['code'] == 0 else None
+def create_profile_group(group_name):
+    """Create a profile group for organization"""
+    response = requests.post(
+        f"{API_URL}/api/v1/group/create",
+        json={'group_name': group_name},
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
+    return response.json()['data']['group_id']
 
-def move_profile_to_group(profile_id, group_id):
+def assign_profile_to_group(profile_id, group_id):
     """Move profile to a group"""
-    payload = {
-        'user_ids': [profile_id],
-        'group_id': group_id
-    }
-    response = requests.post(f'{ADSPOWER_API}/user/update', json=payload)
-    return response.json()['code'] == 0
+    response = requests.post(
+        f"{API_URL}/api/v1/user/update",
+        json={'user_id': profile_id, 'group_id': group_id},
+        headers={'Authorization': f'Bearer {API_KEY}'}
+    )
+    return response.json()
 
 # Organize profiles
-group_id = create_group('Instagram Marketing')
-for profile_id in campaign_profiles:
-    move_profile_to_group(profile_id, group_id)
+social_group = create_profile_group('Social Media Campaigns')
+assign_profile_to_group('abc123', social_group)
 ```
 
-## Advanced Fingerprint Configuration
+### Concurrent Profile Automation
 
 ```python
-def create_profile_with_custom_fingerprint(name, fingerprint_config):
-    """Create profile with custom fingerprint settings"""
-    payload = {
-        'name': name,
-        'group_id': '0',
-        'fingerprint_config': {
-            'automatic_timezone': '1',  # Auto-detect from IP
-            'webrtc': 'forward',  # forward, disabled, custom
-            'location': 'ask',  # ask, allow, block
-            'language': ['en-US', 'en'],
-            'page_language': 'en-US',
-            'ua': '',  # Empty for random
-            'screen_resolution': '1920_1080',
-            'fonts': ['all'],  # or specific font list
-            'canvas': '1',  # Noise level
-            'webgl_image': '1',
-            'webgl_metadata': 'mask',
-            'audio': '1',
-            'do_not_track': '1',
-            'hardware_concurrency': '4',
-            'device_memory': '8'
-        }
-    }
-    
-    response = requests.post(f'{ADSPOWER_API}/user/create', json=payload)
-    return response.json()['data']['id'] if response.json()['code'] == 0 else None
+import concurrent.futures
 
-# Create high-anonymity profile
-fingerprint = {
-    'webrtc': 'disabled',
-    'canvas': '2',  # Max noise
-    'webgl_image': '2',
-    'audio': '2'
-}
-
-anon_profile = create_profile_with_custom_fingerprint('High Anonymity Profile', fingerprint)
-```
-
-## Common Workflows
-
-### Social Media Automation
-
-```python
-import time
-
-def automate_social_media_posting(profile_id, platform_url, post_content):
-    """Automate posting to social media"""
+def run_task_on_profile(profile_id, task_func):
+    """Execute a task on a specific profile"""
     driver = connect_to_adspower_profile(profile_id)
-    
     try:
-        driver.get(platform_url)
-        time.sleep(3)
-        
-        # Your automation logic here
-        # e.g., find post button, enter content, submit
-        
-        print(f"Posted content from profile {profile_id}")
-        
+        result = task_func(driver)
+        return {'profile_id': profile_id, 'success': True, 'result': result}
+    except Exception as e:
+        return {'profile_id': profile_id, 'success': False, 'error': str(e)}
     finally:
         driver.quit()
         stop_profile(profile_id)
 
-# Run across multiple profiles
-for profile in campaign_profiles[:5]:
-    automate_social_media_posting(profile, 'https://facebook.com', 'Campaign post')
-    time.sleep(60)  # Delay between profiles
+def my_marketing_task(driver):
+    """Example marketing automation task"""
+    driver.get('https://example.com')
+    return driver.title
+
+# Run task across multiple profiles concurrently
+profile_ids = ['abc123', 'def456', 'ghi789']
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    futures = [
+        executor.submit(run_task_on_profile, pid, my_marketing_task)
+        for pid in profile_ids
+    ]
+    results = [f.result() for f in concurrent.futures.as_completed(futures)]
+
+for result in results:
+    print(f"Profile {result['profile_id']}: {result}")
 ```
 
 ## Troubleshooting
 
-### Profile Won't Start
-
-```python
-def check_profile_status(profile_id):
-    """Check if profile is already running"""
-    params = {'user_id': profile_id}
-    response = requests.get(f'{ADSPOWER_API}/browser/active', params=params)
-    data = response.json()
-    
-    if data['code'] == 0:
-        return data['data']['status'] == 'Active'
-    return False
-
-# Check before starting
-if check_profile_status(profile_id):
-    print("Profile already running, stopping first...")
-    stop_profile(profile_id)
-    time.sleep(2)
-
-connection = start_profile(profile_id)
-```
-
 ### API Connection Issues
 
 ```python
-def test_adspower_connection():
-    """Test if AdsPower API is accessible"""
+def check_adspower_status():
+    """Verify AdsPower is running"""
     try:
-        response = requests.get(f'{ADSPOWER_API}/status', timeout=5)
-        return response.status_code == 200
-    except requests.exceptions.RequestException:
+        response = requests.get(f"{API_URL}/api/v1/status", timeout=5)
+        if response.status_code == 200:
+            print("AdsPower API is running")
+            return True
+    except requests.exceptions.ConnectionError:
+        print("ERROR: Cannot connect to AdsPower. Ensure application is running.")
         return False
 
-if not test_adspower_connection():
-    print("ERROR: AdsPower application is not running or API is not accessible")
-    print("Please start the AdsPower desktop application")
-    exit(1)
+check_adspower_status()
 ```
 
-### Proxy Validation
+### Profile Not Starting
+
+- Ensure AdsPower desktop application is running
+- Check profile isn't already open
+- Verify sufficient system resources (RAM, CPU)
+- Check proxy configuration is valid
+
+### Browser Automation Failures
 
 ```python
-def check_proxy_connection(profile_id):
-    """Verify proxy is working for a profile"""
-    driver = connect_to_adspower_profile(profile_id)
-    
-    try:
-        driver.get('https://api.ipify.org?format=json')
-        time.sleep(2)
-        ip_data = driver.find_element('tag name', 'pre').text
-        print(f"Profile IP: {ip_data}")
-        return ip_data
-    finally:
-        driver.quit()
-        stop_profile(profile_id)
+def safe_start_profile(profile_id, max_retries=3):
+    """Start profile with retry logic"""
+    for attempt in range(max_retries):
+        try:
+            session = start_profile(profile_id)
+            return session
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(2)
+            else:
+                raise
 ```
 
-## Environment Variables
+### Memory Management
 
-```bash
-# Optional: Custom API URL if using remote AdsPower instance
-ADSPOWER_API_URL=http://localhost:50325/api/v1
-
-# Proxy credentials
-PROXY_HOST=proxy.example.com
-PROXY_PORT=8080
-PROXY_USER=username
-PROXY_PASS=password
+```python
+def cleanup_idle_profiles():
+    """Close profiles that have been idle"""
+    profiles = list_profiles()
+    for profile in profiles['data']['list']:
+        if profile.get('browser_status') == 'Active':
+            stop_profile(profile['user_id'])
+            print(f"Stopped profile: {profile['name']}")
 ```
 
 ## Best Practices
 
-1. **Always close profiles**: Call `stop_profile()` after automation to free resources
-2. **Respect rate limits**: Add delays between profile actions to avoid detection
-3. **Use profile groups**: Organize profiles by campaign or platform
-4. **Rotate proxies**: Assign different proxies to profiles for better anonymity
-5. **Regular fingerprint updates**: Periodically recreate profiles with fresh fingerprints
-6. **Monitor profile health**: Check proxy connectivity and profile status before automation
+1. **Use environment variables** for sensitive data (API keys, passwords, proxies)
+2. **Implement retry logic** for API calls and browser automation
+3. **Close profiles** after use to free system resources
+4. **Use profile groups** to organize campaigns and teams
+5. **Rotate proxies** across profiles to avoid detection
+6. **Monitor profile health** and fingerprint quality regularly
+7. **Limit concurrent profiles** based on system capabilities
