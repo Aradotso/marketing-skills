@@ -2,406 +2,212 @@
 name: adspower-antidetect-browser
 description: Manage AdsPower antidetect browser profiles for multi-account marketing automation and campaigns
 triggers:
-  - how do I create adspower browser profiles
-  - manage multiple browser identities with adspower
-  - automate adspower browser profiles
-  - set up antidetect browser for marketing
-  - use adspower api for automation
-  - create fingerprint profiles in adspower
-  - manage adspower profiles programmatically
-  - adspower browser automation tutorial
+  - "create adspower browser profile"
+  - "manage multiple browser profiles for marketing"
+  - "set up antidetect browser automation"
+  - "configure adspower profiles for campaigns"
+  - "automate multi-account browser sessions"
+  - "use adspower api for browser control"
+  - "launch adspower profiles programmatically"
+  - "manage browser fingerprints for marketing"
 ---
 
-# AdsPower Antidetect Browser Automation
+# AdsPower Antidetect Browser Skill
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-AdsPower is an antidetect browser platform that allows marketing teams to manage multiple browser profiles with unique fingerprints for multi-account operations, ad campaigns, social media management, and web automation. Each profile simulates a distinct digital identity with unique browser fingerprints, cookies, and local storage.
+## Overview
+
+AdsPower is an antidetect browser platform that allows marketing teams to manage multiple browser profiles with unique fingerprints for multi-account operations, ad campaigns, and automation workflows. Each profile has isolated cookies, storage, and unique browser fingerprints to prevent account association and detection.
 
 ## Installation
 
-AdsPower requires both the desktop application and API integration:
-
-### Desktop Application
+AdsPower requires the desktop application installed on your system:
 
 1. Download AdsPower from the official website
-2. Install and launch the application
-3. Create an account and log in
-4. Enable Local API in settings (default port: 50325)
+2. Install the application for your operating system (Windows/macOS)
+3. Launch AdsPower and create an account
+4. Enable API access in Settings → API Settings
 
-### API Access
+## API Access
 
-The AdsPower Local API runs on `http://localhost:50325` by default. No additional SDK installation is required for basic automation.
+AdsPower provides a local HTTP API (default port: 50325) for programmatic control.
 
-For Node.js/JavaScript projects:
-```bash
-npm install axios
-```
+### Base Configuration
 
-For Python projects:
-```bash
-pip install requests
-```
-
-## Configuration
-
-### Enable Local API
-
-1. Open AdsPower application
-2. Go to Settings → Local API
-3. Enable "Local API Server"
-4. Note the port (default: 50325)
-5. Optional: Set API authentication token
-
-### Environment Variables
-
-```bash
-# .env
-ADSPOWER_API_URL=http://localhost:50325
-ADSPOWER_API_KEY=your_api_key_if_enabled
-```
-
-## Core API Endpoints
-
-### Profile Management
-
-#### List All Profiles
-
-**JavaScript:**
-```javascript
-const axios = require('axios');
-
-const ADSPOWER_URL = process.env.ADSPOWER_API_URL || 'http://localhost:50325';
-
-async function listProfiles(page = 1, pageSize = 100) {
-  try {
-    const response = await axios.get(`${ADSPOWER_URL}/api/v1/user/list`, {
-      params: {
-        page_size: pageSize,
-        page: page
-      }
-    });
-    
-    if (response.data.code === 0) {
-      return response.data.data.list;
-    } else {
-      throw new Error(response.data.msg);
-    }
-  } catch (error) {
-    console.error('Failed to list profiles:', error.message);
-    throw error;
-  }
-}
-
-// Usage
-listProfiles().then(profiles => {
-  console.log(`Found ${profiles.length} profiles`);
-  profiles.forEach(p => console.log(`${p.user_id}: ${p.name}`));
-});
-```
-
-**Python:**
 ```python
 import requests
 import os
 
-ADSPOWER_URL = os.getenv('ADSPOWER_API_URL', 'http://localhost:50325')
+# AdsPower local API endpoint
+ADSPOWER_API_BASE = "http://localhost:50325/api/v1"
 
-def list_profiles(page=1, page_size=100):
-    url = f"{ADSPOWER_URL}/api/v1/user/list"
-    params = {
-        'page_size': page_size,
-        'page': page
-    }
-    
-    response = requests.get(url, params=params)
-    data = response.json()
-    
-    if data['code'] == 0:
-        return data['data']['list']
-    else:
-        raise Exception(data['msg'])
-
-# Usage
-profiles = list_profiles()
-print(f"Found {len(profiles)} profiles")
-for profile in profiles:
-    print(f"{profile['user_id']}: {profile['name']}")
+# Optional: If using cloud API
+ADSPOWER_API_KEY = os.getenv("ADSPOWER_API_KEY")
 ```
 
-#### Create New Profile
-
-**JavaScript:**
 ```javascript
-async function createProfile(name, config = {}) {
-  const payload = {
-    name: name,
-    group_id: config.group_id || '0',
-    domain_name: config.domain || '',
-    open_urls: config.urls || [],
-    username: config.username || '',
-    password: config.password || '',
-    fakey: config.twoFactorKey || '',
-    cookie: config.cookie || [],
-    ignore_cookie_error: 1,
-    ip: config.proxy_ip || '',
-    country: config.proxy_country || 'US',
-    region: config.proxy_region || '',
-    city: config.proxy_city || '',
-    remark: config.notes || '',
-    ipchecker: config.ip_checker || 'ip2location',
-    ...config.fingerprint
-  };
+const axios = require('axios');
 
-  try {
-    const response = await axios.post(
-      `${ADSPOWER_URL}/api/v1/user/create`,
-      payload
-    );
-    
-    if (response.data.code === 0) {
-      console.log(`Profile created: ${response.data.data.id}`);
-      return response.data.data;
-    } else {
-      throw new Error(response.data.msg);
-    }
-  } catch (error) {
-    console.error('Failed to create profile:', error.message);
-    throw error;
-  }
-}
-
-// Usage
-const newProfile = await createProfile('Marketing Campaign 1', {
-  group_id: '0',
-  urls: ['https://facebook.com'],
-  proxy_country: 'US',
-  notes: 'Facebook ads account'
-});
+const ADSPOWER_API_BASE = 'http://localhost:50325/api/v1';
+const API_KEY = process.env.ADSPOWER_API_KEY;
 ```
 
-**Python:**
+## Core Operations
+
+### Create Browser Profile
+
 ```python
-def create_profile(name, config=None):
-    if config is None:
-        config = {}
+def create_profile(name, group_id=None, fingerprint_config=None):
+    """Create a new browser profile"""
+    url = f"{ADSPOWER_API_BASE}/user/create"
     
     payload = {
-        'name': name,
-        'group_id': config.get('group_id', '0'),
-        'domain_name': config.get('domain', ''),
-        'open_urls': config.get('urls', []),
-        'username': config.get('username', ''),
-        'password': config.get('password', ''),
-        'fakey': config.get('two_factor_key', ''),
-        'cookie': config.get('cookie', []),
-        'ignore_cookie_error': 1,
-        'ip': config.get('proxy_ip', ''),
-        'country': config.get('proxy_country', 'US'),
-        'region': config.get('proxy_region', ''),
-        'city': config.get('proxy_city', ''),
-        'remark': config.get('notes', ''),
-        'ipchecker': config.get('ip_checker', 'ip2location')
+        "name": name,
+        "group_id": group_id or "0",
+        "domain_name": "",
+        "open_urls": [],
+        "repeat_config": fingerprint_config or []
     }
     
-    url = f"{ADSPOWER_URL}/api/v1/user/create"
     response = requests.post(url, json=payload)
     data = response.json()
     
-    if data['code'] == 0:
-        print(f"Profile created: {data['data']['id']}")
-        return data['data']
+    if data.get("code") == 0:
+        return data["data"]["id"]
     else:
-        raise Exception(data['msg'])
+        raise Exception(f"Failed to create profile: {data.get('msg')}")
 
 # Usage
-new_profile = create_profile('Marketing Campaign 1', {
-    'urls': ['https://facebook.com'],
-    'proxy_country': 'US',
-    'notes': 'Facebook ads account'
-})
+profile_id = create_profile(
+    name="Campaign_Profile_1",
+    group_id="marketing_team"
+)
+print(f"Created profile: {profile_id}")
 ```
 
-#### Launch Browser Profile
-
-**JavaScript:**
 ```javascript
-async function startBrowser(profileId, options = {}) {
-  const params = {
-    user_id: profileId,
-    open_tabs: options.open_tabs !== false ? 1 : 0,
-    ip_tab: options.ip_tab !== false ? 1 : 0,
-    new_first_tab: options.new_first_tab !== false ? 1 : 0,
-    launch_args: options.launch_args || [],
-    headless: options.headless ? 1 : 0,
-    disable_password_filling: options.disable_password_filling ? 1 : 0,
-    clear_cache_after_closing: options.clear_cache ? 1 : 0
-  };
-
-  try {
-    const response = await axios.get(`${ADSPOWER_URL}/api/v1/browser/start`, {
-      params: params
-    });
-    
-    if (response.data.code === 0) {
-      console.log(`Browser started for profile ${profileId}`);
-      return {
-        ws: response.data.data.ws,
-        debug_port: response.data.data.debug_port,
-        webdriver: response.data.data.webdriver
-      };
-    } else {
-      throw new Error(response.data.msg);
-    }
-  } catch (error) {
-    console.error('Failed to start browser:', error.message);
-    throw error;
+async function createProfile(name, groupId = '0') {
+  const response = await axios.post(`${ADSPOWER_API_BASE}/user/create`, {
+    name: name,
+    group_id: groupId,
+    domain_name: '',
+    open_urls: []
+  });
+  
+  if (response.data.code === 0) {
+    return response.data.data.id;
   }
+  throw new Error(`Failed to create profile: ${response.data.msg}`);
 }
 
 // Usage
-const browserInfo = await startBrowser('abc123', {
-  headless: false,
-  clear_cache: false
-});
-console.log('WebSocket endpoint:', browserInfo.ws);
-console.log('Debug port:', browserInfo.debug_port);
+const profileId = await createProfile('Campaign_Profile_1', 'marketing_team');
+console.log(`Created profile: ${profileId}`);
 ```
 
-**Python:**
+### Launch Browser Profile
+
 ```python
-def start_browser(profile_id, options=None):
-    if options is None:
-        options = {}
+def start_profile(profile_id, launch_args=None):
+    """Launch a browser profile and return connection details"""
+    url = f"{ADSPOWER_API_BASE}/browser/start"
     
     params = {
-        'user_id': profile_id,
-        'open_tabs': 0 if options.get('open_tabs') is False else 1,
-        'ip_tab': 0 if options.get('ip_tab') is False else 1,
-        'new_first_tab': 0 if options.get('new_first_tab') is False else 1,
-        'launch_args': options.get('launch_args', []),
-        'headless': 1 if options.get('headless') else 0,
-        'disable_password_filling': 1 if options.get('disable_password_filling') else 0,
-        'clear_cache_after_closing': 1 if options.get('clear_cache') else 0
+        "user_id": profile_id,
+        "launch_args": launch_args or []
     }
     
-    url = f"{ADSPOWER_URL}/api/v1/browser/start"
     response = requests.get(url, params=params)
     data = response.json()
     
-    if data['code'] == 0:
-        print(f"Browser started for profile {profile_id}")
+    if data.get("code") == 0:
         return {
-            'ws': data['data']['ws'],
-            'debug_port': data['data']['debug_port'],
-            'webdriver': data['data']['webdriver']
+            "ws_endpoint": data["data"]["ws"]["puppeteer"],
+            "selenium_endpoint": data["data"]["ws"]["selenium"],
+            "debug_port": data["data"]["debug_port"]
         }
     else:
-        raise Exception(data['msg'])
+        raise Exception(f"Failed to start profile: {data.get('msg')}")
 
 # Usage
-browser_info = start_browser('abc123', {
-    'headless': False,
-    'clear_cache': False
-})
-print(f"WebSocket endpoint: {browser_info['ws']}")
-print(f"Debug port: {browser_info['debug_port']}")
+connection = start_profile(profile_id)
+print(f"WebSocket: {connection['ws_endpoint']}")
 ```
 
-#### Close Browser Profile
-
-**JavaScript:**
 ```javascript
-async function stopBrowser(profileId) {
-  try {
-    const response = await axios.get(`${ADSPOWER_URL}/api/v1/browser/stop`, {
-      params: { user_id: profileId }
-    });
-    
-    if (response.data.code === 0) {
-      console.log(`Browser stopped for profile ${profileId}`);
-      return true;
-    } else {
-      throw new Error(response.data.msg);
-    }
-  } catch (error) {
-    console.error('Failed to stop browser:', error.message);
-    throw error;
+async function startProfile(profileId) {
+  const response = await axios.get(`${ADSPOWER_API_BASE}/browser/start`, {
+    params: { user_id: profileId }
+  });
+  
+  if (response.data.code === 0) {
+    return {
+      wsEndpoint: response.data.data.ws.puppeteer,
+      seleniumEndpoint: response.data.data.ws.selenium,
+      debugPort: response.data.data.debug_port
+    };
   }
+  throw new Error(`Failed to start profile: ${response.data.msg}`);
 }
-
-// Usage
-await stopBrowser('abc123');
 ```
 
-**Python:**
+### Close Browser Profile
+
 ```python
-def stop_browser(profile_id):
-    url = f"{ADSPOWER_URL}/api/v1/browser/stop"
-    params = {'user_id': profile_id}
+def stop_profile(profile_id):
+    """Close a running browser profile"""
+    url = f"{ADSPOWER_API_BASE}/browser/stop"
     
+    params = {"user_id": profile_id}
     response = requests.get(url, params=params)
     data = response.json()
     
-    if data['code'] == 0:
-        print(f"Browser stopped for profile {profile_id}")
-        return True
-    else:
-        raise Exception(data['msg'])
+    return data.get("code") == 0
 
 # Usage
-stop_browser('abc123')
+stop_profile(profile_id)
 ```
 
-## Automation with Selenium/Puppeteer
+## Automation Integration
 
-### Selenium Integration (Python)
+### With Selenium
 
 ```python
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-def connect_to_adspower_profile(profile_id):
-    # Start browser and get debug port
-    browser_info = start_browser(profile_id)
-    debug_port = browser_info['debug_port']
+def connect_selenium(profile_id):
+    """Connect Selenium to AdsPower profile"""
+    connection = start_profile(profile_id)
     
-    # Configure Chrome options
     chrome_options = Options()
     chrome_options.add_experimental_option(
-        'debuggerAddress', 
-        f'127.0.0.1:{debug_port}'
+        "debuggerAddress", 
+        f"127.0.0.1:{connection['debug_port']}"
     )
     
-    # Connect to the browser
     driver = webdriver.Chrome(options=chrome_options)
     return driver
 
 # Usage
-profile_id = 'your_profile_id'
-driver = connect_to_adspower_profile(profile_id)
-
-try:
-    driver.get('https://facebook.com')
-    # Perform automation tasks
-    print(driver.title)
-finally:
-    driver.quit()
-    stop_browser(profile_id)
+driver = connect_selenium(profile_id)
+driver.get("https://example.com")
+# Perform automation tasks
+driver.quit()
+stop_profile(profile_id)
 ```
 
-### Puppeteer Integration (JavaScript)
+### With Puppeteer
 
 ```javascript
 const puppeteer = require('puppeteer-core');
 
-async function connectToAdsPowerProfile(profileId) {
-  // Start browser and get WebSocket endpoint
-  const browserInfo = await startBrowser(profileId);
+async function connectPuppeteer(profileId) {
+  const connection = await startProfile(profileId);
   
-  // Connect via CDP
   const browser = await puppeteer.connect({
-    browserWSEndpoint: browserInfo.ws,
+    browserWSEndpoint: connection.wsEndpoint,
     defaultViewport: null
   });
   
@@ -409,247 +215,309 @@ async function connectToAdsPowerProfile(profileId) {
 }
 
 // Usage
-async function automateProfile(profileId) {
-  const browser = await connectToAdsPowerProfile(profileId);
-  
-  try {
-    const pages = await browser.pages();
-    const page = pages[0] || await browser.newPage();
-    
-    await page.goto('https://facebook.com');
-    console.log(await page.title());
-    
-    // Perform automation tasks
-    
-  } finally {
-    await browser.disconnect();
-    await stopBrowser(profileId);
-  }
-}
+(async () => {
+  const browser = await connectPuppeteer(profileId);
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  // Perform automation tasks
+  await browser.disconnect();
+  await stopProfile(profileId);
+})();
+```
 
-automateProfile('your_profile_id');
+### With Playwright
+
+```python
+from playwright.sync_api import sync_playwright
+
+def connect_playwright(profile_id):
+    """Connect Playwright to AdsPower profile"""
+    connection = start_profile(profile_id)
+    
+    with sync_playwright() as p:
+        browser = p.chromium.connect_over_cdp(connection['ws_endpoint'])
+        return browser
+
+# Usage
+browser = connect_playwright(profile_id)
+page = browser.new_page()
+page.goto("https://example.com")
+# Perform automation tasks
+browser.close()
+stop_profile(profile_id)
+```
+
+## Profile Management
+
+### List All Profiles
+
+```python
+def list_profiles(group_id=None, page=1, page_size=100):
+    """Get all browser profiles"""
+    url = f"{ADSPOWER_API_BASE}/user/list"
+    
+    params = {
+        "page": page,
+        "page_size": page_size
+    }
+    if group_id:
+        params["group_id"] = group_id
+    
+    response = requests.get(url, params=params)
+    data = response.json()
+    
+    if data.get("code") == 0:
+        return data["data"]["list"]
+    return []
+
+# Usage
+profiles = list_profiles(group_id="marketing_team")
+for profile in profiles:
+    print(f"{profile['user_id']}: {profile['name']}")
+```
+
+### Update Profile Configuration
+
+```python
+def update_profile(profile_id, updates):
+    """Update profile settings"""
+    url = f"{ADSPOWER_API_BASE}/user/update"
+    
+    payload = {
+        "user_id": profile_id,
+        **updates
+    }
+    
+    response = requests.post(url, json=payload)
+    data = response.json()
+    
+    return data.get("code") == 0
+
+# Usage
+update_profile(profile_id, {
+    "name": "Updated_Campaign_Profile",
+    "remark": "Main account for Facebook ads"
+})
+```
+
+### Delete Profile
+
+```python
+def delete_profile(profile_id):
+    """Delete a browser profile"""
+    url = f"{ADSPOWER_API_BASE}/user/delete"
+    
+    params = {"user_ids": [profile_id]}
+    response = requests.post(url, json=params)
+    data = response.json()
+    
+    return data.get("code") == 0
 ```
 
 ## Common Patterns
 
-### Bulk Profile Creation
+### Campaign Profile Automation
 
-```javascript
-async function createBulkProfiles(count, prefix, config) {
-  const profiles = [];
-  
-  for (let i = 1; i <= count; i++) {
-    const name = `${prefix} ${i}`;
-    try {
-      const profile = await createProfile(name, {
-        ...config,
-        notes: `Auto-generated profile ${i}`
-      });
-      profiles.push(profile);
-      console.log(`Created profile ${i}/${count}`);
-      
-      // Rate limiting
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error(`Failed to create profile ${i}:`, error.message);
-    }
-  }
-  
-  return profiles;
-}
+```python
+import time
 
-// Usage
-const profiles = await createBulkProfiles(10, 'Campaign Profile', {
-  group_id: '0',
-  proxy_country: 'US',
-  urls: ['https://facebook.com']
-});
-```
-
-### Profile Group Management
-
-```javascript
-async function getGroups() {
-  try {
-    const response = await axios.get(`${ADSPOWER_URL}/api/v1/group/list`);
-    if (response.data.code === 0) {
-      return response.data.data.list;
-    }
-    throw new Error(response.data.msg);
-  } catch (error) {
-    console.error('Failed to get groups:', error.message);
-    throw error;
-  }
-}
-
-async function createGroup(groupName, remark = '') {
-  try {
-    const response = await axios.post(`${ADSPOWER_URL}/api/v1/group/create`, {
-      group_name: groupName,
-      remark: remark
-    });
-    if (response.data.code === 0) {
-      return response.data.data.group_id;
-    }
-    throw new Error(response.data.msg);
-  } catch (error) {
-    console.error('Failed to create group:', error.message);
-    throw error;
-  }
-}
-
-// Usage
-const groupId = await createGroup('Facebook Campaigns', 'Q1 2026 campaigns');
-const profile = await createProfile('FB Profile 1', { group_id: groupId });
-```
-
-### Sequential Browser Automation
-
-```javascript
-async function runSequentialAutomation(profileIds, task) {
-  const results = [];
-  
-  for (const profileId of profileIds) {
-    console.log(`Processing profile: ${profileId}`);
-    const browser = await connectToAdsPowerProfile(profileId);
+class CampaignAutomation:
+    def __init__(self, profile_ids):
+        self.profile_ids = profile_ids
     
-    try {
-      const result = await task(browser, profileId);
-      results.push({ profileId, success: true, result });
-    } catch (error) {
-      console.error(`Task failed for ${profileId}:`, error.message);
-      results.push({ profileId, success: false, error: error.message });
-    } finally {
-      await browser.disconnect();
-      await stopBrowser(profileId);
-      
-      // Delay between profiles
-      await new Promise(resolve => setTimeout(resolve, 5000));
+    def run_campaign_tasks(self, task_function):
+        """Execute tasks across multiple profiles"""
+        for profile_id in self.profile_ids:
+            try:
+                print(f"Starting profile {profile_id}")
+                driver = connect_selenium(profile_id)
+                
+                # Execute custom task
+                task_function(driver)
+                
+                driver.quit()
+                stop_profile(profile_id)
+                
+                # Delay between profiles
+                time.sleep(5)
+                
+            except Exception as e:
+                print(f"Error with profile {profile_id}: {e}")
+                stop_profile(profile_id)
+
+# Usage
+def post_ad_campaign(driver):
+    driver.get("https://ads.platform.com")
+    # Perform ad posting logic
+    pass
+
+automation = CampaignAutomation([profile_id, profile_id_2])
+automation.run_campaign_tasks(post_ad_campaign)
+```
+
+### Profile Pool Manager
+
+```python
+class ProfilePool:
+    def __init__(self, group_name):
+        self.group_name = group_name
+        self.active_profiles = {}
+    
+    def get_available_profile(self):
+        """Get next available profile from pool"""
+        profiles = list_profiles(group_id=self.group_name)
+        
+        for profile in profiles:
+            profile_id = profile['user_id']
+            if profile_id not in self.active_profiles:
+                connection = start_profile(profile_id)
+                self.active_profiles[profile_id] = connection
+                return profile_id, connection
+        
+        raise Exception("No available profiles in pool")
+    
+    def release_profile(self, profile_id):
+        """Release profile back to pool"""
+        if profile_id in self.active_profiles:
+            stop_profile(profile_id)
+            del self.active_profiles[profile_id]
+
+# Usage
+pool = ProfilePool("marketing_team")
+profile_id, connection = pool.get_available_profile()
+# Use profile
+pool.release_profile(profile_id)
+```
+
+### Batch Profile Creation
+
+```python
+def create_campaign_profiles(campaign_name, count=10):
+    """Create multiple profiles for a campaign"""
+    profile_ids = []
+    
+    for i in range(count):
+        profile_name = f"{campaign_name}_Profile_{i+1}"
+        profile_id = create_profile(
+            name=profile_name,
+            group_id=campaign_name
+        )
+        profile_ids.append(profile_id)
+        print(f"Created: {profile_name} ({profile_id})")
+    
+    return profile_ids
+
+# Usage
+campaign_profiles = create_campaign_profiles("BlackFriday2026", count=5)
+```
+
+## Fingerprint Configuration
+
+### Custom Fingerprint Settings
+
+```python
+def create_profile_with_fingerprint(name, config):
+    """Create profile with specific fingerprint configuration"""
+    url = f"{ADSPOWER_API_BASE}/user/create"
+    
+    payload = {
+        "name": name,
+        "group_id": "0",
+        "fingerprint_config": {
+            "ua": config.get("user_agent"),
+            "language": config.get("language", "en-US"),
+            "timezone": config.get("timezone", "America/New_York"),
+            "webrtc": config.get("webrtc", "proxy"),
+            "location": config.get("location", "ask"),
+            "canvas": config.get("canvas", "noise"),
+        }
     }
-  }
-  
-  return results;
+    
+    response = requests.post(url, json=payload)
+    data = response.json()
+    
+    if data.get("code") == 0:
+        return data["data"]["id"]
+    raise Exception(f"Failed to create profile: {data.get('msg')}")
+
+# Usage
+fingerprint_config = {
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)...",
+    "language": "en-US,en;q=0.9",
+    "timezone": "America/Los_Angeles",
+    "webrtc": "proxy"
 }
 
-// Usage
-const profileIds = ['profile1', 'profile2', 'profile3'];
-const results = await runSequentialAutomation(profileIds, async (browser, profileId) => {
-  const pages = await browser.pages();
-  const page = pages[0] || await browser.newPage();
-  
-  await page.goto('https://example.com');
-  const title = await page.title();
-  
-  return { title };
-});
+profile_id = create_profile_with_fingerprint(
+    "Custom_Fingerprint_Profile",
+    fingerprint_config
+)
 ```
 
 ## Troubleshooting
 
-### Browser Won't Start
+### Connection Issues
 
-**Problem:** API returns error when starting browser
+```python
+def check_api_status():
+    """Verify AdsPower API is accessible"""
+    try:
+        response = requests.get(f"{ADSPOWER_API_BASE}/status", timeout=5)
+        return response.status_code == 200
+    except requests.exceptions.RequestException:
+        return False
 
-**Solutions:**
-- Ensure AdsPower desktop application is running
-- Verify Local API is enabled in settings
-- Check that the profile ID exists
-- Ensure no other instance of the profile is already running
-
-```javascript
-async function safeBrowserStart(profileId, maxRetries = 3) {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      // Try to stop any existing instance first
-      await stopBrowser(profileId).catch(() => {});
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      const browserInfo = await startBrowser(profileId);
-      return browserInfo;
-    } catch (error) {
-      console.log(`Attempt ${i + 1} failed: ${error.message}`);
-      if (i === maxRetries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, 3000));
-    }
-  }
-}
+if not check_api_status():
+    print("AdsPower API not accessible. Ensure the application is running.")
 ```
 
-### Connection Refused
+### Profile Not Starting
 
-**Problem:** Cannot connect to Local API
-
-**Solutions:**
-- Verify AdsPower is running
-- Check API port in application settings
-- Ensure no firewall is blocking localhost connections
-- Verify the API URL is correct
-
-```javascript
-async function checkApiConnection() {
-  try {
-    const response = await axios.get(`${ADSPOWER_URL}/api/v1/user/list`, {
-      timeout: 5000
-    });
-    console.log('API connection successful');
-    return true;
-  } catch (error) {
-    console.error('API connection failed:', error.message);
-    console.log('Make sure AdsPower application is running and Local API is enabled');
-    return false;
-  }
-}
+```python
+def safe_start_profile(profile_id, max_retries=3):
+    """Start profile with retry logic"""
+    for attempt in range(max_retries):
+        try:
+            connection = start_profile(profile_id)
+            return connection
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            time.sleep(2)
+    
+    raise Exception(f"Failed to start profile after {max_retries} attempts")
 ```
 
-### Profile Fingerprint Issues
+### Clean Up Stuck Profiles
 
-**Problem:** Websites detect antidetect browser
-
-**Solutions:**
-- Update AdsPower to latest version
-- Use higher quality proxies
-- Adjust fingerprint settings
-- Enable WebRTC protection
-- Clear cookies and cache regularly
-
-### Memory/Performance Issues
-
-**Problem:** System runs slowly with multiple profiles
-
-**Solutions:**
-- Limit concurrent browser instances
-- Enable "clear cache after closing"
-- Close unused profiles
-- Increase system RAM allocation
-
-```javascript
-async function runWithConcurrencyLimit(profileIds, task, limit = 3) {
-  const results = [];
-  
-  for (let i = 0; i < profileIds.length; i += limit) {
-    const batch = profileIds.slice(i, i + limit);
-    console.log(`Processing batch ${i / limit + 1}`);
-    
-    const batchResults = await Promise.allSettled(
-      batch.map(async profileId => {
-        const browser = await connectToAdsPowerProfile(profileId);
-        try {
-          return await task(browser, profileId);
-        } finally {
-          await browser.disconnect();
-          await stopBrowser(profileId);
-        }
-      })
-    );
-    
-    results.push(...batchResults);
-    
-    // Cleanup delay between batches
-    if (i + limit < profileIds.length) {
-      await new Promise(resolve => setTimeout(resolve, 5000));
-    }
-  }
-  
-  return results;
-}
+```python
+def force_close_all_profiles():
+    """Close all running browser profiles"""
+    profiles = list_profiles()
+    for profile in profiles:
+        profile_id = profile['user_id']
+        try:
+            stop_profile(profile_id)
+            print(f"Closed profile: {profile_id}")
+        except Exception as e:
+            print(f"Error closing {profile_id}: {e}")
 ```
+
+## Environment Variables
+
+```bash
+# Optional: For cloud API access
+export ADSPOWER_API_KEY="your_api_key_here"
+
+# Custom API port if not using default
+export ADSPOWER_API_PORT="50325"
+```
+
+## Best Practices
+
+1. **Always close profiles** after use to free resources
+2. **Add delays** between profile launches to avoid detection
+3. **Use profile groups** to organize campaigns and teams
+4. **Monitor active profiles** to prevent resource exhaustion
+5. **Implement error handling** for network and API failures
+6. **Rotate profiles** regularly for long-running campaigns
+7. **Back up important profiles** and fingerprint configurations
