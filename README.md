@@ -81,6 +81,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [claude-marketing-skills](skills/claude-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/claude-marketing-skills) | [thatrebeccarae/claude-marketing](https://github.com/thatrebeccarae/claude-marketing) | 2026-05-19 |
 | [openclaw-marketing-skills](skills/openclaw-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/openclaw-marketing-skills) | [LeoYeAI/openclaw-marketing-skills](https://github.com/LeoYeAI/openclaw-marketing-skills) | 2026-05-25 |
 | [adspower-antidetect-browser](skills/adspower-antidetect-browser/) | [install](https://skills.sh/aradotso/marketing-skills/adspower-antidetect-browser) | [GangStylistGate/AdsPower-Cracked-2026](https://github.com/GangStylistGate/AdsPower-Cracked-2026) | 2026-05-27 |
+| [whatsapp-mass-sender-group-marketing](skills/whatsapp-mass-sender-group-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/whatsapp-mass-sender-group-marketing) | [jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System](https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System) | 2026-05-28 |
 <!-- SKILL_INDEX -->
 
 ---
