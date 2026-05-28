@@ -85,6 +85,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [whatsapp-instagram-tiktok-mass-sender-marketing](skills/whatsapp-instagram-tiktok-mass-sender-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/whatsapp-instagram-tiktok-mass-sender-marketing) | [jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System](https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System) | 2026-05-28 |
 | [marketing-pipeline-share-ai-content](skills/marketing-pipeline-share-ai-content/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-share-ai-content) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-28 |
 | [marketing-content-pipeline-automation](skills/marketing-content-pipeline-automation/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-content-pipeline-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-28 |
+| [ultimate-ai-content-pipeline](skills/ultimate-ai-content-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/ultimate-ai-content-pipeline) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-28 |
 <!-- SKILL_INDEX -->
 
 ---
