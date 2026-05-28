@@ -83,6 +83,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [adspower-antidetect-browser](skills/adspower-antidetect-browser/) | [install](https://skills.sh/aradotso/marketing-skills/adspower-antidetect-browser) | [GangStylistGate/AdsPower-Cracked-2026](https://github.com/GangStylistGate/AdsPower-Cracked-2026) | 2026-05-27 |
 | [whatsapp-mass-sender-group-marketing](skills/whatsapp-mass-sender-group-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/whatsapp-mass-sender-group-marketing) | [jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System](https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System) | 2026-05-28 |
 | [whatsapp-instagram-tiktok-mass-sender-marketing](skills/whatsapp-instagram-tiktok-mass-sender-marketing/) | [install](https://skills.sh/aradotso/marketing-skills/whatsapp-instagram-tiktok-mass-sender-marketing) | [jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System](https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System) | 2026-05-28 |
+| [marketing-pipeline-share-ai-content](skills/marketing-pipeline-share-ai-content/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-share-ai-content) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-28 |
 <!-- SKILL_INDEX -->
 
 ---
