@@ -1,660 +1,590 @@
 ---
 name: whatsapp-mass-sender-group-marketing
-description: Automated WhatsApp mass messaging and group marketing system for bulk outreach and lead generation
+description: Social media automation toolkit for TikTok and Instagram lead generation, competitor follower extraction, and automated engagement campaigns
 triggers:
-  - how do I send bulk WhatsApp messages
-  - set up WhatsApp mass sender for marketing
-  - automate WhatsApp group messaging
-  - configure WhatsApp bulk message campaign
-  - send mass WhatsApp marketing messages
-  - create WhatsApp automation for outreach
-  - implement WhatsApp group marketing system
-  - build WhatsApp bulk sender tool
+  - how do I extract followers from TikTok or Instagram competitors
+  - automate Instagram engagement and DM campaigns
+  - set up multi-platform social media marketing automation
+  - scrape TikTok users by hashtag or keyword
+  - build automated follower acquisition for Instagram
+  - create auto-comment and auto-like campaigns on social platforms
+  - extract and filter social media leads by demographics
+  - set up WhatsApp mass messaging campaigns
 ---
 
 # WhatsApp Mass Sender & Group Marketing System
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-This project provides automated WhatsApp mass messaging and group marketing capabilities for bulk outreach, lead generation, and customer engagement campaigns. It enables sending personalized messages to multiple recipients, managing group interactions, and automating marketing workflows on WhatsApp.
+## Overview
 
-## What This Project Does
+This project is a multi-platform social media automation system designed for lead generation, competitor analysis, and automated engagement on TikTok, Instagram, and WhatsApp. It enables extraction of competitor followers, hashtag-based user discovery, AI-powered demographic filtering, and automated outreach campaigns.
 
-The WhatsApp Mass Sender and Group Marketing System automates:
+**Primary use cases:**
+- Extract followers/engaged users from competitor accounts
+- Discover users by hashtag, keyword, or geolocation
+- Filter leads by demographics (age, gender, location, activity)
+- Automate following, liking, commenting, and direct messaging
+- Drive traffic to private domains, independent sites, or WhatsApp groups
 
-- **Bulk Message Sending**: Send personalized messages to thousands of contacts
-- **Group Marketing**: Automated posting and engagement in WhatsApp groups
-- **Contact Management**: Import, organize, and segment contact lists
-- **Message Personalization**: Dynamic variable replacement for personalized outreach
-- **Campaign Scheduling**: Time-based message delivery and drip campaigns
-- **Multi-Account Support**: Manage multiple WhatsApp accounts simultaneously
-- **Analytics & Reporting**: Track delivery rates, responses, and engagement metrics
+**Official resources:**
+- Main site: https://www.facebook18.com
+- Documentation: https://sites.google.com/view/facebook-script-custom/
+- Support: https://sites.google.com/view/instagram-keyword-hashtag-lead/
 
-## Installation & Setup
+## Installation
 
-### Prerequisites
+This is a service-based tool rather than a self-hosted package. Integration typically involves:
 
-- Node.js 14+ or Python 3.8+ (depending on implementation)
-- WhatsApp Business API access or web WhatsApp session
-- Contact database (CSV, Excel, or database connection)
-
-### Basic Installation
-
+1. **API Access Setup**
 ```bash
-# Clone the repository
-git clone https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System.git
-cd WhatsApp-Mass-Sender-And-Group-Marketing-System
-
-# Install dependencies (Node.js example)
-npm install
-
-# Or for Python implementation
-pip install -r requirements.txt
+# Configure environment variables
+export MARKETING_API_KEY="your_api_key_here"
+export MARKETING_API_ENDPOINT="https://api.facebook18.com/v1"
+export PROXY_LIST_PATH="./proxies.txt"
 ```
 
-### Environment Configuration
-
-Create a `.env` file in the project root:
-
-```env
-# WhatsApp Configuration
-WHATSAPP_SESSION_PATH=./sessions
-WHATSAPP_HEADLESS=true
-WHATSAPP_QR_TIMEOUT=60000
-
-# API Keys (if using WhatsApp Business API)
-WHATSAPP_API_KEY=your_api_key_here
-WHATSAPP_API_URL=https://api.whatsapp.com/v1
-
-# Database Configuration
-DB_TYPE=mongodb
-DB_CONNECTION_STRING=mongodb://localhost:27017/whatsapp_marketing
-
-# Campaign Settings
-MAX_MESSAGES_PER_HOUR=100
-MESSAGE_DELAY_MIN=3000
-MESSAGE_DELAY_MAX=7000
-RETRY_ATTEMPTS=3
-
-# Logging
-LOG_LEVEL=info
-LOG_FILE=./logs/whatsapp-sender.log
-```
-
-## Core Components & Usage
-
-### 1. Session Initialization
-
+2. **Account Configuration**
 ```javascript
-const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
-
-async function initializeWhatsAppClient() {
-  const client = new Client({
-    authStrategy: new LocalAuth({
-      clientId: process.env.CLIENT_ID || 'default-client',
-      dataPath: process.env.WHATSAPP_SESSION_PATH
-    }),
-    puppeteer: {
-      headless: process.env.WHATSAPP_HEADLESS === 'true',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+// config/accounts.json
+{
+  "instagram": [
+    {
+      "username": "account1",
+      "password_env": "IG_ACCOUNT1_PASS",
+      "proxy": "http://proxy1:port"
     }
-  });
-
-  client.on('qr', (qr) => {
-    console.log('Scan this QR code with WhatsApp:');
-    qrcode.generate(qr, { small: true });
-  });
-
-  client.on('ready', () => {
-    console.log('WhatsApp client is ready!');
-  });
-
-  client.on('authenticated', () => {
-    console.log('Authentication successful');
-  });
-
-  await client.initialize();
-  return client;
-}
-```
-
-### 2. Bulk Message Sending
-
-```javascript
-const fs = require('fs');
-const csv = require('csv-parser');
-
-async function sendBulkMessages(client, contactsFile, messageTemplate) {
-  const contacts = [];
-  
-  // Load contacts from CSV
-  await new Promise((resolve) => {
-    fs.createReadStream(contactsFile)
-      .pipe(csv())
-      .on('data', (row) => contacts.push(row))
-      .on('end', resolve);
-  });
-
-  const results = {
-    sent: 0,
-    failed: 0,
-    errors: []
-  };
-
-  for (const contact of contacts) {
-    try {
-      // Personalize message
-      const personalizedMessage = personalizeMessage(messageTemplate, contact);
-      
-      // Format phone number
-      const phoneNumber = formatPhoneNumber(contact.phone);
-      const chatId = `${phoneNumber}@c.us`;
-
-      // Send message with delay
-      await client.sendMessage(chatId, personalizedMessage);
-      
-      results.sent++;
-      console.log(`Message sent to ${contact.name} (${phoneNumber})`);
-
-      // Random delay between messages
-      const delay = randomDelay(
-        parseInt(process.env.MESSAGE_DELAY_MIN),
-        parseInt(process.env.MESSAGE_DELAY_MAX)
-      );
-      await sleep(delay);
-
-    } catch (error) {
-      results.failed++;
-      results.errors.push({
-        contact: contact.name,
-        error: error.message
-      });
-      console.error(`Failed to send to ${contact.name}:`, error.message);
+  ],
+  "tiktok": [
+    {
+      "username": "account2",
+      "session_token_env": "TT_ACCOUNT2_TOKEN"
     }
-  }
-
-  return results;
-}
-
-function personalizeMessage(template, contact) {
-  return template
-    .replace('{{name}}', contact.name)
-    .replace('{{company}}', contact.company || '')
-    .replace('{{custom_field}}', contact.custom_field || '');
-}
-
-function formatPhoneNumber(phone) {
-  // Remove all non-numeric characters
-  return phone.replace(/\D/g, '');
-}
-
-function randomDelay(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  ]
 }
 ```
 
-### 3. Group Marketing Automation
+3. **Dependency Installation** (if using SDK)
+```bash
+npm install @facebook18/marketing-automation
+# or
+pip install marketing-automation-sdk
+```
 
-```javascript
-async function sendGroupMessage(client, groupName, message) {
-  try {
-    const chats = await client.getChats();
-    const group = chats.find(chat => 
-      chat.isGroup && chat.name === groupName
-    );
+## Core Features & API
 
-    if (!group) {
-      throw new Error(`Group "${groupName}" not found`);
+### 1. Competitor Follower Extraction
+
+Extract all followers from a competitor's account:
+
+```python
+from marketing_automation import InstagramScraper
+import os
+
+scraper = InstagramScraper(api_key=os.getenv('MARKETING_API_KEY'))
+
+# Extract followers from competitor
+followers = scraper.get_followers(
+    username='competitor_account',
+    max_count=5000,
+    filter_options={
+        'min_followers': 100,
+        'max_followers': 10000,
+        'verified_only': False,
+        'active_last_days': 30
     }
+)
 
-    await group.sendMessage(message);
-    console.log(`Message sent to group: ${groupName}`);
-    
-    return { success: true, groupId: group.id._serialized };
-  } catch (error) {
-    console.error(`Failed to send group message:`, error);
-    return { success: false, error: error.message };
-  }
-}
-
-async function extractGroupMembers(client, groupName) {
-  const chats = await client.getChats();
-  const group = chats.find(chat => 
-    chat.isGroup && chat.name === groupName
-  );
-
-  if (!group) {
-    throw new Error(`Group "${groupName}" not found`);
-  }
-
-  const participants = await group.participants;
-  
-  return participants.map(participant => ({
-    id: participant.id._serialized,
-    number: participant.id.user,
-    isAdmin: participant.isAdmin,
-    isSuperAdmin: participant.isSuperAdmin
-  }));
-}
+# Save to database or CSV
+scraper.export_leads(followers, format='csv', output='leads.csv')
 ```
 
-### 4. Campaign Management
+### 2. Hashtag & Keyword Discovery
+
+Find users actively engaging with specific topics:
 
 ```javascript
-class WhatsAppCampaign {
-  constructor(client, config) {
-    this.client = client;
-    this.config = config;
-    this.stats = {
-      total: 0,
-      sent: 0,
-      failed: 0,
-      pending: 0
-    };
+const { TikTokLeadGen } = require('@facebook18/marketing-automation');
+
+const tiktok = new TikTokLeadGen({
+  apiKey: process.env.MARKETING_API_KEY
+});
+
+// Extract users from hashtag
+const leads = await tiktok.extractByHashtag({
+  hashtag: 'skincare',
+  maxUsers: 3000,
+  filters: {
+    minEngagement: 50,
+    location: ['US', 'UK', 'CA'],
+    ageRange: [18, 35],
+    gender: 'female'
   }
+});
 
-  async loadContacts(source) {
-    // Load from CSV, database, or API
-    const contacts = await this.parseContactSource(source);
-    this.stats.total = contacts.length;
-    this.stats.pending = contacts.length;
-    return contacts;
+// Get users from keyword search
+const keywordLeads = await tiktok.extractByKeyword({
+  keyword: 'anti-aging cream',
+  searchType: 'video_comments', // or 'bio', 'captions'
+  maxUsers: 2000
+});
+```
+
+### 3. AI-Powered Lead Filtering
+
+Filter extracted leads by visual and behavioral signals:
+
+```python
+from marketing_automation import LeadFilter
+
+filter = LeadFilter(api_key=os.getenv('MARKETING_API_KEY'))
+
+# Apply AI filters
+filtered_leads = filter.apply_filters(
+    leads=raw_leads,
+    filters={
+        'ai_age_detection': {'min': 25, 'max': 45},
+        'ai_gender_detection': 'female',
+        'profile_completeness': 0.7,  # 70% complete profiles
+        'engagement_score': {'min': 0.5},  # Active users
+        'spam_detection': True,  # Remove spam accounts
+        'location_match': ['United States', 'Canada']
+    }
+)
+
+print(f"Filtered {len(raw_leads)} down to {len(filtered_leads)} qualified leads")
+```
+
+### 4. Automated Engagement Campaigns
+
+Set up auto-follow, auto-like, and auto-comment workflows:
+
+```javascript
+const { InstagramBot } = require('@facebook18/marketing-automation');
+
+const bot = new InstagramBot({
+  apiKey: process.env.MARKETING_API_KEY,
+  account: 'your_account_username',
+  sessionToken: process.env.IG_SESSION_TOKEN
+});
+
+// Auto-follow campaign
+await bot.createCampaign({
+  type: 'follow',
+  targets: leads.map(l => l.username),
+  schedule: {
+    dailyLimit: 150,
+    hourlyLimit: 20,
+    delayBetween: [30, 90] // seconds
+  },
+  unfollowAfterDays: 3,
+  unfollowNonFollowers: true
+});
+
+// Auto-like campaign
+await bot.createCampaign({
+  type: 'like',
+  targets: leads,
+  postsPerUser: 3,
+  schedule: {
+    dailyLimit: 300,
+    randomize: true
   }
+});
 
-  async executeCampaign(contacts, messageTemplate, options = {}) {
-    const {
-      batchSize = 50,
-      batchDelay = 300000, // 5 minutes between batches
-      maxHourlyLimit = parseInt(process.env.MAX_MESSAGES_PER_HOUR)
-    } = options;
+// Auto-comment campaign
+await bot.createCampaign({
+  type: 'comment',
+  targets: leads,
+  commentTemplates: [
+    'Love this! 💕',
+    'So inspiring! ✨',
+    'Amazing content! 🔥'
+  ],
+  spintax: true, // Randomize text
+  schedule: {
+    dailyLimit: 100
+  }
+});
+```
 
-    let messagesSentThisHour = 0;
-    let hourStartTime = Date.now();
+### 5. Direct Message Automation
 
-    for (let i = 0; i < contacts.length; i += batchSize) {
-      const batch = contacts.slice(i, i + batchSize);
-      
-      // Check hourly limit
-      if (Date.now() - hourStartTime > 3600000) {
-        messagesSentThisHour = 0;
-        hourStartTime = Date.now();
-      }
+Send personalized DMs at scale:
 
-      if (messagesSentThisHour >= maxHourlyLimit) {
-        const waitTime = 3600000 - (Date.now() - hourStartTime);
-        console.log(`Hourly limit reached. Waiting ${waitTime/1000}s...`);
-        await sleep(waitTime);
-        messagesSentThisHour = 0;
-        hourStartTime = Date.now();
-      }
+```python
+from marketing_automation import DMCampaign
+import os
 
-      // Send batch
-      for (const contact of batch) {
-        const result = await this.sendSingleMessage(contact, messageTemplate);
-        
-        if (result.success) {
-          this.stats.sent++;
-          messagesSentThisHour++;
-        } else {
-          this.stats.failed++;
+campaign = DMCampaign(
+    api_key=os.getenv('MARKETING_API_KEY'),
+    platform='instagram',
+    account='your_account'
+)
+
+# Create DM sequence
+campaign.create_sequence(
+    name='Product Launch Sequence',
+    messages=[
+        {
+            'delay_hours': 0,
+            'template': 'Hi {first_name}! 👋 Noticed you love {interest}. Check out our new {product}!',
+            'include_media': 'product_image.jpg'
+        },
+        {
+            'delay_hours': 48,
+            'template': 'Hey! Did you get a chance to check it out? Here\'s a special 20% off code: WELCOME20',
+            'condition': 'no_reply'
+        },
+        {
+            'delay_hours': 120,
+            'template': 'Last chance! Code expires tonight 🔥',
+            'condition': 'no_reply'
         }
-        
-        this.stats.pending--;
-        
-        // Log progress
-        this.logProgress();
-      }
+    ]
+)
 
-      // Wait between batches
-      if (i + batchSize < contacts.length) {
-        console.log(`Batch complete. Waiting ${batchDelay/1000}s before next batch...`);
-        await sleep(batchDelay);
-      }
-    }
-
-    return this.stats;
-  }
-
-  async sendSingleMessage(contact, template) {
-    try {
-      const message = personalizeMessage(template, contact);
-      const chatId = `${formatPhoneNumber(contact.phone)}@c.us`;
-      
-      await this.client.sendMessage(chatId, message);
-      
-      // Optional: Save to database
-      await this.logMessage(contact, message, 'sent');
-      
-      const delay = randomDelay(
-        parseInt(process.env.MESSAGE_DELAY_MIN),
-        parseInt(process.env.MESSAGE_DELAY_MAX)
-      );
-      await sleep(delay);
-      
-      return { success: true };
-    } catch (error) {
-      await this.logMessage(contact, template, 'failed', error.message);
-      return { success: false, error: error.message };
-    }
-  }
-
-  async parseContactSource(source) {
-    // Implementation depends on source type
-    if (typeof source === 'string' && source.endsWith('.csv')) {
-      return this.parseCSV(source);
-    } else if (Array.isArray(source)) {
-      return source;
-    }
-    throw new Error('Unsupported contact source format');
-  }
-
-  async parseCSV(filePath) {
-    const contacts = [];
-    return new Promise((resolve, reject) => {
-      fs.createReadStream(filePath)
-        .pipe(csv())
-        .on('data', (row) => contacts.push(row))
-        .on('end', () => resolve(contacts))
-        .on('error', reject);
-    });
-  }
-
-  async logMessage(contact, message, status, error = null) {
-    const logEntry = {
-      timestamp: new Date(),
-      contact: contact.phone,
-      name: contact.name,
-      message: message.substring(0, 100),
-      status: status,
-      error: error
-    };
-    
-    console.log(JSON.stringify(logEntry));
-    // Optional: Save to database or file
-  }
-
-  logProgress() {
-    console.log(`Campaign Progress: ${this.stats.sent}/${this.stats.total} sent, ${this.stats.failed} failed, ${this.stats.pending} pending`);
-  }
-}
+# Start campaign
+campaign.start(
+    targets=filtered_leads,
+    daily_limit=50,
+    personalization_fields=['first_name', 'interest', 'product']
+)
 ```
 
-### 5. Message Templates & Variables
+### 6. WhatsApp Mass Messaging
+
+Bulk messaging for WhatsApp groups or contacts:
 
 ```javascript
-const messageTemplates = {
-  initial_outreach: `Hi {{name}}! 👋
+const { WhatsAppSender } = require('@facebook18/marketing-automation');
 
-I noticed you're interested in {{industry}}. We specialize in helping businesses like {{company}} with innovative solutions.
+const whatsapp = new WhatsAppSender({
+  apiKey: process.env.MARKETING_API_KEY,
+  phoneNumber: process.env.WHATSAPP_NUMBER,
+  sessionPath: './whatsapp-session'
+});
 
-Would you be open to a quick chat about how we can help you achieve {{goal}}?
+// Initialize session
+await whatsapp.initialize();
 
-Best regards,
-{{sender_name}}`,
+// Send bulk messages
+await whatsapp.sendBulk({
+  recipients: leads.map(l => l.phoneNumber),
+  message: 'Hi {name}! Special offer just for you...',
+  mediaUrl: 'https://yoursite.com/promo.jpg',
+  schedule: {
+    batchSize: 30,
+    delayBetween: [60, 120], // seconds
+    dailyLimit: 200
+  }
+});
 
-  follow_up: `Hello {{name}},
-
-Just following up on my previous message. I have some exciting updates about {{product}} that could benefit {{company}}.
-
-Are you available for a brief call this week?
-
-Thanks,
-{{sender_name}}`,
-
-  promotional: `🎉 Special Offer for {{name}}! 🎉
-
-Get {{discount}}% off on {{product}} - Limited time only!
-
-Perfect for {{use_case}}.
-
-Reply "YES" to claim your discount!
-
-{{company_name}}`
-};
-
-function getTemplate(templateName) {
-  return messageTemplates[templateName] || messageTemplates.initial_outreach;
-}
+// Group invite automation
+await whatsapp.inviteToGroup({
+  groupId: 'your_group_id',
+  phoneNumbers: leads.map(l => l.phoneNumber),
+  inviteMessage: 'Join our exclusive community!',
+  dailyLimit: 50
+});
 ```
 
-### 6. Complete Campaign Example
+## Configuration Patterns
 
-```javascript
-async function runMarketingCampaign() {
-  // Initialize client
-  const client = await initializeWhatsAppClient();
+### Campaign Configuration File
+
+```yaml
+# config/campaign.yml
+campaign:
+  name: "Competitor Follower Acquisition Q1"
+  platforms:
+    - instagram
+    - tiktok
   
-  // Wait for client to be ready
-  await new Promise((resolve) => {
-    client.on('ready', resolve);
-  });
-
-  // Create campaign
-  const campaign = new WhatsAppCampaign(client, {
-    name: 'Q4 Product Launch',
-    maxMessagesPerHour: 100
-  });
-
-  // Load contacts
-  const contacts = await campaign.loadContacts('./data/leads.csv');
-  console.log(`Loaded ${contacts.length} contacts`);
-
-  // Get message template
-  const template = getTemplate('initial_outreach');
-
-  // Execute campaign
-  const results = await campaign.executeCampaign(contacts, template, {
-    batchSize: 25,
-    batchDelay: 300000, // 5 minutes
-    maxHourlyLimit: 100
-  });
-
-  console.log('Campaign completed:', results);
+  extraction:
+    instagram:
+      competitors:
+        - username: "competitor1"
+          max_followers: 5000
+        - username: "competitor2"
+          max_followers: 3000
+      hashtags:
+        - "#skincare"
+        - "#antiaging"
+      keywords:
+        - "best moisturizer"
+    
+    tiktok:
+      creators:
+        - "@beauty_guru1"
+        - "@skincare_expert"
+      hashtags:
+        - "#skincareroutine"
   
-  // Cleanup
-  await client.destroy();
-}
-
-// Run campaign
-runMarketingCampaign().catch(console.error);
+  filters:
+    location: ["US", "UK", "CA", "AU"]
+    age_range: [25, 45]
+    gender: "female"
+    min_engagement_rate: 0.02
+    exclude_business_accounts: false
+    
+  engagement:
+    follow:
+      enabled: true
+      daily_limit: 150
+      unfollow_after_days: 3
+    
+    like:
+      enabled: true
+      posts_per_user: 2
+      daily_limit: 300
+    
+    comment:
+      enabled: true
+      daily_limit: 80
+      templates:
+        - "Love this! 💕"
+        - "So helpful! 🙌"
+    
+    dm:
+      enabled: true
+      delay_after_follow_hours: 24
+      daily_limit: 50
+      sequence: "product_launch"
+  
+  schedule:
+    active_hours: [9, 22]  # 9 AM to 10 PM
+    timezone: "America/New_York"
+    days_active: ["mon", "tue", "wed", "thu", "fri", "sat"]
 ```
 
-## Common Patterns & Best Practices
+### Load and Execute Campaign
 
-### Rate Limiting & Anti-Ban Measures
+```python
+from marketing_automation import CampaignManager
+import yaml
+import os
 
-```javascript
-class RateLimiter {
-  constructor(maxPerHour = 100, maxPerDay = 500) {
-    this.maxPerHour = maxPerHour;
-    this.maxPerDay = maxPerDay;
-    this.hourlyCount = 0;
-    this.dailyCount = 0;
-    this.hourStart = Date.now();
-    this.dayStart = Date.now();
-  }
+# Load configuration
+with open('config/campaign.yml') as f:
+    config = yaml.safe_load(f)
 
-  async checkAndWait() {
-    const now = Date.now();
-    
-    // Reset hourly counter
-    if (now - this.hourStart > 3600000) {
-      this.hourlyCount = 0;
-      this.hourStart = now;
-    }
-    
-    // Reset daily counter
-    if (now - this.dayStart > 86400000) {
-      this.dailyCount = 0;
-      this.dayStart = now;
-    }
-    
-    // Check limits
-    if (this.hourlyCount >= this.maxPerHour) {
-      const waitTime = 3600000 - (now - this.hourStart);
-      console.log(`Hourly limit reached. Waiting ${waitTime/1000}s...`);
-      await sleep(waitTime);
-      this.hourlyCount = 0;
-      this.hourStart = Date.now();
-    }
-    
-    if (this.dailyCount >= this.maxPerDay) {
-      const waitTime = 86400000 - (now - this.dayStart);
-      console.log(`Daily limit reached. Waiting ${waitTime/1000}s...`);
-      await sleep(waitTime);
-      this.dailyCount = 0;
-      this.dayStart = Date.now();
-    }
-    
-    this.hourlyCount++;
-    this.dailyCount++;
-  }
-}
+# Initialize campaign
+manager = CampaignManager(api_key=os.getenv('MARKETING_API_KEY'))
+campaign = manager.create_from_config(config)
+
+# Start campaign
+campaign.start()
+
+# Monitor progress
+stats = campaign.get_stats()
+print(f"Leads extracted: {stats['leads_extracted']}")
+print(f"Follows sent: {stats['follows_sent']}")
+print(f"DMs sent: {stats['dms_sent']}")
+print(f"Conversion rate: {stats['conversion_rate']}")
+
+# Pause/resume
+campaign.pause()
+campaign.resume()
+
+# Export results
+campaign.export_results('campaign_results.csv')
 ```
 
-### Contact Validation
+## Advanced Patterns
+
+### Multi-Account Rotation
+
+Distribute actions across multiple accounts to avoid rate limits:
 
 ```javascript
-function validateContact(contact) {
-  const errors = [];
-  
-  if (!contact.phone) {
-    errors.push('Missing phone number');
-  } else if (!/^\+?[1-9]\d{1,14}$/.test(contact.phone.replace(/\D/g, ''))) {
-    errors.push('Invalid phone number format');
-  }
-  
-  if (!contact.name) {
-    errors.push('Missing name');
-  }
-  
-  return {
-    valid: errors.length === 0,
-    errors: errors
-  };
-}
+const { AccountRotator } = require('@facebook18/marketing-automation');
 
-function cleanContactList(contacts) {
-  return contacts
-    .map(contact => ({
-      ...contact,
-      phone: formatPhoneNumber(contact.phone)
-    }))
-    .filter(contact => {
-      const validation = validateContact(contact);
-      if (!validation.valid) {
-        console.warn(`Invalid contact: ${contact.name}`, validation.errors);
-      }
-      return validation.valid;
-    });
-}
+const rotator = new AccountRotator({
+  apiKey: process.env.MARKETING_API_KEY,
+  accounts: [
+    { username: 'account1', sessionToken: process.env.ACCOUNT1_TOKEN },
+    { username: 'account2', sessionToken: process.env.ACCOUNT2_TOKEN },
+    { username: 'account3', sessionToken: process.env.ACCOUNT3_TOKEN }
+  ],
+  strategy: 'round_robin' // or 'random', 'least_used'
+});
+
+// Actions automatically rotate across accounts
+await rotator.followUsers(leads, {
+  dailyLimitPerAccount: 100,
+  smartRotation: true // Switch on rate limit warnings
+});
+```
+
+### Proxy Management
+
+Route requests through rotating proxies:
+
+```python
+from marketing_automation import ProxyManager
+
+proxy_mgr = ProxyManager()
+proxy_mgr.load_from_file('proxies.txt')  # Format: ip:port:user:pass
+
+# Assign proxies to accounts
+scraper = InstagramScraper(
+    api_key=os.getenv('MARKETING_API_KEY'),
+    proxy_manager=proxy_mgr,
+    proxy_rotation='per_request'  # or 'per_session', 'per_account'
+)
+
+# Test proxies
+working_proxies = proxy_mgr.test_all()
+print(f"{len(working_proxies)} working proxies")
+```
+
+### Webhook Notifications
+
+Get real-time updates on campaign events:
+
+```javascript
+const { WebhookServer } = require('@facebook18/marketing-automation');
+
+const webhook = new WebhookServer({
+  port: 3000,
+  secret: process.env.WEBHOOK_SECRET
+});
+
+webhook.on('lead_extracted', (data) => {
+  console.log(`New lead: ${data.username} from ${data.source}`);
+  // Send to CRM, database, etc.
+});
+
+webhook.on('dm_sent', (data) => {
+  console.log(`DM sent to ${data.recipient}`);
+});
+
+webhook.on('rate_limit', (data) => {
+  console.warn(`Rate limit hit on ${data.account} - pausing for ${data.cooldown_minutes} minutes`);
+});
+
+webhook.on('campaign_complete', (data) => {
+  console.log(`Campaign ${data.campaign_id} completed: ${data.total_leads} leads generated`);
+});
+
+webhook.start();
 ```
 
 ## Troubleshooting
 
-### Common Issues
+### Rate Limit Issues
 
-**QR Code Not Scanning**
+```python
+# Handle rate limits gracefully
+from marketing_automation.exceptions import RateLimitError
+import time
+
+try:
+    followers = scraper.get_followers(username='competitor', max_count=10000)
+except RateLimitError as e:
+    print(f"Rate limited. Retry after {e.retry_after} seconds")
+    time.sleep(e.retry_after)
+    followers = scraper.get_followers(username='competitor', max_count=10000)
+```
+
+### Session Expiration
+
 ```javascript
-// Increase timeout
-client.options.qrTimeoutMs = 120000; // 2 minutes
-
-// Force regenerate QR
-client.on('qr', (qr) => {
-  console.log('New QR Code generated at:', new Date().toISOString());
-  qrcode.generate(qr, { small: true });
+// Auto-refresh sessions
+bot.on('session_expired', async (account) => {
+  console.log(`Session expired for ${account.username}, refreshing...`);
+  await bot.refreshSession(account);
 });
-```
 
-**Session Expired**
-```javascript
-client.on('disconnected', async (reason) => {
-  console.log('Client disconnected:', reason);
-  // Attempt to reinitialize
-  await client.initialize();
-});
-```
-
-**Message Sending Failures**
-```javascript
-async function sendWithRetry(client, chatId, message, maxRetries = 3) {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      await client.sendMessage(chatId, message);
-      return { success: true };
-    } catch (error) {
-      console.error(`Attempt ${attempt} failed:`, error.message);
-      
-      if (attempt < maxRetries) {
-        await sleep(5000 * attempt); // Exponential backoff
-      } else {
-        return { success: false, error: error.message };
-      }
-    }
+// Manual session refresh
+try {
+  await bot.followUser('target_user');
+} catch (error) {
+  if (error.code === 'SESSION_EXPIRED') {
+    await bot.login(account.username, process.env.ACCOUNT_PASSWORD);
+    await bot.followUser('target_user');
   }
 }
 ```
 
-**Phone Number Not Registered**
-```javascript
-async function checkNumberExists(client, phoneNumber) {
-  try {
-    const numberId = await client.getNumberId(formatPhoneNumber(phoneNumber));
-    return numberId !== null;
-  } catch (error) {
-    return false;
-  }
-}
+### Account Shadowban Detection
+
+```python
+from marketing_automation import HealthChecker
+
+checker = HealthChecker(api_key=os.getenv('MARKETING_API_KEY'))
+
+# Check account health
+health = checker.check_account(platform='instagram', username='your_account')
+
+if health['shadowbanned']:
+    print("Account is shadowbanned - reduce activity")
+    campaign.set_limits(daily_follows=50, daily_likes=100)
+elif health['action_blocked']:
+    print("Temporary action block - pause for 24h")
+    campaign.pause(hours=24)
+else:
+    print("Account healthy")
 ```
 
-## Security Considerations
+### Data Quality Issues
 
-- Store sensitive credentials in environment variables
-- Never commit `.env` files or session data
-- Use encrypted storage for contact databases
-- Implement proper error logging without exposing sensitive data
-- Rotate API keys regularly if using WhatsApp Business API
-- Monitor for unusual activity that could trigger bans
+```python
+# Remove duplicates and invalid leads
+from marketing_automation import LeadCleaner
 
-## Analytics & Reporting
+cleaner = LeadCleaner()
+leads = cleaner.clean(
+    raw_leads,
+    remove_duplicates=True,
+    validate_usernames=True,
+    remove_inactive=True,  # No posts in 90 days
+    remove_private=True    # Private accounts
+)
 
-```javascript
-class CampaignAnalytics {
-  constructor() {
-    this.metrics = {
-      sent: 0,
-      delivered: 0,
-      read: 0,
-      replied: 0,
-      failed: 0,
-      blocked: 0
-    };
-  }
-
-  recordEvent(eventType) {
-    if (this.metrics.hasOwnProperty(eventType)) {
-      this.metrics[eventType]++;
-    }
-  }
-
-  generateReport() {
-    const total = Object.values(this.metrics).reduce((a, b) => a + b, 0);
-    
-    return {
-      summary: this.metrics,
-      rates: {
-        deliveryRate: ((this.metrics.delivered / this.metrics.sent) * 100).toFixed(2) + '%',
-        readRate: ((this.metrics.read / this.metrics.delivered) * 100).toFixed(2) + '%',
-        responseRate: ((this.metrics.replied / this.metrics.delivered) * 100).toFixed(2) + '%',
-        failureRate: ((this.metrics.failed / this.metrics.sent) * 100).toFixed(2) + '%'
-      },
-      total: total
-    };
-  }
-}
+print(f"Cleaned {len(raw_leads)} down to {len(leads)} quality leads")
 ```
+
+## Best Practices
+
+1. **Start slow**: Begin with low daily limits (50-100 actions/day) and gradually increase
+2. **Rotate accounts**: Use 3-5 accounts per campaign to distribute activity
+3. **Humanize timing**: Add random delays (30-90s) between actions
+4. **Monitor health**: Check account status daily for shadowbans or blocks
+5. **Segment leads**: Filter leads into tiers (hot/warm/cold) for targeted messaging
+6. **Test messages**: A/B test DM templates before scaling
+7. **Comply with ToS**: Review platform policies and use responsibly
+8. **Use proxies**: Residential proxies for accounts, datacenter for scraping
+
+## Environment Variables Reference
+
+```bash
+# API Authentication
+MARKETING_API_KEY=your_api_key
+MARKETING_API_ENDPOINT=https://api.facebook18.com/v1
+
+# Account Credentials (store securely)
+IG_ACCOUNT1_USER=username1
+IG_ACCOUNT1_PASS=password1
+TT_ACCOUNT1_TOKEN=session_token1
+
+# WhatsApp
+WHATSAPP_NUMBER=+1234567890
+WHATSAPP_SESSION_PATH=./sessions/whatsapp
+
+# Proxy Configuration
+PROXY_LIST_PATH=./proxies.txt
+PROXY_ROTATION=per_request
+
+# Webhook
+WEBHOOK_URL=https://yoursite.com/webhook
+WEBHOOK_SECRET=your_webhook_secret
+
+# Limits (optional overrides)
+DAILY_FOLLOW_LIMIT=150
+DAILY_DM_LIMIT=50
+HOURLY_ACTION_LIMIT=30
+```
+
+This skill covers the core automation capabilities for social media marketing campaigns across TikTok, Instagram, and WhatsApp platforms.
