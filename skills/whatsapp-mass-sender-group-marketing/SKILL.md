@@ -1,590 +1,511 @@
 ---
 name: whatsapp-mass-sender-group-marketing
-description: Social media automation toolkit for TikTok and Instagram lead generation, competitor follower extraction, and automated engagement campaigns
+description: Multi-platform social media automation for TikTok, Instagram, and WhatsApp mass messaging and follower extraction
 triggers:
-  - how do I extract followers from TikTok or Instagram competitors
-  - automate Instagram engagement and DM campaigns
+  - how do I automate WhatsApp mass messaging
+  - extract followers from TikTok competitor accounts
+  - automate Instagram follower engagement
   - set up multi-platform social media marketing automation
-  - scrape TikTok users by hashtag or keyword
-  - build automated follower acquisition for Instagram
-  - create auto-comment and auto-like campaigns on social platforms
-  - extract and filter social media leads by demographics
-  - set up WhatsApp mass messaging campaigns
+  - bulk send messages on WhatsApp to groups
+  - scrape TikTok user data by hashtag
+  - automate Instagram comments and DMs
+  - build social media lead generation funnel
 ---
 
 # WhatsApp Mass Sender & Group Marketing System
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-## Overview
+This project provides automation tools for multi-platform social media marketing, primarily focused on TikTok, Instagram, and WhatsApp. It enables bulk follower extraction, automated engagement (follows, likes, comments), and mass messaging capabilities for lead generation and customer acquisition.
 
-This project is a multi-platform social media automation system designed for lead generation, competitor analysis, and automated engagement on TikTok, Instagram, and WhatsApp. It enables extraction of competitor followers, hashtag-based user discovery, AI-powered demographic filtering, and automated outreach campaigns.
+## What This Project Does
 
-**Primary use cases:**
-- Extract followers/engaged users from competitor accounts
-- Discover users by hashtag, keyword, or geolocation
-- Filter leads by demographics (age, gender, location, activity)
-- Automate following, liking, commenting, and direct messaging
-- Drive traffic to private domains, independent sites, or WhatsApp groups
+The system offers several core capabilities:
 
-**Official resources:**
-- Main site: https://www.facebook18.com
-- Documentation: https://sites.google.com/view/facebook-script-custom/
-- Support: https://sites.google.com/view/instagram-keyword-hashtag-lead/
+- **Competitor Follower Extraction**: Scrape follower lists and engaged users from competitor accounts on TikTok and Instagram
+- **Hashtag & Keyword Targeting**: Extract users posting or engaging with specific hashtags and keywords
+- **Automated Engagement**: Batch follow, like, comment, and DM operations
+- **WhatsApp Mass Messaging**: Send bulk messages to groups and individual contacts
+- **User Filtering**: AI-based filtering by demographics, activity level, and profile characteristics
+- **Multi-Account Management**: Operate multiple social media accounts simultaneously
 
 ## Installation
 
-This is a service-based tool rather than a self-hosted package. Integration typically involves:
+Based on the project description, this appears to be a commercial service rather than an open-source tool you install locally. Access is provided through:
 
-1. **API Access Setup**
+1. **Web Platform**: Visit the official site at `https://sites.google.com/view/facebook-script-custom/`
+2. **Support/Setup**: Contact through `https://sites.google.com/view/instagram-keyword-hashtag-lead/`
+
+For self-hosted or custom implementations, you would typically need:
+
 ```bash
-# Configure environment variables
-export MARKETING_API_KEY="your_api_key_here"
-export MARKETING_API_ENDPOINT="https://api.facebook18.com/v1"
-export PROXY_LIST_PATH="./proxies.txt"
-```
+# Clone the repository
+git clone https://github.com/jdodof/WhatsApp-Mass-Sender-And-Group-Marketing-System.git
+cd WhatsApp-Mass-Sender-And-Group-Marketing-System
 
-2. **Account Configuration**
-```javascript
-// config/accounts.json
-{
-  "instagram": [
-    {
-      "username": "account1",
-      "password_env": "IG_ACCOUNT1_PASS",
-      "proxy": "http://proxy1:port"
-    }
-  ],
-  "tiktok": [
-    {
-      "username": "account2",
-      "session_token_env": "TT_ACCOUNT2_TOKEN"
-    }
-  ]
-}
-```
-
-3. **Dependency Installation** (if using SDK)
-```bash
-npm install @facebook18/marketing-automation
+# Install dependencies (assuming Node.js/Python based on typical automation tools)
+npm install
 # or
-pip install marketing-automation-sdk
+pip install -r requirements.txt
 ```
 
-## Core Features & API
+## Environment Configuration
 
-### 1. Competitor Follower Extraction
+Create a `.env` file with required credentials:
 
-Extract all followers from a competitor's account:
+```env
+# Instagram Credentials
+INSTAGRAM_USERNAME=your_username
+INSTAGRAM_PASSWORD=your_password
 
-```python
-from marketing_automation import InstagramScraper
-import os
+# TikTok Credentials
+TIKTOK_USERNAME=your_username
+TIKTOK_PASSWORD=your_password
 
-scraper = InstagramScraper(api_key=os.getenv('MARKETING_API_KEY'))
+# WhatsApp Configuration
+WHATSAPP_PHONE_NUMBER=+1234567890
+WHATSAPP_API_KEY=your_api_key
 
-# Extract followers from competitor
-followers = scraper.get_followers(
-    username='competitor_account',
-    max_count=5000,
-    filter_options={
-        'min_followers': 100,
-        'max_followers': 10000,
-        'verified_only': False,
-        'active_last_days': 30
-    }
-)
+# Proxy Settings (recommended to avoid rate limits)
+PROXY_HOST=proxy.example.com
+PROXY_PORT=8080
+PROXY_USERNAME=proxy_user
+PROXY_PASSWORD=proxy_pass
 
-# Save to database or CSV
-scraper.export_leads(followers, format='csv', output='leads.csv')
+# Rate Limiting
+MAX_FOLLOWS_PER_HOUR=50
+MAX_MESSAGES_PER_HOUR=30
+MAX_COMMENTS_PER_HOUR=40
+
+# Target Filters
+TARGET_MIN_FOLLOWERS=100
+TARGET_MAX_FOLLOWERS=50000
+TARGET_COUNTRIES=US,UK,CA,AU
 ```
 
-### 2. Hashtag & Keyword Discovery
+## Key Usage Patterns
 
-Find users actively engaging with specific topics:
+### 1. Extract Competitor Followers (Instagram)
 
 ```javascript
-const { TikTokLeadGen } = require('@facebook18/marketing-automation');
+const { InstagramScraper } = require('./lib/instagram-scraper');
 
-const tiktok = new TikTokLeadGen({
-  apiKey: process.env.MARKETING_API_KEY
-});
-
-// Extract users from hashtag
-const leads = await tiktok.extractByHashtag({
-  hashtag: 'skincare',
-  maxUsers: 3000,
-  filters: {
-    minEngagement: 50,
-    location: ['US', 'UK', 'CA'],
-    ageRange: [18, 35],
-    gender: 'female'
-  }
-});
-
-// Get users from keyword search
-const keywordLeads = await tiktok.extractByKeyword({
-  keyword: 'anti-aging cream',
-  searchType: 'video_comments', // or 'bio', 'captions'
-  maxUsers: 2000
-});
-```
-
-### 3. AI-Powered Lead Filtering
-
-Filter extracted leads by visual and behavioral signals:
-
-```python
-from marketing_automation import LeadFilter
-
-filter = LeadFilter(api_key=os.getenv('MARKETING_API_KEY'))
-
-# Apply AI filters
-filtered_leads = filter.apply_filters(
-    leads=raw_leads,
-    filters={
-        'ai_age_detection': {'min': 25, 'max': 45},
-        'ai_gender_detection': 'female',
-        'profile_completeness': 0.7,  # 70% complete profiles
-        'engagement_score': {'min': 0.5},  # Active users
-        'spam_detection': True,  # Remove spam accounts
-        'location_match': ['United States', 'Canada']
+async function extractCompetitorFollowers() {
+  const scraper = new InstagramScraper({
+    username: process.env.INSTAGRAM_USERNAME,
+    password: process.env.INSTAGRAM_PASSWORD,
+    proxy: {
+      host: process.env.PROXY_HOST,
+      port: process.env.PROXY_PORT
     }
-)
+  });
 
-print(f"Filtered {len(raw_leads)} down to {len(filtered_leads)} qualified leads")
+  await scraper.login();
+
+  // Extract followers from competitor account
+  const followers = await scraper.getFollowers('competitor_account', {
+    maxCount: 5000,
+    filters: {
+      minFollowers: parseInt(process.env.TARGET_MIN_FOLLOWERS),
+      maxFollowers: parseInt(process.env.TARGET_MAX_FOLLOWERS),
+      activeOnly: true,
+      countries: process.env.TARGET_COUNTRIES.split(',')
+    }
+  });
+
+  // Save to database or file
+  await scraper.saveToFile(followers, 'competitor_followers.json');
+  
+  console.log(`Extracted ${followers.length} followers`);
+  return followers;
+}
+
+extractCompetitorFollowers().catch(console.error);
 ```
 
-### 4. Automated Engagement Campaigns
-
-Set up auto-follow, auto-like, and auto-comment workflows:
-
-```javascript
-const { InstagramBot } = require('@facebook18/marketing-automation');
-
-const bot = new InstagramBot({
-  apiKey: process.env.MARKETING_API_KEY,
-  account: 'your_account_username',
-  sessionToken: process.env.IG_SESSION_TOKEN
-});
-
-// Auto-follow campaign
-await bot.createCampaign({
-  type: 'follow',
-  targets: leads.map(l => l.username),
-  schedule: {
-    dailyLimit: 150,
-    hourlyLimit: 20,
-    delayBetween: [30, 90] // seconds
-  },
-  unfollowAfterDays: 3,
-  unfollowNonFollowers: true
-});
-
-// Auto-like campaign
-await bot.createCampaign({
-  type: 'like',
-  targets: leads,
-  postsPerUser: 3,
-  schedule: {
-    dailyLimit: 300,
-    randomize: true
-  }
-});
-
-// Auto-comment campaign
-await bot.createCampaign({
-  type: 'comment',
-  targets: leads,
-  commentTemplates: [
-    'Love this! 💕',
-    'So inspiring! ✨',
-    'Amazing content! 🔥'
-  ],
-  spintax: true, // Randomize text
-  schedule: {
-    dailyLimit: 100
-  }
-});
-```
-
-### 5. Direct Message Automation
-
-Send personalized DMs at scale:
+### 2. TikTok Hashtag User Extraction
 
 ```python
-from marketing_automation import DMCampaign
+from lib.tiktok_scraper import TikTokScraper
 import os
+import json
 
-campaign = DMCampaign(
-    api_key=os.getenv('MARKETING_API_KEY'),
-    platform='instagram',
-    account='your_account'
-)
-
-# Create DM sequence
-campaign.create_sequence(
-    name='Product Launch Sequence',
-    messages=[
-        {
-            'delay_hours': 0,
-            'template': 'Hi {first_name}! 👋 Noticed you love {interest}. Check out our new {product}!',
-            'include_media': 'product_image.jpg'
-        },
-        {
-            'delay_hours': 48,
-            'template': 'Hey! Did you get a chance to check it out? Here\'s a special 20% off code: WELCOME20',
-            'condition': 'no_reply'
-        },
-        {
-            'delay_hours': 120,
-            'template': 'Last chance! Code expires tonight 🔥',
-            'condition': 'no_reply'
+def extract_hashtag_users():
+    scraper = TikTokScraper(
+        username=os.getenv('TIKTOK_USERNAME'),
+        password=os.getenv('TIKTOK_PASSWORD'),
+        proxy={
+            'host': os.getenv('PROXY_HOST'),
+            'port': os.getenv('PROXY_PORT')
         }
-    ]
-)
+    )
+    
+    scraper.login()
+    
+    # Extract users who posted with specific hashtag
+    users = scraper.get_hashtag_users(
+        hashtag='fitness',
+        max_videos=1000,
+        filters={
+            'min_followers': int(os.getenv('TARGET_MIN_FOLLOWERS')),
+            'engagement_rate_min': 0.05,
+            'posted_within_days': 30
+        }
+    )
+    
+    # Save results
+    with open('hashtag_users.json', 'w') as f:
+        json.dump(users, f, indent=2)
+    
+    print(f"Extracted {len(users)} users from #fitness")
+    return users
 
-# Start campaign
-campaign.start(
-    targets=filtered_leads,
-    daily_limit=50,
-    personalization_fields=['first_name', 'interest', 'product']
-)
+if __name__ == '__main__':
+    extract_hashtag_users()
 ```
 
-### 6. WhatsApp Mass Messaging
-
-Bulk messaging for WhatsApp groups or contacts:
+### 3. Automated Engagement Campaign
 
 ```javascript
-const { WhatsAppSender } = require('@facebook18/marketing-automation');
+const { InstagramBot } = require('./lib/instagram-bot');
 
-const whatsapp = new WhatsAppSender({
-  apiKey: process.env.MARKETING_API_KEY,
-  phoneNumber: process.env.WHATSAPP_NUMBER,
-  sessionPath: './whatsapp-session'
-});
+async function runEngagementCampaign() {
+  const bot = new InstagramBot({
+    username: process.env.INSTAGRAM_USERNAME,
+    password: process.env.INSTAGRAM_PASSWORD,
+    rateLimits: {
+      followsPerHour: parseInt(process.env.MAX_FOLLOWS_PER_HOUR),
+      likesPerHour: parseInt(process.env.MAX_LIKES_PER_HOUR),
+      commentsPerHour: parseInt(process.env.MAX_COMMENTS_PER_HOUR)
+    }
+  });
 
-// Initialize session
-await whatsapp.initialize();
+  await bot.login();
 
-// Send bulk messages
-await whatsapp.sendBulk({
-  recipients: leads.map(l => l.phoneNumber),
-  message: 'Hi {name}! Special offer just for you...',
-  mediaUrl: 'https://yoursite.com/promo.jpg',
-  schedule: {
-    batchSize: 30,
-    delayBetween: [60, 120], // seconds
-    dailyLimit: 200
+  // Load target users
+  const targetUsers = require('./competitor_followers.json');
+
+  // Automated engagement loop
+  for (const user of targetUsers) {
+    try {
+      // Follow user
+      await bot.follow(user.username);
+      
+      // Like recent posts
+      await bot.likeRecentPosts(user.username, { count: 3 });
+      
+      // Leave comment on latest post
+      const comments = [
+        "Great content! 🔥",
+        "Love this! 💯",
+        "Awesome post! 👏"
+      ];
+      await bot.commentOnLatestPost(
+        user.username, 
+        comments[Math.floor(Math.random() * comments.length)]
+      );
+      
+      // Wait between actions (human-like behavior)
+      await bot.randomDelay(30000, 60000);
+      
+    } catch (error) {
+      console.error(`Error processing ${user.username}:`, error.message);
+    }
   }
-});
 
-// Group invite automation
-await whatsapp.inviteToGroup({
-  groupId: 'your_group_id',
-  phoneNumbers: leads.map(l => l.phoneNumber),
-  inviteMessage: 'Join our exclusive community!',
-  dailyLimit: 50
-});
+  console.log('Engagement campaign completed');
+}
+
+runEngagementCampaign().catch(console.error);
 ```
 
-## Configuration Patterns
-
-### Campaign Configuration File
-
-```yaml
-# config/campaign.yml
-campaign:
-  name: "Competitor Follower Acquisition Q1"
-  platforms:
-    - instagram
-    - tiktok
-  
-  extraction:
-    instagram:
-      competitors:
-        - username: "competitor1"
-          max_followers: 5000
-        - username: "competitor2"
-          max_followers: 3000
-      hashtags:
-        - "#skincare"
-        - "#antiaging"
-      keywords:
-        - "best moisturizer"
-    
-    tiktok:
-      creators:
-        - "@beauty_guru1"
-        - "@skincare_expert"
-      hashtags:
-        - "#skincareroutine"
-  
-  filters:
-    location: ["US", "UK", "CA", "AU"]
-    age_range: [25, 45]
-    gender: "female"
-    min_engagement_rate: 0.02
-    exclude_business_accounts: false
-    
-  engagement:
-    follow:
-      enabled: true
-      daily_limit: 150
-      unfollow_after_days: 3
-    
-    like:
-      enabled: true
-      posts_per_user: 2
-      daily_limit: 300
-    
-    comment:
-      enabled: true
-      daily_limit: 80
-      templates:
-        - "Love this! 💕"
-        - "So helpful! 🙌"
-    
-    dm:
-      enabled: true
-      delay_after_follow_hours: 24
-      daily_limit: 50
-      sequence: "product_launch"
-  
-  schedule:
-    active_hours: [9, 22]  # 9 AM to 10 PM
-    timezone: "America/New_York"
-    days_active: ["mon", "tue", "wed", "thu", "fri", "sat"]
-```
-
-### Load and Execute Campaign
+### 4. WhatsApp Mass Messaging
 
 ```python
-from marketing_automation import CampaignManager
-import yaml
+from lib.whatsapp_sender import WhatsAppSender
 import os
+import time
 
-# Load configuration
-with open('config/campaign.yml') as f:
-    config = yaml.safe_load(f)
+def send_mass_messages():
+    sender = WhatsAppSender(
+        phone_number=os.getenv('WHATSAPP_PHONE_NUMBER'),
+        api_key=os.getenv('WHATSAPP_API_KEY')
+    )
+    
+    # Connect to WhatsApp
+    sender.connect()
+    
+    # Load contact list
+    contacts = sender.load_contacts('contacts.csv')
+    
+    # Message template
+    message_template = """
+    Hi {name}! 👋
+    
+    I noticed you're interested in {interest}. 
+    
+    We have a special offer running this week that I think you'd love!
+    
+    Check it out: {link}
+    """
+    
+    # Send messages with rate limiting
+    for contact in contacts:
+        try:
+            message = message_template.format(
+                name=contact['name'],
+                interest=contact['interest'],
+                link=contact['custom_link']
+            )
+            
+            sender.send_message(
+                phone=contact['phone'],
+                message=message
+            )
+            
+            print(f"Sent to {contact['name']}")
+            
+            # Rate limit: 30 messages per hour
+            time.sleep(120)  # 2 minutes between messages
+            
+        except Exception as e:
+            print(f"Failed to send to {contact['name']}: {e}")
+    
+    sender.disconnect()
 
-# Initialize campaign
-manager = CampaignManager(api_key=os.getenv('MARKETING_API_KEY'))
-campaign = manager.create_from_config(config)
-
-# Start campaign
-campaign.start()
-
-# Monitor progress
-stats = campaign.get_stats()
-print(f"Leads extracted: {stats['leads_extracted']}")
-print(f"Follows sent: {stats['follows_sent']}")
-print(f"DMs sent: {stats['dms_sent']}")
-print(f"Conversion rate: {stats['conversion_rate']}")
-
-# Pause/resume
-campaign.pause()
-campaign.resume()
-
-# Export results
-campaign.export_results('campaign_results.csv')
+if __name__ == '__main__':
+    send_mass_messages()
 ```
 
-## Advanced Patterns
-
-### Multi-Account Rotation
-
-Distribute actions across multiple accounts to avoid rate limits:
+### 5. Multi-Platform Lead Generation Pipeline
 
 ```javascript
-const { AccountRotator } = require('@facebook18/marketing-automation');
+const { TikTokScraper } = require('./lib/tiktok-scraper');
+const { InstagramBot } = require('./lib/instagram-bot');
+const { WhatsAppSender } = require('./lib/whatsapp-sender');
+const { LeadFilter } = require('./lib/lead-filter');
 
-const rotator = new AccountRotator({
-  apiKey: process.env.MARKETING_API_KEY,
-  accounts: [
-    { username: 'account1', sessionToken: process.env.ACCOUNT1_TOKEN },
-    { username: 'account2', sessionToken: process.env.ACCOUNT2_TOKEN },
-    { username: 'account3', sessionToken: process.env.ACCOUNT3_TOKEN }
+async function leadGenerationPipeline() {
+  // Step 1: Extract leads from TikTok
+  const tiktokScraper = new TikTokScraper({
+    username: process.env.TIKTOK_USERNAME,
+    password: process.env.TIKTOK_PASSWORD
+  });
+  
+  const rawLeads = await tiktokScraper.getHashtagUsers('ecommerce', {
+    maxCount: 10000
+  });
+  
+  // Step 2: Filter and enrich leads
+  const filter = new LeadFilter();
+  const qualifiedLeads = await filter.process(rawLeads, {
+    minFollowers: 500,
+    maxFollowers: 50000,
+    engagementRate: 0.03,
+    countries: ['US', 'UK', 'CA'],
+    ageRange: [25, 45]
+  });
+  
+  // Step 3: Engage on Instagram
+  const instagramBot = new InstagramBot({
+    username: process.env.INSTAGRAM_USERNAME,
+    password: process.env.INSTAGRAM_PASSWORD
+  });
+  
+  for (const lead of qualifiedLeads.slice(0, 100)) {
+    if (lead.instagramUsername) {
+      await instagramBot.follow(lead.instagramUsername);
+      await instagramBot.sendDM(lead.instagramUsername, 
+        "Hey! Loved your TikTok content. Following you here too! 🎉"
+      );
+      await instagramBot.randomDelay(60000, 120000);
+    }
+  }
+  
+  // Step 4: WhatsApp follow-up (for converted leads)
+  const whatsappSender = new WhatsAppSender({
+    phoneNumber: process.env.WHATSAPP_PHONE_NUMBER,
+    apiKey: process.env.WHATSAPP_API_KEY
+  });
+  
+  const convertedLeads = qualifiedLeads.filter(l => l.contactInfo?.phone);
+  
+  for (const lead of convertedLeads) {
+    await whatsappSender.sendMessage(
+      lead.contactInfo.phone,
+      `Hi ${lead.name}! Thanks for connecting on Instagram. 
+      I'd love to share some exclusive offers with you! 🎁`
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 150000)); // 2.5 min delay
+  }
+  
+  console.log(`Pipeline complete: ${convertedLeads.length} leads contacted`);
+}
+
+leadGenerationPipeline().catch(console.error);
+```
+
+## Advanced Configuration
+
+### Proxy Rotation
+
+```javascript
+const { ProxyManager } = require('./lib/proxy-manager');
+
+const proxyManager = new ProxyManager({
+  proxies: [
+    { host: 'proxy1.example.com', port: 8080, user: 'user1', pass: 'pass1' },
+    { host: 'proxy2.example.com', port: 8080, user: 'user2', pass: 'pass2' },
+    { host: 'proxy3.example.com', port: 8080, user: 'user3', pass: 'pass3' }
   ],
-  strategy: 'round_robin' // or 'random', 'least_used'
+  rotationStrategy: 'round-robin' // or 'random', 'least-used'
 });
 
-// Actions automatically rotate across accounts
-await rotator.followUsers(leads, {
-  dailyLimitPerAccount: 100,
-  smartRotation: true // Switch on rate limit warnings
+const scraper = new InstagramScraper({
+  username: process.env.INSTAGRAM_USERNAME,
+  password: process.env.INSTAGRAM_PASSWORD,
+  proxyManager: proxyManager
 });
 ```
 
-### Proxy Management
-
-Route requests through rotating proxies:
+### Session Management
 
 ```python
-from marketing_automation import ProxyManager
+from lib.session_manager import SessionManager
 
-proxy_mgr = ProxyManager()
-proxy_mgr.load_from_file('proxies.txt')  # Format: ip:port:user:pass
-
-# Assign proxies to accounts
-scraper = InstagramScraper(
-    api_key=os.getenv('MARKETING_API_KEY'),
-    proxy_manager=proxy_mgr,
-    proxy_rotation='per_request'  # or 'per_session', 'per_account'
+session_mgr = SessionManager(
+    storage_path='./sessions',
+    max_session_age_hours=24
 )
 
-# Test proxies
-working_proxies = proxy_mgr.test_all()
-print(f"{len(working_proxies)} working proxies")
-```
+# Reuse existing session to avoid re-login
+scraper = TikTokScraper(
+    username=os.getenv('TIKTOK_USERNAME'),
+    password=os.getenv('TIKTOK_PASSWORD'),
+    session=session_mgr.get_session('tiktok_main')
+)
 
-### Webhook Notifications
-
-Get real-time updates on campaign events:
-
-```javascript
-const { WebhookServer } = require('@facebook18/marketing-automation');
-
-const webhook = new WebhookServer({
-  port: 3000,
-  secret: process.env.WEBHOOK_SECRET
-});
-
-webhook.on('lead_extracted', (data) => {
-  console.log(`New lead: ${data.username} from ${data.source}`);
-  // Send to CRM, database, etc.
-});
-
-webhook.on('dm_sent', (data) => {
-  console.log(`DM sent to ${data.recipient}`);
-});
-
-webhook.on('rate_limit', (data) => {
-  console.warn(`Rate limit hit on ${data.account} - pausing for ${data.cooldown_minutes} minutes`);
-});
-
-webhook.on('campaign_complete', (data) => {
-  console.log(`Campaign ${data.campaign_id} completed: ${data.total_leads} leads generated`);
-});
-
-webhook.start();
+# Session will be auto-saved after operations
+scraper.login()
+session_mgr.save_session('tiktok_main', scraper.get_session())
 ```
 
 ## Troubleshooting
 
-### Rate Limit Issues
+### Rate Limiting / Account Blocks
 
-```python
-# Handle rate limits gracefully
-from marketing_automation.exceptions import RateLimitError
-import time
+**Problem**: Instagram/TikTok blocking or limiting your account
 
-try:
-    followers = scraper.get_followers(username='competitor', max_count=10000)
-except RateLimitError as e:
-    print(f"Rate limited. Retry after {e.retry_after} seconds")
-    time.sleep(e.retry_after)
-    followers = scraper.get_followers(username='competitor', max_count=10000)
-```
-
-### Session Expiration
-
+**Solutions**:
 ```javascript
-// Auto-refresh sessions
-bot.on('session_expired', async (account) => {
-  console.log(`Session expired for ${account.username}, refreshing...`);
-  await bot.refreshSession(account);
+// Reduce action rates
+const bot = new InstagramBot({
+  rateLimits: {
+    followsPerHour: 20,  // Reduce from 50
+    likesPerHour: 40,     // Reduce from 100
+    commentsPerHour: 15   // Reduce from 40
+  },
+  humanBehavior: {
+    enabled: true,
+    minDelay: 30000,     // 30 seconds min
+    maxDelay: 180000,    // 3 minutes max
+    randomPauses: true   // Random breaks
+  }
 });
 
-// Manual session refresh
-try {
-  await bot.followUser('target_user');
-} catch (error) {
-  if (error.code === 'SESSION_EXPIRED') {
-    await bot.login(account.username, process.env.ACCOUNT_PASSWORD);
-    await bot.followUser('target_user');
-  }
-}
+// Use residential proxies instead of datacenter
+// Add random delays between sessions
+// Warm up new accounts gradually
 ```
 
-### Account Shadowban Detection
+### Login Failures
 
+**Problem**: Cannot authenticate to social platforms
+
+**Solutions**:
 ```python
-from marketing_automation import HealthChecker
-
-checker = HealthChecker(api_key=os.getenv('MARKETING_API_KEY'))
-
-# Check account health
-health = checker.check_account(platform='instagram', username='your_account')
-
-if health['shadowbanned']:
-    print("Account is shadowbanned - reduce activity")
-    campaign.set_limits(daily_follows=50, daily_likes=100)
-elif health['action_blocked']:
-    print("Temporary action block - pause for 24h")
-    campaign.pause(hours=24)
-else:
-    print("Account healthy")
-```
-
-### Data Quality Issues
-
-```python
-# Remove duplicates and invalid leads
-from marketing_automation import LeadCleaner
-
-cleaner = LeadCleaner()
-leads = cleaner.clean(
-    raw_leads,
-    remove_duplicates=True,
-    validate_usernames=True,
-    remove_inactive=True,  # No posts in 90 days
-    remove_private=True    # Private accounts
+# Use session cookies instead of password login
+scraper = InstagramScraper(
+    session_file='instagram_session.json'
 )
 
-print(f"Cleaned {len(raw_leads)} down to {len(leads)} quality leads")
+# Handle 2FA if enabled
+scraper.login(
+    username=os.getenv('INSTAGRAM_USERNAME'),
+    password=os.getenv('INSTAGRAM_PASSWORD'),
+    two_factor_code=input("Enter 2FA code: ")
+)
+
+# For WhatsApp, ensure QR code scanning works
+whatsapp = WhatsAppSender()
+whatsapp.connect(headless=False)  # Show browser for QR scan
+```
+
+### Data Extraction Errors
+
+**Problem**: Scraping returns incomplete or no data
+
+**Solutions**:
+```javascript
+// Add error handling and retries
+async function safeExtract(scraper, username, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const data = await scraper.getFollowers(username);
+      if (data && data.length > 0) return data;
+    } catch (error) {
+      console.log(`Attempt ${i + 1} failed: ${error.message}`);
+      await new Promise(r => setTimeout(r, 5000 * (i + 1)));
+    }
+  }
+  throw new Error(`Failed after ${retries} attempts`);
+}
+
+// Check for platform UI changes
+// Update selectors if DOM structure changed
+// Use API endpoints instead of scraping when available
+```
+
+### Memory Issues with Large Datasets
+
+**Problem**: Script crashes when processing thousands of users
+
+**Solutions**:
+```python
+# Process in batches
+def process_in_batches(users, batch_size=100):
+    for i in range(0, len(users), batch_size):
+        batch = users[i:i + batch_size]
+        process_batch(batch)
+        # Free memory
+        del batch
+        import gc
+        gc.collect()
+
+# Stream data instead of loading all at once
+def stream_followers(username):
+    for follower_batch in scraper.get_followers_stream(username, batch_size=100):
+        yield follower_batch
 ```
 
 ## Best Practices
 
-1. **Start slow**: Begin with low daily limits (50-100 actions/day) and gradually increase
-2. **Rotate accounts**: Use 3-5 accounts per campaign to distribute activity
-3. **Humanize timing**: Add random delays (30-90s) between actions
-4. **Monitor health**: Check account status daily for shadowbans or blocks
-5. **Segment leads**: Filter leads into tiers (hot/warm/cold) for targeted messaging
-6. **Test messages**: A/B test DM templates before scaling
-7. **Comply with ToS**: Review platform policies and use responsibly
-8. **Use proxies**: Residential proxies for accounts, datacenter for scraping
+1. **Start Slow**: New accounts should build activity gradually over days/weeks
+2. **Use Proxies**: Residential proxies are essential for multi-account operations
+3. **Rotate Sessions**: Don't use the same account 24/7
+4. **Respect Rate Limits**: Platform limits exist for a reason
+5. **Backup Data**: Save extracted data regularly
+6. **Monitor Accounts**: Check for warnings or restrictions daily
+7. **Comply with ToS**: Understand risks of automation on these platforms
 
-## Environment Variables Reference
+## Legal and Ethical Considerations
 
-```bash
-# API Authentication
-MARKETING_API_KEY=your_api_key
-MARKETING_API_ENDPOINT=https://api.facebook18.com/v1
+⚠️ **Warning**: Automated scraping and mass messaging may violate platform Terms of Service and local laws (GDPR, CAN-SPAM, TCPA). Use responsibly and ensure compliance with:
 
-# Account Credentials (store securely)
-IG_ACCOUNT1_USER=username1
-IG_ACCOUNT1_PASS=password1
-TT_ACCOUNT1_TOKEN=session_token1
+- Platform Terms of Service
+- Data protection regulations (GDPR, CCPA)
+- Anti-spam laws
+- User consent requirements
 
-# WhatsApp
-WHATSAPP_NUMBER=+1234567890
-WHATSAPP_SESSION_PATH=./sessions/whatsapp
-
-# Proxy Configuration
-PROXY_LIST_PATH=./proxies.txt
-PROXY_ROTATION=per_request
-
-# Webhook
-WEBHOOK_URL=https://yoursite.com/webhook
-WEBHOOK_SECRET=your_webhook_secret
-
-# Limits (optional overrides)
-DAILY_FOLLOW_LIMIT=150
-DAILY_DM_LIMIT=50
-HOURLY_ACTION_LIMIT=30
-```
-
-This skill covers the core automation capabilities for social media marketing campaigns across TikTok, Instagram, and WhatsApp platforms.
+This skill documentation is for educational purposes. Users are responsible for compliance with all applicable laws and platform policies.
