@@ -92,6 +92,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketing-pipeline-automation](skills/marketing-pipeline-automation/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-28 |
 | [marketing-pipeline-ai-content-automation](skills/marketing-pipeline-ai-content-automation/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-ai-content-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-29 |
 | [pennydinh-marketing-pipeline-automation](skills/pennydinh-marketing-pipeline-automation/) | [install](https://skills.sh/aradotso/marketing-skills/pennydinh-marketing-pipeline-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-31 |
+| [marketing-pipeline-auto-content](skills/marketing-pipeline-auto-content/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-auto-content) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-05-31 |
 <!-- SKILL_INDEX -->
 
 ---
