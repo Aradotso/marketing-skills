@@ -96,6 +96,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [ai-content-pipeline-automation](skills/ai-content-pipeline-automation/) | [install](https://skills.sh/aradotso/marketing-skills/ai-content-pipeline-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-06-05 |
 | [marketing-pipeline-automated-content](skills/marketing-pipeline-automated-content/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-automated-content) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-06-06 |
 | [marketing-pipeline-content-automation](skills/marketing-pipeline-content-automation/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-pipeline-content-automation) | [pennydinh/marketing-pineline-share](https://github.com/pennydinh/marketing-pineline-share) | 2026-06-07 |
+| [ai-marketing-skills-tom-babb](skills/ai-marketing-skills-tom-babb/) | [install](https://skills.sh/aradotso/marketing-skills/ai-marketing-skills-tom-babb) | [Tom-Babb/ai-marketing-skills-with-by-tom-babb](https://github.com/Tom-Babb/ai-marketing-skills-with-by-tom-babb) | 2026-06-10 |
 <!-- SKILL_INDEX -->
 
 ---
