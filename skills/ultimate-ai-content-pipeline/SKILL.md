@@ -1,22 +1,29 @@
 ---
 name: ultimate-ai-content-pipeline
-description: Vietnamese AI content automation system with research crawling, multi-format content generation (Claude/OpenAI), and automated video rendering via Remotion
+description: Automated content creation pipeline from research to video generation using AI (Claude/OpenAI) and Remotion
 triggers:
-  - "set up the AI content pipeline system"
-  - "generate automated content with research crawling"
-  - "create video content from articles using Remotion"
-  - "configure Claude or OpenAI for content generation"
-  - "automate content research and article writing"
-  - "render videos from blog posts automatically"
-  - "set up bilingual content generation pipeline"
-  - "integrate content automation with social media"
+  - how do I automate content creation with AI
+  - set up AI content pipeline for marketing
+  - create automated video content from text
+  - generate marketing content with Claude and OpenAI
+  - crawl news and generate content automatically
+  - use Remotion to create videos from articles
+  - build content automation workflow
+  - integrate AI for content research and generation
 ---
 
 # Ultimate AI Content Pipeline
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-Ultimate AI Content Pipeline is a comprehensive Vietnamese content automation system that handles the entire content creation workflow: from automated research crawling (TechCrunch, a16z, Twitter/X, LinkedIn), to AI-powered article generation in multiple formats (using Claude 3 or OpenAI), to automatic video rendering via Remotion. Built with Next.js and TypeScript.
+Ultimate AI Content Pipeline is a comprehensive content automation system that handles the entire content creation workflow: from researching trending topics, generating multilingual content in various formats (toplist, POV, case study, how-to), to automatically rendering videos and infographics using Remotion. Built with Next.js and TypeScript, it integrates Claude 3, OpenAI, and news crawling APIs to create a complete content factory.
+
+## What It Does
+
+- **Auto-Research**: Crawls TechCrunch, a16z, Twitter, LinkedIn for fresh data within 24h
+- **AI Content Generation**: Creates content in multiple formats and languages (EN/VN) using Claude/OpenAI
+- **Video Rendering**: Automatically converts written content to videos/infographics via Remotion
+- **Multi-Platform Export**: Outputs optimized videos for Reels, TikTok, Shorts
 
 ## Installation
 
@@ -31,307 +38,301 @@ npm install
 yarn install
 # or
 pnpm install
-
-# Set up environment variables
-cp .env.example .env.local
 ```
 
 ## Environment Configuration
 
-Create a `.env.local` file with the following variables:
+Create a `.env.local` file in the root directory:
 
-```bash
-# AI Provider (choose one or both)
-ANTHROPIC_API_KEY=your_claude_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
+```env
+# AI Providers
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_claude_key
 
-# Research APIs
-RAPIDAPI_KEY=your_rapidapi_key_here
+# News/Research APIs
+RAPIDAPI_KEY=your_rapidapi_key
+TWITTER_BEARER_TOKEN=your_twitter_token
 
 # Database (if applicable)
-DATABASE_URL=your_database_connection_string
+DATABASE_URL=your_database_url
 
 # Remotion (for video rendering)
-REMOTION_AWS_ACCESS_KEY_ID=your_aws_key
-REMOTION_AWS_SECRET_ACCESS_KEY=your_aws_secret
+REMOTION_LICENSE_KEY=your_remotion_license
 
 # Application
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-## Core Architecture
+## Project Structure
 
-The pipeline consists of three main stages:
+```
+marketing-pineline-share/
+├── src/
+│   ├── app/              # Next.js app router pages
+│   ├── components/       # React components
+│   ├── lib/
+│   │   ├── ai/          # AI integration (Claude, OpenAI)
+│   │   ├── crawlers/    # News crawling modules
+│   │   ├── content/     # Content generation logic
+│   │   └── video/       # Remotion video rendering
+│   ├── remotion/        # Remotion video compositions
+│   └── types/           # TypeScript type definitions
+├── public/              # Static assets
+└── package.json
+```
 
-1. **Research Phase**: Automated web crawling and data extraction
-2. **Content Generation Phase**: AI-powered article writing with Claude/OpenAI
-3. **Media Generation Phase**: Automated video/image rendering with Remotion
+## Core API Usage
 
-## Research & Crawling
-
-### Automated News Crawling
+### 1. Content Research & Crawling
 
 ```typescript
-// lib/research/crawler.ts
-import { fetchTechCrunchNews } from './sources/techcrunch';
-import { fetchTwitterTrends } from './sources/twitter';
-import { fetchLinkedInPosts } from './sources/linkedin';
+// src/lib/crawlers/news-crawler.ts
+import { RapidAPIClient } from '@/lib/api/rapidapi';
 
-interface ResearchData {
-  topic: string;
-  sources: Array<{
-    title: string;
-    url: string;
-    summary: string;
-    publishedAt: Date;
-  }>;
-  insights: string[];
-  dataPoints: Array<{ metric: string; value: string }>;
+interface NewsArticle {
+  title: string;
+  url: string;
+  publishedAt: string;
+  source: string;
+  content: string;
 }
 
-export async function conductResearch(
+export async function crawlTrendingNews(
   keyword: string,
-  timeframe: '24h' | '7d' | '30d' = '24h'
-): Promise<ResearchData> {
-  const [techCrunch, twitter, linkedin] = await Promise.all([
-    fetchTechCrunchNews(keyword, timeframe),
-    fetchTwitterTrends(keyword),
-    fetchLinkedInPosts(keyword, timeframe)
-  ]);
+  timeframe: '24h' | '7d' = '24h'
+): Promise<NewsArticle[]> {
+  const rapidApi = new RapidAPIClient(process.env.RAPIDAPI_KEY!);
+  
+  const sources = ['techcrunch', 'a16z', 'twitter', 'linkedin'];
+  const articles: NewsArticle[] = [];
+  
+  for (const source of sources) {
+    try {
+      const results = await rapidApi.searchNews({
+        query: keyword,
+        source,
+        timeframe,
+        language: 'en'
+      });
+      articles.push(...results);
+    } catch (error) {
+      console.error(`Failed to crawl ${source}:`, error);
+    }
+  }
+  
+  return articles;
+}
 
+// Extract insights from crawled data
+export async function extractInsights(
+  articles: NewsArticle[]
+): Promise<{ insights: string[]; stats: Record<string, number> }> {
+  const content = articles.map(a => a.content).join('\n\n');
+  
+  // Use AI to analyze and extract key insights
+  const insights = await analyzeWithAI(content);
+  
   return {
-    topic: keyword,
-    sources: [...techCrunch, ...twitter, ...linkedin],
-    insights: extractInsights([...techCrunch, ...twitter, ...linkedin]),
-    dataPoints: extractDataPoints([...techCrunch, ...twitter, ...linkedin])
+    insights,
+    stats: {
+      totalArticles: articles.length,
+      sources: new Set(articles.map(a => a.source)).size
+    }
   };
 }
 ```
 
-### Example: Fetching Research Data
+### 2. AI Content Generation
 
 ```typescript
-// pages/api/research.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { conductResearch } from '@/lib/research/crawler';
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { keyword, timeframe } = req.body;
-
-  try {
-    const researchData = await conductResearch(keyword, timeframe);
-    return res.status(200).json(researchData);
-  } catch (error) {
-    console.error('Research failed:', error);
-    return res.status(500).json({ error: 'Research failed' });
-  }
-}
-```
-
-## Content Generation with AI
-
-### Claude Integration
-
-```typescript
-// lib/ai/claude.ts
+// src/lib/ai/content-generator.ts
 import Anthropic from '@anthropic-ai/sdk';
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY
-});
-
-interface ContentRequest {
-  topic: string;
-  format: 'toplist' | 'pov' | 'case-study' | 'how-to';
-  language: 'vi' | 'en';
-  tone: 'expert' | 'friendly' | 'humorous';
-  researchData: ResearchData;
-}
-
-export async function generateArticleWithClaude(
-  request: ContentRequest
-): Promise<string> {
-  const prompt = buildPrompt(request);
-
-  const message = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-20241022',
-    max_tokens: 4096,
-    messages: [
-      {
-        role: 'user',
-        content: prompt
-      }
-    ]
-  });
-
-  return message.content[0].type === 'text' 
-    ? message.content[0].text 
-    : '';
-}
-
-function buildPrompt(request: ContentRequest): string {
-  const formatInstructions = {
-    'toplist': 'Viết dưới dạng danh sách xếp hạng với tiêu đề hấp dẫn',
-    'pov': 'Viết dưới góc nhìn chuyên gia với quan điểm rõ ràng',
-    'case-study': 'Phân tích case study chi tiết với số liệu cụ thể',
-    'how-to': 'Hướng dẫn từng bước chi tiết và dễ hiểu'
-  };
-
-  const toneInstructions = {
-    'expert': 'Giọng văn chuyên nghiệp, có chiều sâu',
-    'friendly': 'Giọng văn thân thiện, dễ tiếp cận',
-    'humorous': 'Giọng văn hài hước, vui vẻ'
-  };
-
-  return `
-Bạn là một content creator chuyên nghiệp. Hãy viết một bài viết về chủ đề: ${request.topic}
-
-Format: ${formatInstructions[request.format]}
-Tone: ${toneInstructions[request.tone]}
-Ngôn ngữ: ${request.language === 'vi' ? 'Tiếng Việt' : 'English'}
-
-Dữ liệu nghiên cứu:
-${JSON.stringify(request.researchData, null, 2)}
-
-Yêu cầu:
-- Sử dụng dữ liệu thực từ research
-- Trích dẫn nguồn đáng tin cậy
-- Đưa ra insights sâu sắc
-- Tối ưu SEO với từ khóa tự nhiên
-- Độ dài: 1500-2000 từ
-`;
-}
-```
-
-### OpenAI Integration
-
-```typescript
-// lib/ai/openai.ts
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+type ContentFormat = 'toplist' | 'pov' | 'case-study' | 'how-to';
+type Language = 'en' | 'vi';
+type Tone = 'expert' | 'friendly' | 'humorous';
 
-export async function generateArticleWithOpenAI(
-  request: ContentRequest
-): Promise<string> {
-  const prompt = buildPrompt(request);
+interface ContentRequest {
+  keyword: string;
+  format: ContentFormat;
+  language: Language;
+  tone: Tone;
+  researchData: string;
+}
 
-  const completion = await openai.chat.completions.create({
-    model: 'gpt-4-turbo-preview',
-    messages: [
-      {
-        role: 'system',
-        content: 'You are a professional content creator specializing in marketing and trending topics.'
-      },
-      {
+export class ContentGenerator {
+  private anthropic: Anthropic;
+  private openai: OpenAI;
+  
+  constructor() {
+    this.anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY
+    });
+    this.openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    });
+  }
+  
+  async generateContent(request: ContentRequest): Promise<string> {
+    const prompt = this.buildPrompt(request);
+    
+    // Use Claude for content generation
+    const message = await this.anthropic.messages.create({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 4096,
+      messages: [{
         role: 'user',
         content: prompt
-      }
-    ],
-    temperature: 0.7,
-    max_tokens: 4000
-  });
+      }]
+    });
+    
+    return message.content[0].type === 'text' 
+      ? message.content[0].text 
+      : '';
+  }
+  
+  private buildPrompt(request: ContentRequest): string {
+    const formatInstructions = {
+      'toplist': 'Create a numbered list article highlighting top items/tips',
+      'pov': 'Write from a specific perspective or opinion piece',
+      'case-study': 'Analyze a real-world example with data and outcomes',
+      'how-to': 'Step-by-step instructional guide'
+    };
+    
+    return `
+You are an expert content writer. Create a ${request.format} article in ${request.language}.
 
-  return completion.choices[0]?.message?.content || '';
+Topic: ${request.keyword}
+Tone: ${request.tone}
+Format: ${formatInstructions[request.format]}
+
+Research Data:
+${request.researchData}
+
+Requirements:
+- Use data and insights from the research provided
+- Write in ${request.language === 'vi' ? 'Vietnamese' : 'English'}
+- Maintain a ${request.tone} tone throughout
+- Include specific examples and statistics
+- Make it engaging and actionable
+
+Generate the complete article now:
+    `.trim();
+  }
+  
+  // Generate content in both languages simultaneously
+  async generateBilingual(
+    request: Omit<ContentRequest, 'language'>
+  ): Promise<{ en: string; vi: string }> {
+    const [en, vi] = await Promise.all([
+      this.generateContent({ ...request, language: 'en' }),
+      this.generateContent({ ...request, language: 'vi' })
+    ]);
+    
+    return { en, vi };
+  }
 }
 ```
 
-### Bilingual Content Generation
+### 3. Video Rendering with Remotion
 
 ```typescript
-// lib/ai/bilingual.ts
-export async function generateBilingualContent(
-  request: Omit<ContentRequest, 'language'>
-): Promise<{ vi: string; en: string }> {
-  const [vietnameseContent, englishContent] = await Promise.all([
-    generateArticleWithClaude({ ...request, language: 'vi' }),
-    generateArticleWithClaude({ ...request, language: 'en' })
-  ]);
-
-  return {
-    vi: vietnameseContent,
-    en: englishContent
-  };
-}
-```
-
-## Video Rendering with Remotion
-
-### Video Composition
-
-```typescript
-// remotion/compositions/ArticleVideo.tsx
-import { AbsoluteFill, Sequence, useCurrentFrame, useVideoConfig } from 'remotion';
+// src/remotion/compositions/ArticleVideo.tsx
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate } from 'remotion';
 
 interface ArticleVideoProps {
   title: string;
   keyPoints: string[];
-  dataPoints: Array<{ metric: string; value: string }>;
+  stats: Array<{ label: string; value: string }>;
   brandColor: string;
 }
 
 export const ArticleVideo: React.FC<ArticleVideoProps> = ({
   title,
   keyPoints,
-  dataPoints,
+  stats,
   brandColor
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
+  const { fps, durationInFrames } = useVideoConfig();
+  
+  const titleOpacity = interpolate(
+    frame,
+    [0, 30],
+    [0, 1],
+    { extrapolateRight: 'clamp' }
+  );
+  
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
-      {/* Title Sequence */}
-      <Sequence from={0} durationInFrames={fps * 3}>
-        <AbsoluteFill style={{ 
-          justifyContent: 'center', 
-          alignItems: 'center',
-          padding: 40
+      {/* Title Section */}
+      <div style={{
+        opacity: titleOpacity,
+        padding: '60px',
+        color: '#fff',
+        fontSize: '48px',
+        fontWeight: 'bold'
+      }}>
+        {title}
+      </div>
+      
+      {/* Key Points Animation */}
+      <div style={{ padding: '60px', paddingTop: '200px' }}>
+        {keyPoints.map((point, idx) => {
+          const pointOpacity = interpolate(
+            frame,
+            [60 + idx * 30, 90 + idx * 30],
+            [0, 1],
+            { extrapolateRight: 'clamp' }
+          );
+          
+          return (
+            <div
+              key={idx}
+              style={{
+                opacity: pointOpacity,
+                color: brandColor,
+                fontSize: '32px',
+                marginBottom: '20px'
+              }}
+            >
+              • {point}
+            </div>
+          );
+        })}
+      </div>
+      
+      {/* Stats Section */}
+      {frame > 180 && (
+        <div style={{
+          position: 'absolute',
+          bottom: '60px',
+          left: '60px',
+          right: '60px',
+          display: 'flex',
+          justifyContent: 'space-around'
         }}>
-          <h1 style={{ 
-            color: brandColor, 
-            fontSize: 60,
-            textAlign: 'center',
-            opacity: Math.min(1, frame / 30)
-          }}>
-            {title}
-          </h1>
-        </AbsoluteFill>
-      </Sequence>
-
-      {/* Key Points Sequence */}
-      {keyPoints.map((point, index) => (
-        <Sequence 
-          key={index}
-          from={fps * (3 + index * 4)} 
-          durationInFrames={fps * 4}
-        >
-          <KeyPointSlide point={point} color={brandColor} />
-        </Sequence>
-      ))}
-
-      {/* Data Visualization Sequence */}
-      <Sequence from={fps * (3 + keyPoints.length * 4)} durationInFrames={fps * 5}>
-        <DataVisualization dataPoints={dataPoints} color={brandColor} />
-      </Sequence>
+          {stats.map((stat, idx) => (
+            <div key={idx} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '48px', color: brandColor }}>
+                {stat.value}
+              </div>
+              <div style={{ fontSize: '24px', color: '#fff' }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </AbsoluteFill>
   );
 };
 ```
 
-### Render Video Programmatically
-
 ```typescript
-// lib/video/renderer.ts
+// src/lib/video/renderer.ts
 import { bundle } from '@remotion/bundler';
 import { renderMedia, selectComposition } from '@remotion/renderer';
 import path from 'path';
@@ -340,22 +341,26 @@ export async function renderArticleVideo(
   articleData: {
     title: string;
     keyPoints: string[];
-    dataPoints: Array<{ metric: string; value: string }>;
+    stats: Array<{ label: string; value: string }>;
   },
   outputPath: string
 ): Promise<string> {
   const compositionId = 'ArticleVideo';
+  
+  // Bundle the Remotion project
   const bundleLocation = await bundle({
-    entryPoint: path.join(process.cwd(), 'remotion/index.ts'),
+    entryPoint: path.join(process.cwd(), 'src/remotion/index.ts'),
     webpackOverride: (config) => config
   });
-
+  
+  // Get composition
   const composition = await selectComposition({
     serveUrl: bundleLocation,
     id: compositionId,
     inputProps: articleData
   });
-
+  
+  // Render video
   await renderMedia({
     composition,
     serveUrl: bundleLocation,
@@ -363,187 +368,185 @@ export async function renderArticleVideo(
     outputLocation: outputPath,
     inputProps: articleData
   });
-
+  
   return outputPath;
 }
 ```
 
-### API Route for Video Rendering
+## Complete Content Pipeline Workflow
 
 ```typescript
-// pages/api/render-video.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+// src/lib/pipeline/content-pipeline.ts
+import { crawlTrendingNews, extractInsights } from '@/lib/crawlers/news-crawler';
+import { ContentGenerator } from '@/lib/ai/content-generator';
 import { renderArticleVideo } from '@/lib/video/renderer';
 import path from 'path';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { title, keyPoints, dataPoints } = req.body;
-
-  try {
-    const outputPath = path.join(
-      process.cwd(), 
-      'public', 
-      'videos', 
-      `${Date.now()}.mp4`
-    );
-
-    const videoPath = await renderArticleVideo(
-      { title, keyPoints, dataPoints },
-      outputPath
-    );
-
-    return res.status(200).json({ 
-      videoUrl: videoPath.replace(path.join(process.cwd(), 'public'), '')
-    });
-  } catch (error) {
-    console.error('Video rendering failed:', error);
-    return res.status(500).json({ error: 'Video rendering failed' });
-  }
-}
-```
-
-## Complete Pipeline Workflow
-
-```typescript
-// lib/pipeline/orchestrator.ts
-import { conductResearch } from '@/lib/research/crawler';
-import { generateBilingualContent } from '@/lib/ai/bilingual';
-import { renderArticleVideo } from '@/lib/video/renderer';
-import { extractKeyPoints, extractDataPoints } from '@/lib/utils/content-parser';
-
-interface PipelineConfig {
-  keyword: string;
-  format: 'toplist' | 'pov' | 'case-study' | 'how-to';
-  tone: 'expert' | 'friendly' | 'humorous';
-  generateVideo: boolean;
-  brandColor?: string;
-}
-
-export async function runContentPipeline(config: PipelineConfig) {
+export async function runContentPipeline(keyword: string) {
+  console.log(`Starting content pipeline for: ${keyword}`);
+  
   // Step 1: Research
-  console.log('🔍 Starting research phase...');
-  const researchData = await conductResearch(config.keyword, '24h');
-
-  // Step 2: Content Generation
-  console.log('✍️ Generating bilingual content...');
-  const content = await generateBilingualContent({
-    topic: config.keyword,
-    format: config.format,
-    tone: config.tone,
+  console.log('Step 1: Crawling news...');
+  const articles = await crawlTrendingNews(keyword, '24h');
+  const { insights, stats } = await extractInsights(articles);
+  
+  const researchData = `
+Insights from ${stats.totalArticles} articles across ${stats.sources} sources:
+${insights.join('\n')}
+  `;
+  
+  // Step 2: Generate Content
+  console.log('Step 2: Generating content...');
+  const generator = new ContentGenerator();
+  
+  const content = await generator.generateBilingual({
+    keyword,
+    format: 'toplist',
+    tone: 'expert',
     researchData
   });
-
-  // Step 3: Video Rendering (optional)
-  let videoUrl = null;
-  if (config.generateVideo) {
-    console.log('🎬 Rendering video...');
-    const keyPoints = extractKeyPoints(content.vi);
-    const dataPoints = researchData.dataPoints;
-
-    videoUrl = await renderArticleVideo(
-      {
-        title: config.keyword,
-        keyPoints,
-        dataPoints
-      },
-      `public/videos/${Date.now()}.mp4`
-    );
-  }
-
+  
+  // Step 3: Render Video
+  console.log('Step 3: Rendering video...');
+  const videoData = {
+    title: `Top Trends: ${keyword}`,
+    keyPoints: insights.slice(0, 5),
+    stats: [
+      { label: 'Articles Analyzed', value: stats.totalArticles.toString() },
+      { label: 'Sources', value: stats.sources.toString() }
+    ]
+  };
+  
+  const outputPath = path.join(
+    process.cwd(), 
+    'public/videos', 
+    `${keyword.replace(/\s+/g, '-')}.mp4`
+  );
+  
+  const videoUrl = await renderArticleVideo(videoData, outputPath);
+  
   return {
-    research: researchData,
-    content,
-    videoUrl,
+    content: {
+      english: content.en,
+      vietnamese: content.vi
+    },
+    video: videoUrl,
     metadata: {
-      generatedAt: new Date(),
-      keyword: config.keyword,
-      format: config.format
+      keyword,
+      articlesAnalyzed: stats.totalArticles,
+      sources: stats.sources,
+      generatedAt: new Date().toISOString()
     }
   };
 }
 ```
 
-## Usage Examples
-
-### Basic Content Generation
+## Next.js API Routes
 
 ```typescript
-// app/page.tsx
+// src/app/api/generate/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { runContentPipeline } from '@/lib/pipeline/content-pipeline';
+
+export async function POST(request: NextRequest) {
+  try {
+    const { keyword, format, tone } = await request.json();
+    
+    if (!keyword) {
+      return NextResponse.json(
+        { error: 'Keyword is required' },
+        { status: 400 }
+      );
+    }
+    
+    const result = await runContentPipeline(keyword);
+    
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('Pipeline error:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate content' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## Frontend Usage
+
+```typescript
+// src/components/ContentGenerator.tsx
 'use client';
 
 import { useState } from 'react';
 
-export default function Home() {
+export default function ContentGenerator() {
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-
+  const [result, setResult] = useState<any>(null);
+  
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/pipeline', {
+      const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          keyword,
-          format: 'toplist',
-          tone: 'friendly',
-          generateVideo: true
-        })
+        body: JSON.stringify({ keyword })
       });
-
+      
       const data = await response.json();
       setResult(data);
     } catch (error) {
-      console.error('Pipeline failed:', error);
+      console.error('Failed to generate:', error);
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-8">
-        AI Content Pipeline
-      </h1>
-
-      <div className="flex gap-4 mb-8">
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">AI Content Pipeline</h1>
+      
+      <div className="mb-6">
         <input
           type="text"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          placeholder="Nhập từ khóa..."
-          className="flex-1 px-4 py-2 border rounded"
+          placeholder="Enter keyword (e.g., AI marketing trends)"
+          className="w-full p-3 border rounded"
         />
-        <button
-          onClick={handleGenerate}
-          disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded"
-        >
-          {loading ? 'Đang xử lý...' : 'Tạo Content'}
-        </button>
       </div>
-
+      
+      <button
+        onClick={handleGenerate}
+        disabled={loading || !keyword}
+        className="bg-blue-600 text-white px-6 py-3 rounded disabled:opacity-50"
+      >
+        {loading ? 'Generating...' : 'Generate Content'}
+      </button>
+      
       {result && (
-        <div className="space-y-6">
+        <div className="mt-8 space-y-6">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Nội dung Tiếng Việt</h2>
-            <div className="prose max-w-none">
-              {result.content.vi}
+            <h2 className="text-xl font-bold mb-2">English Content</h2>
+            <div className="bg-gray-100 p-4 rounded whitespace-pre-wrap">
+              {result.content.english}
             </div>
           </div>
-
-          {result.videoUrl && (
+          
+          <div>
+            <h2 className="text-xl font-bold mb-2">Vietnamese Content</h2>
+            <div className="bg-gray-100 p-4 rounded whitespace-pre-wrap">
+              {result.content.vietnamese}
+            </div>
+          </div>
+          
+          {result.video && (
             <div>
-              <h2 className="text-2xl font-bold mb-4">Video</h2>
-              <video src={result.videoUrl} controls className="w-full" />
+              <h2 className="text-xl font-bold mb-2">Generated Video</h2>
+              <video controls className="w-full">
+                <source src={result.video} type="video/mp4" />
+              </video>
             </div>
           )}
         </div>
@@ -553,161 +556,82 @@ export default function Home() {
 }
 ```
 
-### CLI Usage (if applicable)
+## Running the Application
 
 ```bash
-# Generate content with research
-npm run pipeline -- --keyword "AI trends 2024" --format toplist --video
+# Development
+npm run dev
 
-# Research only
-npm run research -- --keyword "machine learning" --timeframe 7d
+# Build for production
+npm run build
 
-# Render video from existing content
-npm run render -- --input content.json --output video.mp4
+# Start production server
+npm start
+
+# Render video only (if needed)
+npm run remotion:render
 ```
 
 ## Common Patterns
 
-### Custom Research Sources
+### Custom Content Formats
 
 ```typescript
-// lib/research/sources/custom-source.ts
-export async function fetchCustomSource(keyword: string) {
-  const response = await fetch(`https://api.example.com/search?q=${keyword}`, {
-    headers: {
-      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY!
-    }
-  });
-
-  const data = await response.json();
-  
-  return data.results.map((item: any) => ({
-    title: item.title,
-    url: item.link,
-    summary: item.snippet,
-    publishedAt: new Date(item.date)
-  }));
-}
+// Add custom format in src/lib/ai/formats/
+export const customFormats = {
+  'product-review': {
+    structure: ['intro', 'features', 'pros-cons', 'verdict'],
+    tone: 'balanced',
+    minLength: 1000
+  },
+  'news-summary': {
+    structure: ['headline', 'key-facts', 'analysis', 'impact'],
+    tone: 'neutral',
+    minLength: 500
+  }
+};
 ```
 
-### Content Scheduling
+### Multi-Platform Video Export
 
 ```typescript
-// lib/scheduler/content-scheduler.ts
-import { runContentPipeline } from '@/lib/pipeline/orchestrator';
+// src/lib/video/export-formats.ts
+export const platformFormats = {
+  'tiktok': { width: 1080, height: 1920, fps: 30 },
+  'instagram-reels': { width: 1080, height: 1920, fps: 30 },
+  'youtube-shorts': { width: 1080, height: 1920, fps: 30 },
+  'linkedin': { width: 1280, height: 720, fps: 30 }
+};
 
-export async function scheduleContentGeneration(
-  keywords: string[],
-  schedule: 'daily' | 'weekly'
+export async function renderForPlatform(
+  composition: any,
+  platform: keyof typeof platformFormats
 ) {
-  const interval = schedule === 'daily' ? 24 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000;
-
-  for (const keyword of keywords) {
-    setTimeout(async () => {
-      const result = await runContentPipeline({
-        keyword,
-        format: 'toplist',
-        tone: 'friendly',
-        generateVideo: true
-      });
-
-      // Auto-post to social media or save to CMS
-      await publishContent(result);
-    }, interval);
-  }
+  const format = platformFormats[platform];
+  // Render with platform-specific dimensions
 }
 ```
 
 ## Troubleshooting
 
-### Common Issues
-
-**API Rate Limits**:
+**API Rate Limits**: Implement request queuing and caching for crawled data
 ```typescript
-// lib/utils/rate-limiter.ts
-export async function withRateLimit<T>(
-  fn: () => Promise<T>,
-  retries = 3
-): Promise<T> {
-  try {
-    return await fn();
-  } catch (error: any) {
-    if (error.status === 429 && retries > 0) {
-      await new Promise(resolve => setTimeout(resolve, 5000));
-      return withRateLimit(fn, retries - 1);
-    }
-    throw error;
-  }
-}
+// Use rate limiting middleware
+import { Ratelimit } from '@upstash/ratelimit';
 ```
 
-**Video Rendering Memory Issues**:
+**Video Rendering Memory Issues**: Reduce composition complexity or increase Node memory
+```bash
+NODE_OPTIONS="--max-old-space-size=4096" npm run dev
+```
+
+**AI Response Quality**: Adjust temperature and max_tokens in AI client configuration
 ```typescript
-// Reduce video quality for large batches
-const composition = await selectComposition({
-  serveUrl: bundleLocation,
-  id: compositionId,
-  inputProps: {
-    ...articleData,
-    quality: 'medium' // instead of 'high'
-  }
+messages.create({
+  model: 'claude-3-5-sonnet-20241022',
+  max_tokens: 8000,
+  temperature: 0.7
 });
 ```
 
-**Research Data Empty**:
-- Check API keys are valid and have credits
-- Verify network connectivity to research sources
-- Ensure keyword is not too niche (try broader terms)
-
-**Claude/OpenAI Timeouts**:
-```typescript
-// Implement timeout handling
-const controller = new AbortController();
-const timeoutId = setTimeout(() => controller.abort(), 30000);
-
-try {
-  const response = await anthropic.messages.create({
-    // ... config
-  }, { signal: controller.signal });
-} finally {
-  clearTimeout(timeoutId);
-}
-```
-
-## Performance Optimization
-
-### Parallel Processing
-
-```typescript
-// Process multiple keywords simultaneously
-const results = await Promise.allSettled(
-  keywords.map(keyword => 
-    runContentPipeline({ 
-      keyword, 
-      format: 'toplist', 
-      tone: 'friendly',
-      generateVideo: false 
-    })
-  )
-);
-```
-
-### Caching Research Data
-
-```typescript
-// lib/cache/research-cache.ts
-const cache = new Map<string, { data: ResearchData; timestamp: number }>();
-const CACHE_TTL = 3600000; // 1 hour
-
-export function getCachedResearch(keyword: string): ResearchData | null {
-  const cached = cache.get(keyword);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-    return cached.data;
-  }
-  return null;
-}
-
-export function setCachedResearch(keyword: string, data: ResearchData) {
-  cache.set(keyword, { data, timestamp: Date.now() });
-}
-```
+**Multilingual Content**: Ensure prompts specify language clearly and provide examples in target language
