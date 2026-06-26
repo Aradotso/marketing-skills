@@ -99,6 +99,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [ai-marketing-skills-tom-babb](skills/ai-marketing-skills-tom-babb/) | [install](https://skills.sh/aradotso/marketing-skills/ai-marketing-skills-tom-babb) | [Tom-Babb/ai-marketing-skills-with-by-tom-babb](https://github.com/Tom-Babb/ai-marketing-skills-with-by-tom-babb) | 2026-06-10 |
 | [mini-ai-marketing-agency-generator](skills/mini-ai-marketing-agency-generator/) | [install](https://skills.sh/aradotso/marketing-skills/mini-ai-marketing-agency-generator) | [rover-aungkhine/mini-ai-marketing-agency](https://github.com/rover-aungkhine/mini-ai-marketing-agency) | 2026-06-19 |
 | [mailchimp-marketing-api-toolkit](skills/mailchimp-marketing-api-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/mailchimp-marketing-api-toolkit) | [SeizeCourseCall/mailchimp-marketing](https://github.com/SeizeCourseCall/mailchimp-marketing) | 2026-06-25 |
+| [marketing-mix-modeling-pipeline](skills/marketing-mix-modeling-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-mix-modeling-pipeline) | [francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline](https://github.com/francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline) | 2026-06-26 |
 <!-- SKILL_INDEX -->
 
 ---
