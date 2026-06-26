@@ -101,6 +101,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [mailchimp-marketing-api-toolkit](skills/mailchimp-marketing-api-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/mailchimp-marketing-api-toolkit) | [SeizeCourseCall/mailchimp-marketing](https://github.com/SeizeCourseCall/mailchimp-marketing) | 2026-06-25 |
 | [marketing-mix-modeling-pipeline](skills/marketing-mix-modeling-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-mix-modeling-pipeline) | [francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline](https://github.com/francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline) | 2026-06-26 |
 | [marketing-mix-modeling-mmm-pipeline](skills/marketing-mix-modeling-mmm-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-mix-modeling-mmm-pipeline) | [francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline](https://github.com/francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline) | 2026-06-26 |
+| [marketing-mix-modeling-end-to-end-pipeline](skills/marketing-mix-modeling-end-to-end-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-mix-modeling-end-to-end-pipeline) | [francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline](https://github.com/francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline) | 2026-06-26 |
 <!-- SKILL_INDEX -->
 
 ---
