@@ -106,6 +106,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [aaron-marketing-skills](skills/aaron-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/aaron-marketing-skills) | [aaron-he-zhu/aaron-marketing-skills](https://github.com/aaron-he-zhu/aaron-marketing-skills) | 2026-06-28 |
 | [1688-marketing-skill](skills/1688-marketing-skill/) | [install](https://skills.sh/aradotso/marketing-skills/1688-marketing-skill) | [next-1688/1688-marketing](https://github.com/next-1688/1688-marketing) | 2026-06-28 |
 | [strategic-marketing-director-skill](skills/strategic-marketing-director-skill/) | [install](https://skills.sh/aradotso/marketing-skills/strategic-marketing-director-skill) | [hoho-X/strategic-marketing-director](https://github.com/hoho-X/strategic-marketing-director) | 2026-06-28 |
+| [antigravity-marketing-lab](skills/antigravity-marketing-lab/) | [install](https://skills.sh/aradotso/marketing-skills/antigravity-marketing-lab) | [jarsing/antigravity-marketing-lab](https://github.com/jarsing/antigravity-marketing-lab) | 2026-06-28 |
 <!-- SKILL_INDEX -->
 
 ---
