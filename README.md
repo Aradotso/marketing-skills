@@ -104,6 +104,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketing-mix-modeling-end-to-end-pipeline](skills/marketing-mix-modeling-end-to-end-pipeline/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-mix-modeling-end-to-end-pipeline) | [francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline](https://github.com/francescaetnom-wq/Marketing-Mix-Modeling-End-to-End-Pipeline) | 2026-06-26 |
 | [n8n-marketing-flows](skills/n8n-marketing-flows/) | [install](https://skills.sh/aradotso/marketing-skills/n8n-marketing-flows) | [YuriCrystal/n8n-marketing-flows](https://github.com/YuriCrystal/n8n-marketing-flows) | 2026-06-27 |
 | [aaron-marketing-skills](skills/aaron-marketing-skills/) | [install](https://skills.sh/aradotso/marketing-skills/aaron-marketing-skills) | [aaron-he-zhu/aaron-marketing-skills](https://github.com/aaron-he-zhu/aaron-marketing-skills) | 2026-06-28 |
+| [1688-marketing-skill](skills/1688-marketing-skill/) | [install](https://skills.sh/aradotso/marketing-skills/1688-marketing-skill) | [next-1688/1688-marketing](https://github.com/next-1688/1688-marketing) | 2026-06-28 |
 <!-- SKILL_INDEX -->
 
 ---
