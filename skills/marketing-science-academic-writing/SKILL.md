@@ -1,66 +1,68 @@
 ---
 name: marketing-science-academic-writing
-description: AI agent skill for writing marketing science papers from topic selection through consumer utility modeling, identification design, structural estimation, counterfactual simulations, to complete first draft
+description: AI agent skill for writing marketing science academic papers from topic selection through structural modeling, identification, estimation, and counterfactual analysis to complete manuscript
 triggers:
   - "write a marketing science paper"
-  - "help me with structural demand estimation"
-  - "design a conjoint analysis study"
-  - "create a BLP model for my paper"
-  - "position my research for Marketing Science journal"
-  - "design identification strategy for causal marketing research"
-  - "write consumer utility model specification"
+  - "help me structure a JMR submission"
+  - "design a consumer utility model for demand estimation"
+  - "set up BLP structural estimation"
   - "create counterfactual simulations for merger analysis"
+  - "build identification strategy with instrumental variables"
+  - "format paper for Marketing Science journal"
+  - "design conjoint analysis for marketing research"
 ---
 
 # Marketing Science Academic Writing Skill
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-A comprehensive skill for AI agents to guide researchers through writing marketing science papers for top journals (Marketing Science, JMR, JM, JCR, JAMS, IJRM, QME, Marketing Letters). Covers the complete workflow from topic selection through consumer utility modeling, identification design, structural estimation, counterfactual simulations, to a full manuscript draft.
+A comprehensive skill for AI coding agents to guide users through writing quantitative marketing science papers — from topic selection through consumer utility modeling, identification design, structural estimation, counterfactual simulations, to a complete first draft.
+
+Covers 8 flagship marketing journals: **Marketing Science, JMR, JM, JCR** (UTD-24) and **JAMS, IJRM, QME, Marketing Letters**.
 
 ## What This Skill Enables
 
-This skill equips AI coding agents to help researchers with:
+This skill gives AI agents expertise in the full **0-to-Draft Pipeline** for marketing science research:
 
-- **Topic Positioning**: Identify contribution gaps, select target journals, formulate positioning statements
-- **Consumer Utility Modeling**: Design micro-founded demand models (logit, nested logit, random coefficients)
-- **Identification Strategy**: Design causal inference approaches (DID, RDD, IV) and structural identification
-- **Structural Estimation**: Implement BLP, GMM, MLE, Bayesian methods with proper specification
-- **Counterfactual Simulations**: Design and execute policy simulations, merger analysis, welfare calculations
-- **Conjoint Analysis**: Design choice experiments, estimate WTP, simulate market scenarios
-- **Field Experiments**: Design randomized trials, power analysis, treatment effect estimation
-- **Full Manuscript Assembly**: Generate complete LaTeX drafts with INFORMS formatting
+| Stage | Output | Key Deliverable |
+|-------|--------|----------------|
+| **Stage 1**: Topic Positioning | Gap analysis, journal selection, contribution statement | Target journal + novelty positioning |
+| **Stage 2**: Consumer Utility Model | Utility specification, demand derivation, notation system | Model section draft (§3) |
+| **Stage 3**: Identification & Estimation | Identification strategy (DID/RDD/IV), estimator choice, specification tests | Method section draft (§4) |
+| **Stage 4**: Counterfactuals & Experiments | Counterfactual design, conjoint analysis, field experiment protocols | Results section draft (§5-6) |
+| **Stage 5**: Writing & Assembly | Introduction, literature review, implications, abstract | Complete manuscript |
+
+### Domain-Specific Expertise
+
+Unlike generic scientific writing skills, this encodes marketing-specific conventions:
+- **Structural modeling**: BLP demand estimation, random coefficients logit, aggregate demand systems
+- **Causal identification**: Difference-in-differences, regression discontinuity, instrumental variables in marketing contexts
+- **Consumer behavior**: Utility specification, heterogeneous preferences, choice modeling
+- **Field experiments**: A/B testing, pricing experiments, digital marketing trials
+- **Counterfactual analysis**: Merger simulations, policy evaluation, welfare analysis
+- **Journal expectations**: Reviewer norms, positioning strategies, rebuttal patterns
 
 ## Installation
 
-### For OpenCode
+### Clone the Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/liyuanbo1024/marketing-science-writing.git
+cd marketing-science-writing
+```
 
-# Linux/macOS - copy to OpenCode skills folder
+### Install for Your AI Agent
+
+**OpenCode:**
+```bash
+# Linux/macOS
 cp -r marketing-science-writing ~/.config/opencode/skills/
 
 # Windows PowerShell
 Copy-Item -Recurse marketing-science-writing "$env:USERPROFILE\.config\opencode\skills\"
 ```
 
-Or register a custom path in `~/.config/opencode/opencode.json`:
-
-```json
-{
-  "skills": {
-    "paths": [
-      "~/.config/opencode/skills",
-      "/path/to/marketing-science-writing"
-    ]
-  }
-}
-```
-
-### For Claude Code
-
+**Claude Code:**
 ```bash
 # Linux/macOS
 cp -r marketing-science-writing ~/.claude/skills/
@@ -69,8 +71,16 @@ cp -r marketing-science-writing ~/.claude/skills/
 Copy-Item -Recurse marketing-science-writing "$env:USERPROFILE\.claude\skills\"
 ```
 
-### For Cursor / Windsurf
+**Codex:**
+```bash
+# Linux/macOS
+cp -r marketing-science-writing ~/.agents/skills/
 
+# Windows PowerShell
+Copy-Item -Recurse marketing-science-writing "$env:USERPROFILE\.agents\skills\"
+```
+
+**Cursor / Windsurf:**
 ```bash
 # Cursor
 cp -r marketing-science-writing ~/.cursor/skills/
@@ -79,692 +89,656 @@ cp -r marketing-science-writing ~/.cursor/skills/
 cp -r marketing-science-writing ~/.windsurf/skills/
 ```
 
-### For Other AI Agents
+The skill follows the [agentskills.io specification](https://agentskills.io/specification) with YAML frontmatter and will be auto-discovered by compatible agents.
 
-Point your agent's skills directory to the cloned repository, or reference `SKILL.md` directly in your agent configuration.
-
-## Core Components
-
-### Directory Structure
-
-```
-marketing-science-writing/
-├── SKILL.md                           # Main skill orchestration logic
-├── references/
-│   ├── journal-characteristics.md     # 8 journal profiles and expectations
-│   ├── modeling-conventions.md        # Utility model specifications
-│   ├── identification-guide.md        # DID, RDD, IV strategies
-│   ├── estimation-guide.md            # BLP, GMM, MLE implementation
-│   ├── counterfactual-guide.md        # Simulation design
-│   ├── conjoint-analysis.md           # Conjoint experiment design
-│   ├── field-experiments.md           # RCT design and analysis
-│   ├── marketing-implications.md      # Managerial insights framework
-│   ├── reviewer-expectations.md       # Journal-specific review criteria
-│   └── writing-patterns.md            # Reusable writing templates
-├── assets/
-│   └── demand-model-reference.md      # Generic demand model structures
-└── examples/
-    ├── manuscript_template.tex        # INFORMS LaTeX template
-    └── blp_estimation_example.py      # BLP estimation code
-```
-
-## Usage Patterns
+## Core Usage Patterns
 
 ### Pattern 1: Full Pipeline (0-to-Draft)
 
-Guide the agent through all five stages:
+When a user wants to write a complete paper from scratch:
 
 ```
-User: "Take me through the full marketing science pipeline. My topic is 
-demand estimation for electric vehicles with consumer heterogeneity."
+User: "I want to write a Marketing Science paper on smartphone demand estimation using BLP. Take me through the full pipeline."
 
-Agent: [Loads skill, executes Stage 1]
-- Conducts literature search for EV demand papers
-- Builds gap table comparing your approach to existing work
-- Recommends Marketing Science (structural model focus) or QME (IO focus)
-- Formulates 3-5 contribution statements
-- Confirms with user before proceeding to Stage 2
+Agent Actions:
+1. Load marketing-science-academic-writing skill
+2. Stage 1: Topic Positioning
+   - Ask: "What's your substantive marketing question?"
+   - Search 8-12 related papers in Marketing Science, QME, JMR
+   - Build gap table comparing identification strategies
+   - Recommend: "Target Marketing Science — structural demand estimation fits tier-1 expectations"
+   - Output: Contribution list (3-5 numbered points)
+
+3. Stage 2: Consumer Utility Model
+   - Ask: "What product characteristics matter to consumers?"
+   - Design utility specification:
+     U_ijt = α_i * price_jt + β_i * X_jt + ξ_jt + ε_ijt
+     where α_i ~ N(α_bar, σ_α), β_i ~ N(β_bar, Σ_β)
+   - Derive aggregate demand via random coefficients logit
+   - Specify supply side: Bertrand pricing, constant marginal cost
+   - Output: Complete Model section draft with notation table
+
+4. Stage 3: Identification & Estimation
+   - Ask: "What exogenous variation do you have?"
+   - Design identification strategy:
+     * BLP instruments: characteristics of other products
+     * Cost shifters: input prices, exchange rates
+   - Specify GMM estimator with optimal weighting matrix
+   - Output: Method section draft with moment conditions
+
+5. Stage 4: Counterfactuals
+   - Ask: "What counterfactual scenarios matter for marketing?"
+   - Design simulations:
+     * Merger simulation: predict post-merger prices
+     * New product introduction: compute cannibalization
+     * Price discrimination: compare uniform vs. personalized pricing
+   - Output: Results section draft with welfare analysis
+
+6. Stage 5: Assembly
+   - Write Introduction (hook → gap → contributions → roadmap)
+   - Write Literature Review (organize by identification strategy)
+   - Write Marketing Implications (actionable insights for managers)
+   - Write Abstract (150 words, structured)
+   - Format in INFORMS LaTeX style
+   - Output: Complete manuscript.pdf
 ```
 
-### Pattern 2: Stage-Specific Entry
+**Key files used:**
+- `SKILL.md`: Main pipeline logic
+- `references/modeling-conventions.md`: Utility specification guide
+- `references/identification-guide.md`: Identification strategy templates
+- `references/estimation-guide.md`: BLP estimation procedures
+- `references/counterfactual-guide.md`: Counterfactual design patterns
+- `examples/manuscript_template.tex`: LaTeX formatting
 
-Jump directly to a specific stage:
+### Pattern 2: Stage-Specific Assistance
 
-**Stage 1: Topic Positioning**
-```
-"I have a research idea about social media influencer effects on brand equity. 
-Help me position this for a top journal."
-```
-
-**Stage 2: Consumer Utility Modeling**
-```
-"Design a consumer utility model for a differentiated products market 
-with price, quality, and brand effects. Include random coefficients."
-```
-
-**Stage 3: Identification & Estimation**
-```
-"I have panel data on product choices. Design an identification strategy 
-using instrumental variables for endogenous price."
-```
-
-**Stage 4: Counterfactuals**
-```
-"My BLP model is estimated. Design counterfactual simulations for 
-a merger between the top two firms."
-```
-
-**Stage 5: Writing & Assembly**
-```
-"Write the complete paper draft with Introduction, Model, Identification, 
-Results, and Discussion sections."
-```
-
-### Pattern 3: Reference-Only Mode
-
-Use as a knowledge base:
+When a user already has partial work and needs help with one stage:
 
 ```
-"What are Marketing Science's reviewer expectations for identification?"
-"How should I structure utility specification for a nested logit model?"
-"What micro moments should I use in BLP estimation?"
-"How do I design a conjoint analysis for luxury goods?"
+User: "I have my utility model. Help me design the identification strategy for endogeneity in price."
+
+Agent Actions:
+1. Load identification-guide.md
+2. Assess endogeneity source: price set by firms who observe ξ_jt
+3. Recommend IV strategy:
+   - Hausman instruments: prices in other markets
+   - BLP instruments: sum of characteristics of other products
+   - Cost shifters: input prices (if available)
+4. Formalize moment conditions:
+   E[Z_jt * ξ_jt(θ)] = 0
+   where Z_jt = [X_jt, BLP_instruments_jt, cost_shifters_jt]
+5. Specify 2-stage GMM:
+   - Stage 1: θ_hat_1 = argmin Q(θ, W_I)
+   - Stage 2: θ_hat_2 = argmin Q(θ, W_opt(θ_hat_1))
+6. Output: Method section draft with identification argument
 ```
 
-## Key Methodologies Covered
+**Key files used:**
+- `references/identification-guide.md`
+- `references/estimation-guide.md`
 
-### 1. Structural Demand Estimation (BLP)
+### Pattern 3: Journal-Specific Positioning
 
-**Consumer Utility Specification:**
+When a user needs to choose a target journal:
+
+```
+User: "I have a paper on digital advertising effectiveness using field experiments. Which journal should I target?"
+
+Agent Actions:
+1. Load journal-characteristics.md
+2. Assess paper profile:
+   - Method: Field experiment (A/B test)
+   - Contribution: Causal estimate of ad effectiveness
+   - Substantive: Digital marketing strategy
+3. Match to journals:
+   - JMR: Strong fit — empirical causal inference, substantive marketing
+   - Marketing Science: Possible if structural model added
+   - JM: Possible if broader strategic implications
+   - JCR: No — not consumer psychology focused
+4. Recommend JMR as primary target
+5. Load reviewer-expectations.md for JMR
+6. Output:
+   - Positioning strategy: "Causal identification of ad effectiveness in digital markets"
+   - Introduction structure: Hook with managerial problem → gap in causal estimates → experimental design → implications
+   - Key reviewer expectations: Clean identification, external validity, heterogeneous effects
+```
+
+**Key files used:**
+- `references/journal-characteristics.md`
+- `references/reviewer-expectations.md`
+
+### Pattern 4: Structural Estimation Code Generation
+
+When a user needs working code for BLP estimation:
 
 ```python
-# Random coefficients logit utility
-# U_ijt = δ_jt + μ_ijt + ε_ijt
-# δ_jt = X_jt * β - α * p_jt + ξ_jt  (mean utility)
-# μ_ijt = (X_jt, p_jt) * Σ * ν_i     (random coefficients)
-# ε_ijt ~ Type I Extreme Value
+# User: "Generate Python code for BLP demand estimation with random coefficients."
+
+# Agent output (using examples/blp_estimation_example.py as template):
 
 import numpy as np
 from scipy.optimize import minimize
+from scipy.stats import norm
 
-def compute_market_shares(delta, mu, market_ids):
+class BLPModel:
     """
-    Compute predicted market shares from mean utilities (delta) 
-    and individual-level deviations (mu).
-    
-    Args:
-        delta: Mean utility vector (J products)
-        mu: Individual utility deviations (J x N matrix)
-        market_ids: Market identifier for each product
-    
-    Returns:
-        s_jt: Predicted market shares
+    Berry, Levinsohn, Pakes (1995) demand estimation.
+    Random coefficients logit with aggregate data.
     """
-    # Compute individual choice probabilities
-    # exp(δ_j + μ_ij) / (1 + Σ_k exp(δ_k + μ_ik))
-    exp_utils = np.exp(delta[:, None] + mu)  # J x N
     
-    # Add outside option (utility = 0)
-    choice_probs = exp_utils / (1 + exp_utils.sum(axis=0))  # J x N
-    
-    # Aggregate to market shares (average over consumers)
-    market_shares = choice_probs.mean(axis=1)
-    
-    return market_shares
-
-def blp_inner_loop(theta2, X, p, s_obs, market_ids, nu_draws):
-    """
-    BLP contraction mapping to recover mean utilities (delta).
-    
-    Args:
-        theta2: Nonlinear parameters (Σ in random coefficients)
-        X: Product characteristics (J x K)
-        p: Prices (J x 1)
-        s_obs: Observed market shares (J x 1)
-        market_ids: Market identifiers
-        nu_draws: Random draws for simulation (K x N)
-    
-    Returns:
-        delta: Mean utilities
-    """
-    J = len(s_obs)
-    N = nu_draws.shape[1]
-    
-    # Compute μ_ijt = (X, p) * Σ * ν_i
-    mu = np.dot(np.column_stack([X, p]), theta2.reshape(-1, 1)) * nu_draws.T  # J x N
-    
-    # Initialize delta
-    delta = np.log(s_obs) - np.log(1 - s_obs.sum())
-    
-    # Contraction mapping
-    max_iter = 1000
-    tol = 1e-12
-    for iteration in range(max_iter):
-        s_pred = compute_market_shares(delta, mu, market_ids)
-        delta_new = delta + np.log(s_obs) - np.log(s_pred)
+    def __init__(self, data, instruments):
+        """
+        Args:
+            data: DataFrame with columns [market_id, product_id, share, price, X1, X2, ...]
+            instruments: DataFrame with columns [Z1, Z2, ...] (same length as data)
+        """
+        self.data = data
+        self.Z = instruments.values
+        self.N_markets = data['market_id'].nunique()
+        self.N_products = len(data) // self.N_markets
+        self.N_sim = 500  # Number of simulation draws
         
-        if np.max(np.abs(delta_new - delta)) < tol:
-            break
-        delta = delta_new
+        # Precompute simulation draws (halton or random)
+        self.nu = np.random.randn(self.N_sim, 2)  # 2 random coefficients (price, X1)
+        
+    def compute_shares(self, delta, sigma):
+        """
+        Compute predicted market shares given mean utilities (delta) and random coef SD (sigma).
+        
+        Args:
+            delta: Mean utilities (N_markets * N_products,)
+            sigma: Standard deviations of random coefficients (2,) for [price, X1]
+        
+        Returns:
+            shares: Predicted market shares (N_markets * N_products,)
+        """
+        price = self.data['price'].values
+        X1 = self.data['X1'].values
+        
+        # Compute utilities for each simulation draw
+        # U_ijs = delta_j + sigma_price * nu_i * price_j + sigma_X1 * nu_i * X1_j
+        utilities = delta.reshape(-1, 1)  # (J, 1)
+        utilities += sigma[0] * self.nu[:, 0] * price.reshape(-1, 1)  # (J, S)
+        utilities += sigma[1] * self.nu[:, 1] * X1.reshape(-1, 1)
+        
+        # Add outside option (utility = 0)
+        exp_utilities = np.exp(utilities)
+        exp_utilities_with_outside = np.vstack([exp_utilities, np.ones((1, self.N_sim))])
+        
+        # Choice probabilities
+        probs = exp_utilities / exp_utilities_with_outside.sum(axis=0)
+        
+        # Aggregate over simulation draws
+        shares = probs.mean(axis=1)
+        
+        return shares
     
-    return delta
-
-def blp_gmm_objective(theta2, X, p, s_obs, Z, W, market_ids, nu_draws):
-    """
-    BLP GMM objective function.
+    def invert_shares(self, sigma, max_iter=1000, tol=1e-6):
+        """
+        BLP contraction mapping: invert observed shares to get mean utilities (delta).
+        
+        Iterate: delta_{t+1} = delta_t + log(s_observed) - log(s_predicted(delta_t, sigma))
+        
+        Args:
+            sigma: Random coefficient SDs
+        
+        Returns:
+            delta: Mean utilities
+        """
+        delta = np.log(self.data['share'].values)  # Initial guess
+        
+        for _ in range(max_iter):
+            shares_pred = self.compute_shares(delta, sigma)
+            delta_new = delta + np.log(self.data['share'].values) - np.log(shares_pred)
+            
+            if np.max(np.abs(delta_new - delta)) < tol:
+                return delta_new
+            
+            delta = delta_new
+        
+        raise ValueError("BLP contraction did not converge")
     
-    Args:
-        theta2: Nonlinear parameters (random coefficients)
-        X: Product characteristics
-        p: Prices
-        s_obs: Observed market shares
-        Z: Instruments (J x L)
-        W: Weighting matrix (L x L)
-        market_ids: Market identifiers
-        nu_draws: Random draws for simulation
+    def gmm_objective(self, theta):
+        """
+        GMM objective: Q(theta) = xi' * Z * W * Z' * xi
+        
+        where xi are demand shocks (unobserved quality) recovered from
+        delta = X * beta + xi
+        
+        Args:
+            theta: Parameter vector [beta (K,), sigma (2,)]
+        
+        Returns:
+            Q: GMM objective value
+        """
+        K = self.data.shape[1] - 4  # Number of product characteristics
+        beta = theta[:K]
+        sigma = theta[K:]
+        
+        # Invert shares to get delta
+        delta = self.invert_shares(sigma)
+        
+        # Recover structural errors: xi = delta - X * beta
+        X = self.data[['price', 'X1', 'X2']].values
+        xi = delta - X @ beta
+        
+        # GMM moments: E[Z' * xi] = 0
+        moments = self.Z.T @ xi  # (L,) where L = number of instruments
+        
+        # Weighting matrix (2-step GMM: use optimal W from first stage)
+        W = np.linalg.inv(self.Z.T @ self.Z)  # Identity for first stage
+        
+        # Objective
+        Q = moments.T @ W @ moments
+        
+        return Q
     
-    Returns:
-        objective: GMM objective value
-    """
-    # Recover mean utilities via contraction
-    delta = blp_inner_loop(theta2, X, p, s_obs, market_ids, nu_draws)
+    def estimate(self, initial_guess=None):
+        """
+        Estimate BLP model via GMM.
+        
+        Returns:
+            results: dict with estimated parameters and standard errors
+        """
+        if initial_guess is None:
+            K = self.data.shape[1] - 4
+            initial_guess = np.concatenate([
+                np.zeros(K),  # beta
+                np.ones(2)    # sigma
+            ])
+        
+        # Stage 1: Minimize GMM objective
+        result = minimize(
+            self.gmm_objective,
+            initial_guess,
+            method='Nelder-Mead',
+            options={'maxiter': 10000}
+        )
+        
+        theta_hat = result.x
+        K = len(theta_hat) - 2
+        
+        # Stage 2: Update weighting matrix and re-estimate
+        delta_hat = self.invert_shares(theta_hat[K:])
+        X = self.data[['price', 'X1', 'X2']].values
+        xi_hat = delta_hat - X @ theta_hat[:K]
+        
+        # Optimal weighting matrix
+        Omega = (self.Z.T * xi_hat**2) @ self.Z / len(xi_hat)
+        W_opt = np.linalg.inv(Omega)
+        
+        # Re-estimate with optimal W (modify gmm_objective to use W_opt)
+        # [Code for stage 2 omitted for brevity — same structure]
+        
+        return {
+            'beta': theta_hat[:K],
+            'sigma': theta_hat[K:],
+            'delta': delta_hat,
+            'xi': xi_hat,
+            'objective': result.fun
+        }
+
+# Usage example
+if __name__ == '__main__':
+    import pandas as pd
     
-    # Compute moments E[Z' ξ] where ξ = δ - X*β + α*p
-    # For simplicity, regress delta on X and p to get residuals
-    Xp = np.column_stack([X, p])
-    beta = np.linalg.lstsq(Xp, delta, rcond=None)[0]
-    xi = delta - np.dot(Xp, beta)
+    # Load data (market_id, product_id, share, price, X1, X2)
+    data = pd.read_csv('data/smartphone_data.csv')
     
-    # Moment conditions
-    moments = np.dot(Z.T, xi) / len(xi)  # L x 1
-    
-    # GMM objective
-    objective = np.dot(moments.T, np.dot(W, moments))
-    
-    return objective
-
-# Example usage
-np.random.seed(42)
-J = 100  # Number of products
-N = 500  # Number of consumer draws
-K = 3    # Number of characteristics
-
-# Simulate data
-X = np.random.randn(J, K)
-p = 5 + 2 * X[:, 0] + np.random.randn(J)
-s_obs = np.random.dirichlet(np.ones(J))
-Z = np.column_stack([X, np.random.randn(J, 2)])  # Cost shifters as instruments
-market_ids = np.zeros(J, dtype=int)  # Single market
-nu_draws = np.random.randn(K + 1, N)  # +1 for price coefficient
-
-# Initial guess for theta2 (standard deviations of random coefficients)
-theta2_init = np.ones(K + 1) * 0.5
-
-# Optimal weighting matrix (identity for two-step GMM)
-W = np.eye(Z.shape[1])
-
-# Optimize
-result = minimize(
-    blp_gmm_objective,
-    theta2_init,
-    args=(X, p, s_obs, Z, W, market_ids, nu_draws),
-    method='Nelder-Mead',
-    options={'maxiter': 100}
-)
-
-print(f"Estimated theta2 (random coefficient std devs): {result.x}")
-```
-
-**Key Implementation Steps:**
-
-1. **Specify utility function**: Linear in parameters with random coefficients
-2. **Generate simulation draws**: Halton or pseudo-random draws for consumer heterogeneity
-3. **Inner loop (contraction)**: Invert from observed shares to mean utilities
-4. **Outer loop (GMM)**: Optimize over nonlinear parameters using moment conditions
-5. **Standard errors**: Bootstrap or asymptotic formula with optimal weighting matrix
-
-### 2. Causal Identification: Difference-in-Differences
-
-**DID with Staggered Treatment:**
-
-```python
-import pandas as pd
-import numpy as np
-from linearmodels import PanelOLS
-
-def prepare_did_data(df, unit_col, time_col, outcome_col, treatment_col):
-    """
-    Prepare panel data for DID estimation.
-    
-    Args:
-        df: DataFrame with panel structure
-        unit_col: Column name for cross-sectional units
-        time_col: Column name for time periods
-        outcome_col: Column name for outcome variable
-        treatment_col: Column name for treatment indicator (0/1)
-    
-    Returns:
-        Prepared DataFrame with multi-index (unit, time)
-    """
-    df_clean = df[[unit_col, time_col, outcome_col, treatment_col]].copy()
-    df_clean = df_clean.set_index([unit_col, time_col])
-    return df_clean
-
-def estimate_twfe_did(df, outcome_col, treatment_col, unit_col, time_col, 
-                      controls=None, cluster_unit=True):
-    """
-    Two-Way Fixed Effects DID estimation.
-    
-    Specification: Y_it = α_i + λ_t + β * Treat_it + X_it * γ + ε_it
-    
-    Args:
-        df: Panel DataFrame (must be indexed by unit and time)
-        outcome_col: Outcome variable name
-        treatment_col: Treatment indicator name
-        unit_col: Unit identifier for clustering
-        time_col: Time identifier for clustering
-        controls: List of control variable names
-        cluster_unit: Whether to cluster standard errors by unit
-    
-    Returns:
-        Regression results
-    """
-    # Prepare formula
-    controls_str = " + ".join(controls) if controls else ""
-    formula = f"{outcome_col} ~ {treatment_col}"
-    if controls_str:
-        formula += f" + {controls_str}"
-    formula += " + EntityEffects + TimeEffects"
-    
-    # Estimate with two-way fixed effects
-    model = PanelOLS.from_formula(
-        formula,
-        data=df,
-        drop_absorbed=True
+    # Construct BLP instruments: sum of characteristics of other products
+    data['blp_instrument_X1'] = data.groupby('market_id')['X1'].transform(
+        lambda x: x.sum() - x
     )
+    instruments = data[['blp_instrument_X1', 'cost_shifter']]
     
-    # Cluster standard errors
-    if cluster_unit:
-        results = model.fit(cov_type='clustered', cluster_entity=True)
-    else:
-        results = model.fit(cov_type='robust')
+    # Estimate
+    model = BLPModel(data, instruments)
+    results = model.estimate()
     
-    return results
-
-# Example: Social media campaign DID
-np.random.seed(42)
-
-# Simulate panel data
-n_stores = 200
-n_periods = 24
-treatment_start = 12  # Half the stores treated at period 12
-
-data = []
-for store in range(n_stores):
-    treated = store < n_stores // 2
-    treatment_time = treatment_start if treated else None
-    
-    for t in range(n_periods):
-        # Baseline sales with store and time fixed effects
-        sales = 100 + store * 0.5 + t * 2 + np.random.randn() * 10
-        
-        # Treatment effect (15% increase after treatment)
-        treat_indicator = 1 if (treated and t >= treatment_start) else 0
-        sales += treat_indicator * 15
-        
-        data.append({
-            'store_id': store,
-            'month': t,
-            'sales': sales,
-            'treated': treat_indicator,
-            'store_size': np.random.choice(['small', 'medium', 'large'])
-        })
-
-df = pd.DataFrame(data)
-
-# One-hot encode store size
-df = pd.get_dummies(df, columns=['store_size'], drop_first=True)
-
-# Prepare for panel regression
-df_panel = df.set_index(['store_id', 'month'])
-
-# Estimate DID
-results = estimate_twfe_did(
-    df_panel,
-    outcome_col='sales',
-    treatment_col='treated',
-    unit_col='store_id',
-    time_col='month',
-    controls=['store_size_medium', 'store_size_large'],
-    cluster_unit=True
-)
-
-print(results.summary)
-print(f"\nEstimated Treatment Effect: {results.params['treated']:.2f}")
-print(f"95% CI: [{results.conf_int().loc['treated', 'lower']:.2f}, "
-      f"{results.conf_int().loc['treated', 'upper']:.2f}]")
+    print("Price coefficient (beta_price):", results['beta'][0])
+    print("Random coefficient SD (sigma_price):", results['sigma'][0])
 ```
 
-**DID Design Checklist (per identification-guide.md):**
+**Key files used:**
+- `examples/blp_estimation_example.py`
+- `references/estimation-guide.md`
+- `references/modeling-conventions.md`
 
-- [ ] Parallel trends assumption: Plot pre-treatment trends for treated vs. control
-- [ ] No anticipation: Treatment effect should be zero in pre-periods
-- [ ] No spillovers: Control units should not be affected by treatment
-- [ ] Event study specification: Include leads and lags of treatment
-- [ ] Robust standard errors: Cluster by unit (or unit and time)
-- [ ] Sensitivity: Test with alternative control groups, placebo tests
+### Pattern 5: Counterfactual Simulation Design
 
-### 3. Conjoint Analysis Design
+When a user needs to evaluate a marketing policy:
 
-**Efficient Conjoint Design:**
+```
+User: "I have BLP estimates for the laptop market. Design a counterfactual to evaluate a merger between Dell and HP."
 
-```python
-import numpy as np
-import pandas as pd
-from itertools import product
-from sklearn.linear_model import LogisticRegression
+Agent Actions:
+1. Load counterfactual-guide.md
+2. Specify counterfactual equilibrium problem:
+   - Pre-merger: Dell and HP set prices non-cooperatively
+   - Post-merger: Merged entity internalizes cannibalization
+   
+3. Formalize pricing FOCs:
+   Pre-merger (firm f):
+     ∂π_f / ∂p_j = s_j + Σ_{k ∈ J_f} (p_k - mc_k) * ∂s_k/∂p_j = 0
+   
+   Post-merger (merged firm):
+     ∂π_merged / ∂p_j = s_j + Σ_{k ∈ J_Dell ∪ J_HP} (p_k - mc_k) * ∂s_k/∂p_j = 0
 
-def generate_orthogonal_design(attributes, n_profiles=16):
-    """
-    Generate a near-orthogonal fractional factorial design for conjoint.
-    
-    Args:
-        attributes: Dict mapping attribute names to lists of levels
-                   e.g., {'price': [10, 20, 30], 'quality': ['low', 'high']}
-        n_profiles: Number of profiles to generate
-    
-    Returns:
-        DataFrame with conjoint profiles
-    """
-    # Full factorial
-    attr_names = list(attributes.keys())
-    levels = [attributes[attr] for attr in attr_names]
-    full_factorial = list(product(*levels))
-    
-    # Sample n_profiles (ideally use D-optimal design software for real studies)
-    if len(full_factorial) > n_profiles:
-        selected_indices = np.random.choice(len(full_factorial), n_profiles, replace=False)
-        selected = [full_factorial[i] for i in selected_indices]
-    else:
-        selected = full_factorial
-    
-    # Create DataFrame
-    df = pd.DataFrame(selected, columns=attr_names)
-    return df
+4. Compute counterfactual prices:
+   - Solve system of FOCs numerically
+   - Use estimated demand elasticities ∂s_k/∂p_j from BLP model
+   
+5. Welfare analysis:
+   - Consumer surplus: CS = E[max_j U_ij] (log-sum formula)
+   - Producer profit: π = Σ_j (p_j - mc_j) * s_j * M
+   - Total welfare: W = CS + π
 
-def create_choice_tasks(profiles, n_tasks=10, n_alternatives=3):
-    """
-    Create choice tasks by randomly sampling alternatives per task.
-    
-    Args:
-        profiles: DataFrame of conjoint profiles
-        n_tasks: Number of choice tasks
-        n_alternatives: Number of alternatives per task (excluding no-choice)
-    
-    Returns:
-        List of choice tasks (each task is a DataFrame)
-    """
-    tasks = []
-    for task_id in range(n_tasks):
-        # Sample alternatives
-        alternatives = profiles.sample(n_alternatives, replace=False).copy()
-        alternatives['task_id'] = task_id
-        alternatives['alt_id'] = range(n_alternatives)
-        tasks.append(alternatives)
-    
-    return tasks
-
-def estimate_partworths(choice_data, attributes):
-    """
-    Estimate part-worth utilities from conjoint choice data using logit.
-    
-    Args:
-        choice_data: DataFrame with columns [task_id, alt_id, chosen, ...attributes]
-        attributes: List of attribute column names
-    
-    Returns:
-        Dict of part-worth utilities
-    """
-    # Prepare design matrix (effects coding)
-    X = pd.get_dummies(choice_data[attributes], drop_first=True)
-    y = choice_data['chosen']
-    
-    # Logistic regression
-    model = LogisticRegression(penalty=None, max_iter=1000)
-    model.fit(X, y)
-    
-    # Extract part-worths
-    partworths = dict(zip(X.columns, model.coef_[0]))
-    
-    return partworths, model
-
-# Example: Smartphone conjoint
-attributes = {
-    'brand': ['Apple', 'Samsung', 'Google'],
-    'price': [699, 899, 1099],
-    'storage': ['128GB', '256GB', '512GB'],
-    'camera': ['12MP', '48MP', '108MP']
-}
-
-# Generate profiles
-profiles = generate_orthogonal_design(attributes, n_profiles=24)
-print("Sample profiles:")
-print(profiles.head())
-
-# Create choice tasks
-tasks = create_choice_tasks(profiles, n_tasks=15, n_alternatives=3)
-
-# Simulate responses (for demonstration)
-np.random.seed(42)
-choice_data = []
-for task in tasks:
-    task['utility'] = (
-        (task['brand'] == 'Apple').astype(int) * 0.5 +
-        -task['price'] / 1000 +
-        (task['storage'] == '512GB').astype(int) * 0.3 +
-        (task['camera'] == '108MP').astype(int) * 0.4 +
-        np.random.gumbel(size=len(task))  # Logit error
-    )
-    chosen_alt = task['utility'].idxmax()
-    task['chosen'] = 0
-    task.loc[chosen_alt, 'chosen'] = 1
-    choice_data.append(task[['task_id', 'alt_id', 'brand', 'price', 'storage', 'camera', 'chosen']])
-
-choice_df = pd.concat(choice_data, ignore_index=True)
-
-# Estimate part-worths
-partworths, model = estimate_partworths(choice_df, ['brand', 'price', 'storage', 'camera'])
-print("\nEstimated Part-Worths:")
-for attr, value in partworths.items():
-    print(f"  {attr}: {value:.3f}")
-
-# Compute willingness-to-pay
-# WTP for attribute = β_attribute / |β_price|
-price_coef = partworths['price'] if 'price' in partworths else -0.001
-wtp = {attr: val / abs(price_coef) for attr, val in partworths.items() if attr != 'price'}
-print("\nWillingness-to-Pay (relative to price coefficient):")
-for attr, val in wtp.items():
-    print(f"  {attr}: ${val:.0f}")
+6. Output code:
 ```
 
-**Conjoint Best Practices (per conjoint-analysis.md):**
-
-- Use D-optimal or orthogonal designs to minimize multicollinearity
-- Include 12-20 choice tasks per respondent
-- Add a "no-choice" option to capture opt-out behavior
-- Validate with holdout tasks (20% of tasks)
-- Estimate hierarchical Bayes models for individual-level part-worths
-- Report WTP with confidence intervals (bootstrap or delta method)
-
-### 4. Counterfactual Simulations
-
-**Merger Simulation:**
-
 ```python
-import numpy as np
-from scipy.optimize import fsolve
-
-def compute_equilibrium_prices(mc, delta_pre, theta, ownership_matrix):
+def counterfactual_merger(blp_model, firm1_products, firm2_products, marginal_costs):
     """
-    Compute Nash-Bertrand equilibrium prices given marginal costs.
+    Simulate post-merger equilibrium prices and welfare.
     
     Args:
-        mc: Marginal costs (J x 1)
-        delta_pre: Pre-merger mean utilities (J x 1)
-        theta: Demand parameters (price coefficient, etc.)
-        ownership_matrix: J x J matrix (1 if same owner, 0 otherwise)
+        blp_model: Estimated BLPModel instance
+        firm1_products: List of product indices for firm 1
+        firm2_products: List of product indices for firm 2
+        marginal_costs: Array of marginal costs for all products
     
     Returns:
-        Equilibrium prices
+        results: dict with pre/post prices, quantities, welfare
     """
-    J = len(mc)
-    alpha = theta['price_coef']  # Price sensitivity
+    from scipy.optimize import fsolve
     
-    def foc(prices):
-        """First-order conditions for multi-product firm pricing."""
-        # Compute market shares and derivatives
-        utils = delta_pre - alpha * prices
-        exp_utils = np.exp(utils)
-        shares = exp_utils / (1 + exp_utils.sum())
+    # Pre-merger equilibrium (current prices)
+    prices_pre = blp_model.data['price'].values
+    shares_pre = blp_model.data['share'].values
+    
+    # Compute demand elasticities at current prices
+    elasticities = blp_model.compute_elasticities(prices_pre)
+    # elasticities[j, k] = (∂s_j / ∂p_k) * (p_k / s_j)
+    
+    # Post-merger pricing FOCs
+    def pricing_focs(prices_post):
+        """
+        FOCs for merged firm: ∂π/∂p_j = 0
+        """
+        shares_post = blp_model.compute_shares_at_prices(prices_post)
         
-        # Price derivatives of shares (logit)
-        share_derivs = np.outer(shares, shares) * alpha
-        np.fill_diagonal(share_derivs, -alpha * shares * (1 - shares))
+        focs = []
+        merged_products = firm1_products + firm2_products
         
-        # FOC: s_j + Σ_k Ω_jk * (p_k - mc_k) * ∂s_k/∂p_j = 0
-        markup_matrix = ownership_matrix * share_derivs
-        foc_values = shares + markup_matrix @ (prices - mc)
+        for j in merged_products:
+            # FOC: s_j + Σ_{k in merged} (p_k - mc_k) * ∂s_k/∂p_j = 0
+            foc_j = shares_post[j]
+            for k in merged_products:
+                markup = prices_post[k] - marginal_costs[k]
+                elasticity_kj = elasticities[k, j]
+                foc_j += markup * elasticity_kj * shares_post[k] / prices_post[j]
+            focs.append(foc_j)
         
-        return foc_values
+        # Other firms' FOCs unchanged
+        for j in range(len(prices_post)):
+            if j not in merged_products:
+                foc_j = shares_post[j]
+                firm_j_products = [j]  # Assuming single-product firms
+                for k in firm_j_products:
+                    markup = prices_post[k] - marginal_costs[k]
+                    elasticity_kj = elasticities[k, j]
+                    foc_j += markup * elasticity_kj * shares_post[k] / prices_post[j]
+                focs.append(foc_j)
+        
+        return focs
     
-    # Solve for equilibrium prices
-    p_init = mc + 10  # Initial guess: cost plus markup
-    prices_eq = fsolve(foc, p_init)
+    # Solve for post-merger prices
+    prices_post = fsolve(pricing_focs, prices_pre)
+    shares_post = blp_model.compute_shares_at_prices(prices_post)
     
-    return prices_eq
-
-def simulate_merger(mc, delta_pre, theta, firm_ids, merging_firms):
-    """
-    Simulate a merger between two firms.
+    # Welfare analysis
+    market_size = 1000000  # Assume 1M potential consumers
     
-    Args:
-        mc: Marginal costs
-        delta_pre: Pre-merger mean utilities
-        theta: Demand parameters
-        firm_ids: Array of firm IDs for each product
-        merging_firms: Tuple of firm IDs that merge (e.g., (1, 2))
-    
-    Returns:
-        Dict with pre- and post-merger prices, shares, consumer surplus
-    """
-    J = len(mc)
-    alpha = theta['price_coef']
-    
-    # Pre-merger ownership matrix
-    ownership_pre = np.array([[1 if firm_ids[i] == firm_ids[j] else 0 
-                                for j in range(J)] for i in range(J)])
-    
-    # Post-merger ownership matrix (merge firms)
-    firm_ids_post = firm_ids.copy()
-    firm_ids_post[firm_ids == merging_firms[1]] = merging_firms[0]
-    ownership_post = np.array([[1 if firm_ids_post[i] == firm_ids_post[j] else 0 
-                                 for j in range(J)] for i in range(J)])
-    
-    # Compute equilibrium prices
-    prices_pre = compute_equilibrium_prices(mc, delta_pre, theta, ownership_pre)
-    prices_post = compute_equilibrium_prices(mc, delta_pre, theta, ownership_post)
-    
-    # Compute market shares
-    utils_pre = delta_pre - alpha * prices_pre
-    shares_pre = np.exp(utils_pre) / (1 + np.exp(utils_pre).sum())
-    
-    utils_post = delta_pre - alpha * prices_post
-    shares_post = np.exp(utils_post) / (1 + np.exp(utils_post).sum())
-    
-    # Consumer surplus (logit inclusive value / price coefficient)
-    cs_pre = np.log(1 + np.exp(utils_pre).sum()) / abs(alpha)
-    cs_post = np.log(1 + np.exp(utils_post).sum()) / abs(alpha)
+    # Consumer surplus (log-sum formula for logit)
+    cs_pre = market_size * np.log(1 + np.sum(np.exp(blp_model.delta_pre)))
+    cs_post = market_size * np.log(1 + np.sum(np.exp(blp_model.compute_delta(prices_post))))
     
     # Producer profit
-    profit_pre = ((prices_pre - mc) * shares_pre).sum()
-    profit_post = ((prices_post - mc) * shares_post).sum()
+    profit_pre = np.sum((prices_pre - marginal_costs) * shares_pre * market_size)
+    profit_post = np.sum((prices_post - marginal_costs) * shares_post * market_size)
+    
+    # Total welfare
+    welfare_pre = cs_pre + profit_pre
+    welfare_post = cs_post + profit_post
     
     return {
         'prices_pre': prices_pre,
         'prices_post': prices_post,
         'shares_pre': shares_pre,
         'shares_post': shares_post,
-        'consumer_surplus_pre': cs_pre,
-        'consumer_surplus_post': cs_post,
-        'profit_pre': profit_pre,
-        'profit_post': profit_post,
-        'price_change_pct': (prices_post - prices_pre) / prices_pre * 100
+        'consumer_surplus_change': cs_post - cs_pre,
+        'profit_change': profit_post - profit_pre,
+        'welfare_change': welfare_post - welfare_pre,
+        'price_increase_pct': 100 * (prices_post - prices_pre) / prices_pre
     }
 
-# Example: Simulate merger in smartphone market
-np.random.seed(42)
-J = 10
-mc = np.random.uniform(300, 500, J)  # Marginal costs
-delta_pre = np.random.randn(J) * 0.5  # Mean utilities (price-independent component)
-theta = {'price_coef': -0.003}  # Price coefficient (negative)
+# Example usage
+results = counterfactual_merger(
+    blp_model=model,
+    firm1_products=[0, 1, 2],  # Dell products
+    firm2_products=[3, 4],      # HP products
+    marginal_costs=np.array([300, 350, 400, 320, 380])  # Estimated from supply side
+)
 
-# Three firms, each with multiple products
-firm_ids = np.array([1, 1, 1, 2, 2, 2, 3, 3, 3, 3])
-
-# Simulate merger between firm 1 and firm 2
-merger_results = simulate_merger(mc, delta_pre, theta, firm_ids, merging_firms=(1, 2))
-
-print("Merger Simulation Results:")
-print(f"  Pre-merger avg price: ${merger_results['prices_pre'].mean():.2f}")
-print(f"  Post-merger avg price: ${merger_results['prices_post'].mean():.2f}")
-print(f"  Average price increase: {merger_results['price_change_pct'].mean():.2f}%")
-print(f"  Consumer surplus change: ${merger_results['consumer_surplus_post'] - merger_results['consumer_surplus_pre']:.2f}")
-print(f"  Producer profit change: ${merger_results['profit_post'] - merger_results['profit_pre']:.2f}")
+print(f"Average price increase: {results['price_increase_pct'].mean():.1f}%")
+print(f"Consumer surplus change: ${results['consumer_surplus_change']/1e6:.1f}M")
+print(f"Welfare change: ${results['welfare_change']/1e6:.1f}M")
 ```
 
-**Counterfactual Reporting Guidelines:**
+**Key files used:**
+- `references/counterfactual-guide.md`
+- `references/estimation-guide.md`
 
-- Present baseline (status quo) vs. counterfactual side-by-side
-- Report welfare decomposition: consumer surplus, producer profit, total welfare
-- Sensitivity analysis: Vary demand elasticity, cost assumptions
-- Connect to marketing implications: "A 10% price increase would reduce market penetration by X% but increase category profit by Y%"
+## Key Reference Files
 
-## Journal Selection Quick Reference
+### `references/journal-characteristics.md`
 
-| Journal | When to Choose | Red Flags |
-|---------|---------------|-----------|
-| **Marketing Science** | Structural models, analytical rigor, BLP/GMM/MLE | Weak identification, descriptive-only, no theory |
-| **JMR** | Causal inference (DID/RDD/IV), experiments, rich data | Pure theory, no empirical validation, small samples |
-| **JM** | Broad substantive contribution, strategy, B2B | Methodological novelty only, narrow application |
-| **JCR** | Consumer psychology, qualitative + quant, rich constructs | Firm-level only, no consumer-level data or theory |
-| **JAMS** | Conceptual + empirical, broader audience, meta-analysis | Highly technical with limited substantive insight |
-| **IJRM** | European context, diverse methods, international data | US-only context, single-method papers |
-| **QME** | IO approach, structural econometrics, theoretical depth | Weak economic foundations, atheoretical |
-| **Marketing Letters** | Short, sharp, focused contribution (< 6000 words) | Incremental extensions, lacks novelty |
+Detailed profiles of 8 journals with:
+- Typical methodology mix (structural vs. reduced-form vs. experiments)
+- Positioning strategies for each journal
+- Reviewer expectations (what they look for, common rejection reasons)
+- Example papers for each journal type
 
-## Five-Stage Workflow
+**When to use:** Stage 1 (topic positioning), whenever user asks "which journal should I target?"
 
-### Stage 1: Topic Positioning & Journal Selection
+### `references/modeling-conventions.md`
 
-**Agent Actions:**
+Comprehensive guide to consumer utility models:
+- **Discrete choice**: Multinomial logit, nested logit, random coefficients logit
+- **Demand systems**: AIDS, linear demand, aggregate discrete choice
+- **Utility specifications**: Price, product characteristics, unobserved quality, heterogeneity
+- **Notation conventions**: Indexing (i=consumer, j=product, t=time), Greek letters (α for price, β for characteristics, ξ for unobserved quality)
 
-1. **Understand the Research Question**
-   - Ask user to describe the substantive marketing problem
-   - Identify: What is the decision-maker's problem? What is the outcome of interest?
+**When to use:** Stage 2 (model building), when user asks "how do I specify utility?" or "what's the standard demand model?"
 
-2. **Literature Gap Analysis**
-   - Search for 8-12 closest papers
-   - Build a Gap Table (columns: Paper, Data, Method, Finding, Gap)
-   - Identify what is missing: Data source? Method? Substantive context? Theoretical mechanism?
+### `references/identification-guide.md`
 
-3. **Match to Journal Identity**
-   - Use `references/journal-characteristics.md` to match paper profile to journal
-   - Key dimensions: Method sophistication, substantive vs. methodological, audience breadth
-   - Recommendation: Target journal + backup journal
+Identification strategies for marketing:
+- **Difference-in-differences**: Parallel trends, staggered adoption, event studies
+- **Regression discontinuity**: Sharp vs. fuzzy RD, bandwidth selection, local polynomial estimation
+- **Instrumental variables**: Hausman instruments, BLP instruments (sum of characteristics), cost shifters, shift-share instruments
+- **Structural identification**: Exclusion restrictions in demand/supply systems, revealed preference conditions
 
-4. **Formulate Contribution Statement**
-   - Write 3-5 numbered contributions (one substantive, one methodological, one data/context)
-   - Use language from `references/writing-patterns.md` (e.g., "We are the first to...", "We show that...", "We contribute by...")
+**When to use:** Stage 3 (identification design), when user asks "how do I address endogeneity?" or "what instruments should I use?"
 
-5. **Section Plan**
-   
+### `references/estimation-guide.md`
+
+Estimation procedures:
+- **BLP (Berry-Levinsohn-Pakes)**: Contraction mapping, GMM objective, 2-stage vs. 1-stage, micro moments
+- **GMM**: Moment conditions, weighting matrix, standard errors (clustered, heteroskedasticity-robust)
+- **MLE**: Likelihood function for discrete choice, computational issues, simulation-based estimation
+- **Bayesian**: MCMC for hierarchical models, prior specification, convergence diagnostics
+
+**When to use:** Stage 3 (estimation), when user asks "how do I estimate this?" or "what estimator should I use?"
+
+### `references/counterfactual-guide.md`
+
+Counterfactual simulation design:
+- **Types**: Merger simulation, new product introduction, price discrimination, advertising regulation
+- **Equilibrium computation**: Solving FOCs, fixed-point iteration, Newton-Raphson
+- **Welfare analysis**: Consumer surplus (log-sum formula), producer profit, deadweight loss
+- **Sensitivity analysis**: Robustness to demand elasticity, cost assumptions
+
+**When to use:** Stage 4 (counterfactuals), when user asks "what counterfactuals should I run?" or "how do I compute welfare?"
+
+### `references/conjoint-analysis.md`
+
+Conjoint experiment design:
+- **Attributes and levels**: Choice of product features, number of profiles
+- **Experimental design**: Full factorial vs. fractional factorial, D-optimal design
+- **Estimation**: Mixed logit, hierarchical Bayes, WTP computation
+- **Validation**: Holdout prediction, external validity checks
+
+**When to use:** Stage 2-4 (when user chooses conjoint as primary method), when user asks "how do I design a conjoint study?"
+
+### `references/field-experiments.md`
+
+Field experiment design and analysis:
+- **Randomization**: Individual vs. cluster randomization, stratification, re-randomization
+- **Power analysis**: Minimum detectable effect, sample size calculation
+- **Estimation**: ATE, CATE (conditional average treatment effects), heterogeneous effects
+- **Threats to validity**: Spillovers, non-compliance, attrition, Hawthorne effects
+
+**When to use:** Stage 2-4 (when user chooses field experiment as primary method), when user asks "how do I design an A/B test?"
+
+### `references/marketing-implications.md`
+
+Framework for writing actionable marketing implications:
+- **Structure**: What → Why → How (insight → mechanism → action)
+- **Audience**: Brand managers, pricing analysts, product developers, policymakers
+- **Specificity**: Quantify effects ("10% price increase → 5% demand decrease"), provide thresholds
+- **Robustness**: Discuss boundary conditions, when implications hold vs. don't hold
+
+**When to use:** Stage 5 (writing), specifically for "Marketing Implications" section
+
+### `references/reviewer-expectations.md`
+
+What reviewers look for (by journal):
+- **Marketing Science**: Formal model correctness, identification rigor, computational transparency
+- **JMR**: Clean causal inference, substantive contribution, managerial relevance
+- **JM**: Broad strategic insights, multi-study validation, theoretical depth
+- **JCR**: Psychological mechanisms, process evidence, conceptual novelty
+
+**When to use:** Stage 1 (positioning), Stage 5 (revision), when user asks "what do reviewers care about?"
+
+### `references/writing-patterns.md`
+
+Reusable writing templates:
+- **Introduction hook**: "Firms spend $X billion on Y, but little is known about Z"
+- **Gap statement**: "Prior work has examined A, but overlooked B because of limitation C"
+- **Contribution list**: "First, we show... Second, we document... Third, we demonstrate..."
+- **Model intuition**: "Consumers choose j to maximize utility... This implies..."
+- **Identification argument**: "We exploit exogenous variation in X driven by policy Y, which affects Z only through its impact on X"
+- **Robustness discussion**: "Our results are robust to alternative specifications (Appendix Table A1)..."
+
+**When to use:** Stage 5 (writing), for any section
+
+## Configuration
+
+### Environment Variables
+
+If generating code that requires API access (e.g., OpenAI for text generation tasks), reference credentials as:
+
+```python
+import os
+
+# Example: If using OpenAI API for auxiliary tasks (NOT for BLP estimation itself)
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+if not OPENAI_API_KEY:
+    raise ValueError("Set OPENAI_API_KEY environment variable")
+```
+
+**Never hardcode keys** — always use `os.getenv()`.
+
+### LaTeX Dependencies
+
+The skill assumes users have LaTeX installed for manuscript generation. Required packages:
+```latex
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{setspace}
+```
+
+Check installation:
+```bash
+pdflatex --version
+```
+
+If missing, recommend installation (e.g., `sudo apt install texlive-full` on Linux).
+
+### Python Dependencies
+
+For BLP estimation and counterfactuals:
+```bash
+pip install numpy scipy pandas matplotlib seaborn
+```
+
+For advanced structural estimation:
+```bash
+pip install pyblp  # PyBLP library (alternative to custom implementation)
+```
+
+## Troubleshooting
+
+### "Contraction mapping not converging"
+
+**Symptom:** BLP invert_shares() raises `ValueError("BLP contraction did not converge")`
+
+**Causes:**
+1. Initial guess for delta is too far from truth
+2. sigma (random coefficient SD) is too large
+3. Market shares have zeros or near-zeros
+
+**Solutions:**
+```python
+# 1. Better initial guess
+delta_init = np.log(data['share'].values) - np.log(data['share'].values.mean())
+
+# 2. Constrain sigma during optimization
+bounds = [(None, None)] * K + [(0.01, 2.0)] * 2  # sigma between 0.01 and 2
+
+# 3. Add small constant to shares to avoid log(0)
+data['share'] = data['share'].clip(lower=1e-6)
+```
+
+### "GMM objective is negative"
+
+**Symptom:** `gmm_objective()` returns negative value
+
+**Cause:** Weighting matrix W is not positive definite, or moments are scaled incorrectly.
+
+**Solution:**
+```python
+# Regularize weighting matrix
+W = np.linalg.inv(self.Z.T @ self.Z + 1e-6 * np.eye(L))
+
+# Or use identity matrix for first stage
+W = np.eye(L)
+```
+
+### "Counterfactual prices are unrealistic"
+
+**Symptom:** Post-merger prices are 10x pre-merger prices, or negative
+
+**Causes:**
+1. Demand elasticities computed incorrectly
+2. FOC system is poorly specified
+3. Initial guess for fsolve is too far from equilibrium
+
+**Solutions:**
+```python
+# 1. Verify elasticity matrix is negative diagonal
+assert np.all(np.diag(elasticities) < 0), "Own-
