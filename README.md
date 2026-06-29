@@ -111,6 +111,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [cohort-de-marketing-claude-skills](skills/cohort-de-marketing-claude-skills/) | [install](https://skills.sh/aradotso/marketing-skills/cohort-de-marketing-claude-skills) | [marketingLendario/cohort-de-marketing](https://github.com/marketingLendario/cohort-de-marketing) | 2026-06-29 |
 | [reddit-agent-marketing-department](skills/reddit-agent-marketing-department/) | [install](https://skills.sh/aradotso/marketing-skills/reddit-agent-marketing-department) | [1229119561Weike/reddit-agent-marketing-department](https://github.com/1229119561Weike/reddit-agent-marketing-department) | 2026-06-29 |
 | [marketing-analytics-lab-engine](skills/marketing-analytics-lab-engine/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-analytics-lab-engine) | [shayantimes/marketing-analytics-lab](https://github.com/shayantimes/marketing-analytics-lab) | 2026-06-29 |
+| [salesforce-marketing-cloud-mcp](skills/salesforce-marketing-cloud-mcp/) | [install](https://skills.sh/aradotso/marketing-skills/salesforce-marketing-cloud-mcp) | [vinkius-labs/salesforce-marketing-mcp](https://github.com/vinkius-labs/salesforce-marketing-mcp) | 2026-06-29 |
 <!-- SKILL_INDEX -->
 
 ---
