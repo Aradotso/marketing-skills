@@ -109,6 +109,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [antigravity-marketing-lab](skills/antigravity-marketing-lab/) | [install](https://skills.sh/aradotso/marketing-skills/antigravity-marketing-lab) | [jarsing/antigravity-marketing-lab](https://github.com/jarsing/antigravity-marketing-lab) | 2026-06-28 |
 | [marketing-science-academic-writing](skills/marketing-science-academic-writing/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-science-academic-writing) | [liyuanbo1024/marketing-science-writing](https://github.com/liyuanbo1024/marketing-science-writing) | 2026-06-28 |
 | [cohort-de-marketing-claude-skills](skills/cohort-de-marketing-claude-skills/) | [install](https://skills.sh/aradotso/marketing-skills/cohort-de-marketing-claude-skills) | [marketingLendario/cohort-de-marketing](https://github.com/marketingLendario/cohort-de-marketing) | 2026-06-29 |
+| [reddit-agent-marketing-department](skills/reddit-agent-marketing-department/) | [install](https://skills.sh/aradotso/marketing-skills/reddit-agent-marketing-department) | [1229119561Weike/reddit-agent-marketing-department](https://github.com/1229119561Weike/reddit-agent-marketing-department) | 2026-06-29 |
 <!-- SKILL_INDEX -->
 
 ---
