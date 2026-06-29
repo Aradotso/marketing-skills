@@ -1,726 +1,747 @@
 ---
 name: marketing-science-academic-writing
-description: AI agent skill for writing marketing science academic papers from topic selection through structural modeling, identification, estimation, and counterfactual analysis to complete manuscript
+description: AI agent skill for writing academic marketing science papers from topic selection through structural modeling, identification, estimation, and full draft assembly
 triggers:
   - "write a marketing science paper"
-  - "help me with a JMR submission"
-  - "design a BLP demand estimation model"
-  - "create identification strategy for marketing paper"
-  - "build counterfactual simulation for merger analysis"
-  - "write consumer utility model"
-  - "design conjoint analysis experiment"
-  - "Marketing Science manuscript"
+  - "help me write for Marketing Science journal"
+  - "design a consumer utility model"
+  - "set up BLP demand estimation"
+  - "design identification strategy for marketing research"
+  - "create counterfactual simulations"
+  - "write academic marketing paper"
+  - "structural estimation for marketing"
 ---
 
 # Marketing Science Academic Writing
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-A comprehensive skill for writing marketing science academic papers covering the full pipeline: topic positioning, consumer utility modeling, causal identification, structural estimation, counterfactual simulations, and manuscript assembly for top-tier journals (Marketing Science, JMR, JM, JCR, JAMS, IJRM, QME, Marketing Letters).
+A comprehensive skill for writing quantitative marketing science papers targeting flagship journals (Marketing Science, JMR, JM, JCR, JAMS, IJRM, QME, Marketing Letters). Guides you through the complete 0-to-draft pipeline: topic positioning, consumer utility modeling, identification design, structural estimation, counterfactual simulations, and manuscript assembly.
 
-## What This Skill Enables
+## What This Skill Does
 
-This skill guides AI agents through the complete **0-to-Draft Pipeline** for quantitative marketing papers:
+This skill transforms your research idea into a complete academic paper draft by:
 
 1. **Topic Positioning**: Gap analysis, journal selection, contribution framing
-2. **Consumer Utility Modeling**: Random coefficients logit, nested logit, discrete choice models
-3. **Identification & Estimation**: DID, RDD, IV strategies, BLP/GMM estimation
-4. **Counterfactuals & Experiments**: Merger simulations, conjoint analysis, field experiments
-5. **Manuscript Assembly**: INFORMS-style LaTeX manuscript with all sections
+2. **Consumer Utility Modeling**: Micro-founded demand systems, notation, utility specification
+3. **Identification & Estimation**: Causal inference strategies (DID/RDD/IV), structural estimation (BLP/GMM)
+4. **Counterfactuals & Experiments**: Simulation design, conjoint analysis, field experiments
+5. **Full Draft Assembly**: Complete LaTeX manuscript with INFORMS formatting
 
-Domain-specific conventions include: utility specification structure, moment construction for structural estimation, identification strategy justification, counterfactual equilibrium computation, and journal-specific reviewer expectations.
+**Key differentiator**: Domain-specific conventions for marketing journals that generic writing skills don't cover — utility model structure, identification justification, structural estimation workflows, and journal-specific reviewer expectations.
 
 ## Installation
 
-### Clone the Repository
+The project is a skill repository that you reference, not a package you install. The skill files provide structured guidance and reference materials.
 
+### For AI Coding Agents
+
+**OpenCode**:
 ```bash
-git clone https://github.com/liyuanbo1024/marketing-science-writing.git
-cd marketing-science-writing
+cp -r marketing-science-writing ~/.config/opencode/skills/
 ```
 
-### Install for Your AI Agent
-
-**OpenCode:**
+**Claude Code**:
 ```bash
-# Linux/macOS
-cp -r . ~/.config/opencode/skills/marketing-science-writing/
-
-# Windows PowerShell
-Copy-Item -Recurse . "$env:USERPROFILE\.config\opencode\skills\marketing-science-writing\"
+cp -r marketing-science-writing ~/.claude/skills/
 ```
 
-**Claude Code:**
+**Codex**:
 ```bash
-# Linux/macOS
-cp -r . ~/.claude/skills/marketing-science-writing/
-
-# Windows PowerShell
-Copy-Item -Recurse . "$env:USERPROFILE\.claude\skills\marketing-science-writing\"
+cp -r marketing-science-writing ~/.agents/skills/
 ```
 
-**Cursor:**
+**Cursor / Windsurf**:
 ```bash
-cp -r . ~/.cursor/skills/marketing-science-writing/
+cp -r marketing-science-writing ~/.cursor/skills/
+# or
+cp -r marketing-science-writing ~/.windsurf/skills/
 ```
 
-**Windsurf:**
-```bash
-cp -r . ~/.windsurf/skills/marketing-science-writing/
-```
+### Manual Integration
 
-**Manual (any agent supporting markdown skills):**
-Point your agent's skills path to the cloned directory or reference `SKILL.md` directly in configuration.
+Reference `SKILL.md` and the `references/` directory in your agent's custom skills path, or concatenate the markdown files into your system prompt.
 
 ## Project Structure
 
 ```
 marketing-science-writing/
-├── SKILL.md                          # Main skill definition
+├── SKILL.md                         # Main skill orchestration
 ├── references/
-│   ├── journal-characteristics.md    # 8 journals: profiles, expectations
-│   ├── modeling-conventions.md       # Utility models, demand systems
-│   ├── identification-guide.md       # DID, RDD, IV strategies
-│   ├── estimation-guide.md           # BLP, GMM, MLE, Bayesian
-│   ├── counterfactual-guide.md       # Simulation design
-│   ├── conjoint-analysis.md          # Conjoint design, WTP
-│   ├── field-experiments.md          # Field experiment design
-│   ├── marketing-implications.md     # Actionable implications
-│   ├── reviewer-expectations.md      # Review process, rebuttals
-│   └── writing-patterns.md           # Reusable patterns
+│   ├── journal-characteristics.md   # 8 journals: profiles & expectations
+│   ├── modeling-conventions.md      # Utility models, demand systems
+│   ├── identification-guide.md      # DID, RDD, IV strategies
+│   ├── estimation-guide.md          # BLP, GMM, MLE, Bayesian
+│   ├── counterfactual-guide.md      # Simulation design
+│   ├── conjoint-analysis.md         # Conjoint experiment design
+│   ├── field-experiments.md         # Field experiment protocols
+│   ├── marketing-implications.md    # Actionable implications framework
+│   ├── reviewer-expectations.md     # Reviewer checklist
+│   └── writing-patterns.md          # Reusable writing templates
 ├── assets/
-│   └── demand-model-reference.md     # Generic demand structures
+│   └── demand-model-reference.md    # Generic demand model structures
 ├── examples/
-│   ├── manuscript_template.tex       # INFORMS LaTeX template
-│   └── blp_estimation_example.py     # BLP estimation code
-└── README.md                         # Documentation
+│   ├── manuscript_template.tex      # INFORMS LaTeX template
+│   └── blp_estimation_example.py    # BLP estimation starter code
+└── README.md
 ```
 
-## Usage Patterns
+## Core Usage Patterns
 
-### Full Pipeline Mode
+### Pattern 1: Full 0-to-Draft Pipeline
 
-User says: *"Take me through the full marketing science pipeline for my paper on smartphone demand estimation."*
+**Trigger**: "Take me through the full marketing science pipeline for a paper on [topic]"
 
-**Agent workflow:**
-1. Load skill and assess current stage
-2. Execute Stage 1: Topic positioning → gap table, journal selection, contributions
-3. Stage 2: Consumer utility model → specify utility, derive demand
-4. Stage 3: Identification → IV strategy, BLP moments, GMM estimator
-5. Stage 4: Counterfactuals → merger simulation design
-6. Stage 5: Assembly → complete LaTeX manuscript
+**Workflow**:
+1. **Stage 1**: Topic positioning → gap table, journal selection, contribution list
+2. **Stage 2**: Consumer utility model → notation, utility specification, demand derivation
+3. **Stage 3**: Identification & estimation → DID/RDD/IV design, estimator choice
+4. **Stage 4**: Counterfactuals & experiments → simulation design, experiment protocol
+5. **Stage 5**: Full draft → LaTeX manuscript assembly
 
-### Stage-Specific Mode
-
-Jump to any stage:
-
+**Example**:
 ```
-"Help me design the consumer utility model" → Stage 2
-"I need an identification strategy" → Stage 3
-"Design counterfactual simulations" → Stage 4
-"Write the full manuscript" → Stage 5
-```
+User: "Write a Marketing Science paper on BLP demand estimation 
+      for the smartphone market with merger counterfactuals."
 
-### Reference Mode
+Agent: [Executes Stage 1]
+       → Gap table: 8 closest papers (Nair 2007, Berry et al. 1995, etc.)
+       → Target journal: Marketing Science (structural + IO focus)
+       → Contributions: (1) First BLP on smartphone market, 
+                       (2) New demand-side micro moments using clickstream data,
+                       (3) Merger simulation with regulatory implications
 
-Use as passive reference:
+       [Stage 2]
+       → Utility specification with random coefficients on price, screen size, brand
+       → Nested logit within operating system
+       → Supply-side: Bertrand-Nash pricing game
 
-```
-"What are Marketing Science's expectations for identification?"
-"How do I structure BLP moments?"
-"Show me conjoint analysis design for JMR"
-```
+       [Stage 3]
+       → Identification: Cost shifters as IVs (component prices from Counterpoint)
+       → Micro moments: Match cross-price elasticities from clickstream
+       → GMM estimation with optimal weighting matrix
 
-## Core Methodologies
+       [Stage 4]
+       → Counterfactual: Simulate Apple-Samsung merger
+       → Equilibrium: New Nash equilibrium prices post-merger
+       → Welfare: Consumer surplus loss, producer profit gain
 
-### 1. Structural Modeling (BLP)
-
-**Consumer Utility Specification:**
-```python
-# Random coefficients logit utility
-# U_ijt = α_i * price_jt + β_i' * X_jt + ξ_jt + ε_ijt
-# α_i = α + σ_α * ν_i, β_i = β + Σ * ν_i
-# where ν_i ~ N(0, I)
-
-import numpy as np
-from scipy.optimize import minimize
-
-def utility(price, X, xi, theta, nu):
-    """
-    Compute indirect utility for consumer i, product j, market t
-    
-    Args:
-        price: (J,) array of prices
-        X: (J, K) array of product characteristics
-        xi: (J,) array of unobserved quality
-        theta: dict with keys 'alpha', 'beta', 'sigma_alpha', 'Sigma'
-        nu: (I, K+1) array of consumer taste draws
-    
-    Returns:
-        U: (I, J) utility matrix
-    """
-    I, K_plus_1 = nu.shape
-    J = len(price)
-    
-    # Random coefficients
-    alpha_i = theta['alpha'] + theta['sigma_alpha'] * nu[:, 0]  # (I,)
-    beta_i = theta['beta'] + theta['Sigma'] @ nu[:, 1:].T  # (K, I)
-    
-    # Utility components
-    price_util = -alpha_i[:, None] * price[None, :]  # (I, J)
-    char_util = (beta_i.T @ X.T).T  # (I, J)
-    xi_util = xi[None, :]  # (1, J) broadcast to (I, J)
-    
-    U = price_util + char_util + xi_util
-    return U
-
-def choice_prob(U):
-    """Compute choice probabilities via logit"""
-    exp_U = np.exp(U)
-    return exp_U / (1 + exp_U.sum(axis=1, keepdims=True))
-
-def market_share(U, integration_weights):
-    """Aggregate individual choices to market shares"""
-    s_i = choice_prob(U)  # (I, J)
-    return (s_i.T @ integration_weights).flatten()  # (J,)
+       [Stage 5]
+       → Complete LaTeX manuscript with INFORMS template
 ```
 
-**BLP Estimation Workflow:**
+### Pattern 2: Stage-Specific Deep Dive
 
-```python
-def blp_gmm_objective(theta, data, instruments):
-    """
-    BLP GMM objective function
-    
-    Args:
-        theta: parameter vector [alpha, beta, sigma_alpha, Sigma_elements]
-        data: dict with 'price', 'X', 'shares', 'market_ids'
-        instruments: (J, L) array of instruments
-    
-    Returns:
-        GMM objective value
-    """
-    # 1. Unpack parameters
-    theta_dict = unpack_theta(theta)
-    
-    # 2. Simulate consumer types
-    nu = np.random.randn(500, len(theta_dict['beta']) + 1)
-    weights = np.ones(500) / 500
-    
-    # 3. Compute predicted shares via contraction mapping
-    xi = np.zeros(len(data['shares']))
-    for _ in range(100):  # Contraction mapping iteration
-        U = utility(data['price'], data['X'], xi, theta_dict, nu)
-        s_pred = market_share(U, weights)
-        xi += np.log(data['shares']) - np.log(s_pred)
-    
-    # 4. Construct moments
-    moments = instruments.T @ xi  # (L,) moment vector
-    
-    # 5. GMM objective
-    W = optimal_weight_matrix(instruments, xi)  # (L, L)
-    obj = moments.T @ W @ moments
-    return obj
+**Trigger**: "Help me design the consumer utility model for my paper"
 
-# Estimate
-theta_init = initialize_theta()
-result = minimize(blp_gmm_objective, theta_init, 
-                  args=(data, instruments), method='BFGS')
-theta_hat = result.x
+**Focus**: Stage 2 only — utility specification, notation system, demand derivation.
+
+**Example**:
 ```
-
-**Moment Construction:**
-
-Demand-side moments:
-- Product-market dummies × ξ
-- Cost shifters × ξ
-
-Supply-side moments:
-- Cost shifters × ω (marginal cost shock)
-
-Micro moments (optional):
-- Match distributions of price elasticities
-- Match correlation between income and WTP
-
-### 2. Causal Identification Strategies
-
-**Difference-in-Differences:**
-
-```python
-import pandas as pd
-import statsmodels.formula.api as smf
-
-# DID specification for marketing intervention
-df = pd.read_csv('marketing_panel.csv')
-# Columns: store_id, week, outcome, treated, post
-
-model = smf.ols(
-    'outcome ~ treated + post + treated:post + C(store_id) + C(week)',
-    data=df
-).fit(cov_type='cluster', cov_kwds={'groups': df['store_id']})
-
-print(model.summary())
-# Coefficient on treated:post is the ATT
-```
-
-**Regression Discontinuity:**
-
-```python
-from statsmodels.regression.linear_model import OLS
-from statsmodels.tools import add_constant
-
-# RDD at rating threshold (e.g., 4.5 stars)
-df = pd.read_csv('rating_data.csv')
-df['above_threshold'] = (df['rating'] >= 4.5).astype(int)
-df['rating_centered'] = df['rating'] - 4.5
-
-# Local linear regression with bandwidth
-bandwidth = 0.5
-df_rdd = df[abs(df['rating_centered']) <= bandwidth].copy()
-
-X = add_constant(df_rdd[['above_threshold', 'rating_centered', 
-                          'above_threshold * rating_centered']])
-y = df_rdd['sales']
-
-rdd_model = OLS(y, X).fit(cov_type='HC1')
-print(rdd_model.summary())
-# Coefficient on above_threshold is the LATE
-```
-
-**Instrumental Variables:**
-
-```python
-from linearmodels.iv import IV2SLS
-
-# IV for endogenous price
-# Instruments: cost shifters, Hausman instruments
-formula = 'sales ~ 1 + characteristics + [price ~ cost_shifter + hausman_iv]'
-iv_model = IV2SLS.from_formula(formula, data=df).fit(cov_type='clustered', 
-                                                      clusters=df['market_id'])
-print(iv_model.summary)
-```
-
-### 3. Counterfactual Simulations
-
-**Merger Simulation:**
-
-```python
-def merger_simulation(theta, data, firm_ids, merging_firms):
-    """
-    Simulate post-merger equilibrium prices
-    
-    Args:
-        theta: estimated demand parameters
-        data: market data with pre-merger prices, shares
-        firm_ids: product-to-firm mapping
-        merging_firms: list of firm IDs involved in merger
-    
-    Returns:
-        post_merger_prices, post_merger_shares, welfare_change
-    """
-    # 1. Compute pre-merger equilibrium
-    pre_prices = data['price']
-    pre_shares = data['shares']
-    
-    # 2. Update ownership matrix
-    ownership_pre = create_ownership_matrix(firm_ids)
-    ownership_post = ownership_pre.copy()
-    for f1 in merging_firms:
-        for f2 in merging_firms:
-            ownership_post[firm_ids == f1, firm_ids == f2] = 1
-    
-    # 3. Compute marginal costs (from pre-merger FOC)
-    mc = invert_pricing_foc(pre_prices, pre_shares, ownership_pre, theta)
-    
-    # 4. Solve post-merger pricing game
-    post_prices = solve_pricing_equilibrium(mc, ownership_post, theta)
-    post_shares = compute_shares(post_prices, data['X'], theta)
-    
-    # 5. Welfare analysis
-    consumer_surplus_pre = compute_consumer_surplus(pre_prices, pre_shares, theta)
-    consumer_surplus_post = compute_consumer_surplus(post_prices, post_shares, theta)
-    
-    producer_profit_pre = compute_profit(pre_prices, mc, pre_shares)
-    producer_profit_post = compute_profit(post_prices, mc, post_shares)
-    
-    welfare_change = {
-        'delta_CS': consumer_surplus_post - consumer_surplus_pre,
-        'delta_PS': producer_profit_post - producer_profit_pre,
-        'delta_TS': (consumer_surplus_post + producer_profit_post) - 
-                    (consumer_surplus_pre + producer_profit_pre)
-    }
-    
-    return post_prices, post_shares, welfare_change
-```
-
-### 4. Conjoint Analysis
-
-**Conjoint Design:**
-
-```python
-import itertools
-import pandas as pd
-from scipy.stats import norm
-
-# Define attributes and levels
-attributes = {
-    'price': [10, 15, 20, 25],
-    'brand': ['A', 'B', 'C'],
-    'feature': ['basic', 'premium']
-}
-
-# Full factorial design
-profiles = list(itertools.product(*attributes.values()))
-conjoint_df = pd.DataFrame(profiles, columns=attributes.keys())
-
-# Add dominated profiles check
-# (optional: fractional factorial via D-optimal design)
-
-# Export for Qualtrics/online survey
-conjoint_df.to_csv('conjoint_profiles.csv', index=False)
-```
-
-**Part-Worth Estimation:**
-
-```python
-import statsmodels.formula.api as smf
-
-# Responses: choice_data.csv with columns [respondent_id, profile_id, choice]
-choices = pd.read_csv('choice_data.csv')
-profiles = pd.read_csv('conjoint_profiles.csv')
-
-# Merge
-data = choices.merge(profiles, on='profile_id')
-
-# Hierarchical Bayes (simplified frequentist version)
-model = smf.logit('choice ~ C(brand) + C(feature) + price', data=data).fit()
-print(model.summary())
-
-# WTP calculation
-wtp_premium = -model.params['C(feature)[T.premium]'] / model.params['price']
-print(f"WTP for premium feature: ${wtp_premium:.2f}")
-```
-
-## Key Configuration
-
-### LaTeX Manuscript Template
-
-Use `examples/manuscript_template.tex` as base:
-
-```latex
-\documentclass[12pt]{article}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{natbib}
-\usepackage{graphicx}
-\usepackage{booktabs}
-
-% INFORMS-style spacing
-\usepackage{setspace}
-\doublespacing
-
-\title{Your Title Here}
-\author{Author Names \\ Affiliations}
-\date{\today}
-
-\begin{document}
-\maketitle
-
-\begin{abstract}
-Your abstract (150 words max for Marketing Science).
-\end{abstract}
-
-\section{Introduction}
-% 5-7 pages
-
-\section{Literature Review}
-% 3-4 pages
-
-\section{Model}
-% 4-6 pages: utility specification, demand derivation
-
-\section{Identification and Estimation}
-% 3-5 pages: identification strategy, moments, estimator
-
-\section{Data}
-% 2-3 pages
-
-\section{Results}
-% 4-6 pages: parameter estimates, elasticities, model fit
-
-\section{Counterfactual Simulations}
-% 3-5 pages: merger, policy, welfare
-
-\section{Marketing Implications}
-% 2-3 pages: actionable insights for managers
-
-\section{Conclusion}
-% 1-2 pages
-
-\bibliographystyle{informs2014}
-\bibliography{references}
-
-\end{document}
-```
-
-### Python Environment Setup
-
-For BLP estimation and counterfactuals:
-
-```bash
-# Create virtual environment
-python3 -m venv marketing-env
-source marketing-env/bin/activate  # Windows: marketing-env\Scripts\activate
-
-# Install dependencies
-pip install numpy scipy pandas statsmodels linearmodels matplotlib seaborn pyblp
-```
-
-**PyBLP Integration** (high-level BLP wrapper):
-
-```python
-import pyblp
-import pandas as pd
-
-# Load data in PyBLP format
-# Columns: market_ids, product_ids, shares, prices, X1, X2, ..., demand_instruments0, ...
-data = pd.read_csv('blp_data.csv')
-
-# Define problem
-problem = pyblp.Problem(
-    product_formulations=(
-        pyblp.Formulation('0 + prices + X1 + X2'),  # Linear characteristics
-        pyblp.Formulation('0 + prices + X1')         # Random coefficients
-    ),
-    product_data=data
-)
-
-# Solve
-results = problem.solve(
-    sigma=np.eye(2),  # Initial Sigma for random coefficients
-    pi=None,
-    optimization=pyblp.Optimization('bfgs')
-)
-
-print(results)
-
-# Compute elasticities
-elasticities = results.compute_elasticities()
-print(elasticities)
-```
-
-## Common Patterns
-
-### Pattern 1: Gap Table Construction
-
-When starting a paper:
-
-```markdown
-| Paper | Context | Method | Finding | Gap |
-|-------|---------|--------|---------|-----|
-| AuthorA (JMR 2021) | Online advertising | RCT | +10% CTR | Doesn't consider long-run | 
-| AuthorB (MktSci 2020) | Search ads | Structural | Spillover effects | Single channel |
-| AuthorC (JM 2019) | Display ads | Field exp | Brand lift | No demand model |
-
-**Our contribution:**
-1. Multi-channel structural model with long-run dynamics
-2. Credible identification via IV + field experiment
-3. Welfare analysis of ad policy counterfactuals
-```
-
-### Pattern 2: Utility Specification Justification
-
-In Model section:
-
-```markdown
-We specify consumer i's indirect utility for product j in market t as:
-
-U_ijt = α_i price_jt + β_i' X_jt + ξ_jt + ε_ijt
+User: "I'm studying ride-sharing demand. Help me specify the utility model."
+
+Agent: 
+# Consumer Utility Model
+
+## Notation
+- $i$: consumer index
+- $j$: ride option (Uber, Lyft, taxi, outside option)
+- $t$: time period
+- $p_{jt}$: price per mile
+- $x_{jt}$: observable characteristics (wait time, vehicle quality)
+- $\xi_{jt}$: unobserved quality shock
+
+## Indirect Utility
+Consumer $i$ obtains utility from option $j$ at time $t$:
+
+$$u_{ijt} = \alpha_i p_{jt} + x_{jt}'\beta_i + \xi_{jt} + \epsilon_{ijt}$$
 
 where:
-- α_i = α + σ_α ν_iα: random price coefficient (income heterogeneity)
-- β_i = β + Σ ν_iβ: random taste for characteristics
-- ξ_jt: unobserved (to econometrician) quality
-- ε_ijt: i.i.d. type-I extreme value error
+- $\alpha_i \sim N(\alpha, \sigma_\alpha^2)$: random price coefficient (negative)
+- $\beta_i \sim N(\beta, \Sigma_\beta)$: random coefficients on characteristics
+- $\epsilon_{ijt}$: i.i.d. Type-I extreme value
 
-**Assumptions:**
-1. ν_i ~ N(0, I): normal taste distribution (allows closed-form shares)
-2. E[ξ_jt | Z_jt] = 0: exogeneity of instruments Z
-3. Independence of irrelevant alternatives relaxed via random coefficients
+## Choice Probability (Random Coefficients Logit)
+The probability consumer $i$ chooses option $j$:
 
-**Justification:**
-- Random coefficients capture preference heterogeneity (Train 2009)
-- Nests multinomial logit (σ_α = 0, Σ = 0)
-- Standard in empirical IO (Berry et al. 1995, Nevo 2000)
+$$s_{ij}(\theta) = \int \frac{\exp(u_{ijt})}{\sum_{k=0}^J \exp(u_{ikt})} dF(\alpha_i, \beta_i)$$
+
+Aggregate market share: $s_j = \int s_{ij}(\theta) dF(i)$
+
+## Demand Inversion
+For estimation, invert share equation:
+$$\delta_j = \ln(s_j) - \ln(s_0)$$
+
+where $\delta_j = \alpha p_j + x_j'\beta + \xi_j$ (mean utility).
 ```
 
-### Pattern 3: Identification Narrative
+### Pattern 3: Identification Strategy Design
 
-In Identification section:
+**Trigger**: "I need to design the identification strategy for my marketing paper"
 
-```markdown
-**Challenge:** price_jt is endogenous (correlated with ξ_jt).
+**Focus**: Stage 3 — causal inference or structural identification.
 
-**Strategy:** Instrumental variables based on:
-1. **Cost shifters:** Input prices, distance to manufacturing plants (excluded from demand)
-2. **Hausman instruments:** Prices of same product in other markets (Hausman 1996)
-3. **BLP instruments:** Sum of characteristics of other products by same firm (Berry et al. 1995)
+**Example for DID**:
+```
+User: "Amazon introduced same-day delivery in select cities. 
+      I want to estimate the causal effect on sales."
 
-**Validity checks:**
-- First-stage F-stat > 10 (Stock-Yogo)
-- Overidentification test: Hansen J p-value = 0.32 (cannot reject)
-- Placebo test: no correlation with lagged ξ
+Agent:
+# Identification Strategy: Difference-in-Differences
+
+## Treatment & Control
+- **Treatment**: Cities with same-day delivery (rollout: 2014-2016, staggered)
+- **Control**: Cities without same-day delivery (matched on demographics)
+
+## Specification
+$$\log(sales_{ct}) = \beta_0 + \beta_1 SameDay_{ct} + \gamma_c + \lambda_t + \epsilon_{ct}$$
+
+where:
+- $SameDay_{ct}$: indicator for city $c$ having same-day delivery at time $t$
+- $\gamma_c$: city fixed effects
+- $\lambda_t$: time fixed effects
+
+## Parallel Trends Test
+Event study specification:
+$$\log(sales_{ct}) = \sum_{k=-K}^{-2} \delta_k D_{ct}^k + \sum_{k=0}^{K} \delta_k D_{ct}^k + \gamma_c + \lambda_t + \epsilon_{ct}$$
+
+where $D_{ct}^k = 1$ if city $c$ is $k$ periods from treatment.
+
+**Test**: $H_0: \delta_{-K} = \cdots = \delta_{-2} = 0$ (pre-trends)
+
+## Robustness Checks
+1. Callaway-Sant'Anna estimator (staggered treatment)
+2. Synthetic control for treated cities
+3. Triple-differences: same-day × product category × time
 ```
 
-### Pattern 4: Counterfactual Setup
-
-In Counterfactual section:
-
-```markdown
-**Scenario:** Hypothetical merger between Firm A and Firm B.
-
-**Mechanism:** Post-merger, merged entity internalizes cannibalization across its portfolio → higher prices.
-
-**Computation:**
-1. Use pre-merger FOC to back out marginal costs: mc_j = price_j + Δ^{-1} s_j
-2. Update ownership matrix Δ to reflect merger
-3. Solve post-merger Nash equilibrium in prices (fixed point)
-4. Compute new shares, consumer surplus, producer profits
-
-**Welfare decomposition:**
-- ΔCS: consumer surplus change
-- ΔPS: producer profit change (split by merged vs. non-merged firms)
-- ΔTS = ΔCS + ΔPS: total welfare change
+**Example for IV (Structural)**:
 ```
+User: "Price is endogenous in my demand model. How do I construct instruments?"
 
-## Journal Selection Quick Reference
+Agent:
+# Instrumental Variables for Demand Estimation
 
-| Journal | Best For | Key Requirements |
-|---------|----------|------------------|
-| **Marketing Science** | Structural models, analytical rigor, methodological innovation | Strong identification, BLP/GMM, counterfactuals, technical appendix |
-| **JMR** | Empirical marketing, experiments, behavioral mechanisms | Clean causal design (RCT/DID/RDD), replication, multiple studies |
-| **JM** | Broad strategy, substantive impact, multi-method | Managerial relevance, large sample, robustness checks |
-| **JCR** | Consumer psychology, lab experiments, theory building | Psychological mechanisms, moderation/mediation, controlled experiments |
-| **JAMS** | Conceptual + empirical, meta-analysis, reviews | Broad appeal, mixed methods, literature synthesis |
-| **IJRM** | European context, diverse methods, international | Context-specific insights, data from multiple countries |
-| **QME** | Structural IO, pure econometrics, game theory | Formal modeling, analytical solutions, computational methods |
-| **Marketing Letters** | Concise empirical findings, methodological notes | Sharp contribution (< 5000 words), quick turnaround |
+## Endogeneity Problem
+Price $p_j$ is correlated with unobserved quality $\xi_j$ due to:
+1. Simultaneous pricing (supply-side response to demand shocks)
+2. Omitted product characteristics
 
-## Troubleshooting
+## IV Strategy: BLP Instruments
 
-### Issue: BLP Contraction Mapping Not Converging
+### 1. Cost Shifters
+**Instruments**: Input prices, wage indices, exchange rates
+**Exclusion restriction**: Affect marginal cost → price, but not consumer utility directly
+**Example**: Steel prices for automotive demand estimation
 
-**Solution:**
-- Reduce tolerance threshold gradually (start at 1e-6, increase to 1e-12)
-- Use better initial guess for ξ (e.g., log(observed share) - log(outside share))
-- Check for collinearity in characteristics
-- Ensure sufficient instruments (rule of thumb: L ≥ 2K where K = # parameters)
+### 2. Hausman Instruments
+**Instruments**: Prices of same product in other markets
+**Assumption**: Market-specific demand shocks are uncorrelated
+**Example**: Price of iPhone 13 in New York as IV for Boston demand
 
+### 3. Differentiation Instruments
+**Instruments**: Number of competing products, sum of rival characteristics
+**Intuition**: More competition → lower markups → lower prices
+**Construction**:
 ```python
-def contraction_mapping(s_observed, theta, nu, max_iter=1000, tol=1e-12):
-    xi = np.log(s_observed) - np.log(1 - s_observed.sum())  # Initial guess
+# Sum of rival characteristics
+df['IV_rival_features'] = df.groupby('market')['feature_score'].transform(
+    lambda x: x.sum() - x
+)
+
+# Number of rivals in same nest
+df['IV_nest_count'] = df.groupby(['market', 'nest']).transform('size') - 1
+```
+
+### First-Stage Test
+$$p_j = \pi_0 + \pi_1 Z_j + \pi_2 x_j + \nu_j$$
+
+**Requirement**: $F$-statistic > 10 (Stock-Yogo weak IV test)
+```
+
+### Pattern 4: BLP Estimation Implementation
+
+**Trigger**: "Set up BLP estimation code for my demand model"
+
+**Output**: Working Python code using `pyblp` library.
+
+**Example**:
+```python
+import pyblp
+import numpy as np
+import pandas as pd
+
+# Load data
+# Expected columns: market_ids, product_ids, shares, prices, characteristics, instruments
+data = pd.read_csv('smartphone_data.csv')
+
+# Define product formulation
+# Random coefficients on: price, screen_size, brand_apple, brand_samsung
+product_formulations = (
+    pyblp.Formulation('1 + prices + screen_size + C(brand)'),  # linear
+    pyblp.Formulation('1 + prices + screen_size')              # random coefficients
+)
+
+# Define agent formulation (demographics for random coefficients)
+agent_formulation = pyblp.Formulation('0 + income + age')
+
+# Problem setup
+problem = pyblp.Problem(
+    product_formulations=product_formulations,
+    product_data=data,
+    agent_formulation=agent_formulation,
+    integration=pyblp.Integration('monte_carlo', size=1000, seed=0)
+)
+
+# Initial parameters
+initial_sigma = np.diag([0.5, 0.3, 0.2])  # std dev for price, screen, brand coefs
+initial_pi = np.zeros((3, 2))              # interactions with demographics
+
+# Optimization
+results = problem.solve(
+    sigma=initial_sigma,
+    pi=initial_pi,
+    optimization=pyblp.Optimization('l-bfgs-b', {'maxiter': 1000}),
+    iteration=pyblp.Iteration('simple', {'atol': 1e-12})
+)
+
+# Results summary
+print(results)
+
+# Elasticities
+elasticities = results.compute_elasticities()
+print("\nOwn-price elasticities:")
+print(np.diag(elasticities).mean())
+
+# Micro moments (optional)
+# Match observed cross-price elasticity from clickstream data
+observed_cross_elasticity = 0.15
+micro_moments = pyblp.MicroMoment(
+    name='cross_price_elasticity',
+    value=observed_cross_elasticity,
+    compute=lambda data, results: results.compute_elasticities()[0, 1]
+)
+
+# Re-estimate with micro moments
+results_micro = problem.solve(
+    sigma=initial_sigma,
+    pi=initial_pi,
+    micro_moments=[micro_moments],
+    optimization=pyblp.Optimization('l-bfgs-b')
+)
+
+# Counterfactual: Merger simulation
+# Merge firm 1 (Apple) and firm 2 (Samsung)
+changed_ownership = data['firm_ids'].copy()
+changed_ownership[data['firm_ids'] == 2] = 1  # Samsung products now owned by Apple
+
+merger_results = results.solve_merger(
+    changed_ownership=changed_ownership
+)
+
+print("\nMerger Effects:")
+print(f"Price change: {merger_results.price_changes.mean():.2%}")
+print(f"Consumer surplus change: ${merger_results.consumer_surplus_change.sum()/1e6:.1f}M")
+```
+
+**Key Configuration**:
+- **Integration method**: Monte Carlo (1000 draws) for random coefficients
+- **Optimization**: L-BFGS-B (handles bounds on sigma)
+- **Iteration**: Simple fixed-point iteration for contraction mapping
+- **Micro moments**: Optional — improve identification with additional data moments
+
+**Environment variables** (if using cloud compute):
+```bash
+export PYBLP_CACHE_DIR=/path/to/cache  # Cache intermediate results
+export OMP_NUM_THREADS=8               # Parallel computation
+```
+
+### Pattern 5: Counterfactual Simulation
+
+**Trigger**: "Design counterfactual simulations for my structural model"
+
+**Example**:
+```
+User: "I estimated a demand model. Now simulate a price discrimination ban."
+
+Agent:
+# Counterfactual: Uniform Pricing Mandate
+
+## Baseline Equilibrium
+Current state: Firms set different prices across markets (3rd-degree price discrimination)
+
+## Counterfactual Scenario
+Policy: Firms must charge the same price in all markets
+
+## Equilibrium Computation
+
+### Step 1: Compute Baseline
+Already have: $p^*, q^*, \pi^*$ from estimation
+
+### Step 2: Constrained Optimization
+Firm $f$ solves:
+$$\max_{p_f} \sum_{m=1}^M (p_f - mc_{fm}) \cdot q_{fm}(p_f, p_{-f})$$
+
+subject to: $p_f$ is constant across markets $m$
+
+### Step 3: Nash Equilibrium
+Iterate best responses until convergence:
+```python
+def compute_uniform_pricing_equilibrium(results, mc, markets, max_iter=100, tol=1e-6):
+    """
+    Compute Nash equilibrium under uniform pricing constraint.
+    
+    Parameters:
+    - results: pyblp estimation results
+    - mc: marginal costs (firm × market)
+    - markets: list of market identifiers
+    - max_iter: maximum iterations
+    - tol: convergence tolerance
+    """
+    firms = results.product_data['firm_ids'].unique()
+    prices = results.product_data['prices'].copy()
+    
     for iteration in range(max_iter):
-        s_pred = compute_shares(xi, theta, nu)
-        xi_new = xi + 0.5 * (np.log(s_observed) - np.log(s_pred))  # Damping
-        if np.max(np.abs(xi_new - xi)) < tol:
-            return xi_new
-        xi = xi_new
-    raise ValueError("Contraction mapping did not converge")
-```
-
-### Issue: Weak Instruments (First-Stage F < 10)
-
-**Solution:**
-- Add more instruments (BLP sum of characteristics, cost shifters)
-- Use LIML instead of 2SLS (more robust to weak instruments)
-- Consider control function approach if exclusion restriction questionable
-
-```python
-from linearmodels.iv import IVLIML
-
-model = IVLIML.from_formula(
-    'sales ~ 1 + X [price ~ instruments]',
-    data=df
-).fit()
-```
-
-### Issue: Reviewer Asks for "Economic Significance"
-
-**Response pattern:**
-```markdown
-We translate the coefficient into economically meaningful units:
-
-- A $1 increase in price → -0.15 log-share change → -12% market share
-- At mean price ($50) and mean share (5%), this implies:
-  - Elasticity: -12% / 2% = -6
-  - Revenue effect: (+2% price) × (-12% quantity) = -10% revenue
-  - Monthly revenue loss: $1.2M for average product
-  
-This is substantial compared to typical profit margins (15-20% in this industry).
-```
-
-### Issue: "Not Enough Robustness Checks"
-
-**Standard robustness battery:**
-1. Alternative IV sets (report first-stage F, overID test)
-2. Different demand specifications (logit, nested logit, random coefficients)
-3. Subsample analysis (by market size, time period)
-4. Placebo tests (lagged outcomes, non-treated markets)
-5. Alternative clustering (product-level, market-level, two-way)
-
-### Issue: Counterfactual Equilibrium Solver Diverges
-
-**Solution:**
-```python
-def solve_pricing_equilibrium(mc, ownership, theta, damping=0.3, max_iter=500):
-    """Bertrand-Nash equilibrium with damping"""
-    prices = mc * 1.5  # Initial guess: 50% markup
-    for iteration in range(max_iter):
-        shares = compute_shares(prices, theta)
-        jacobian = compute_share_jacobian(prices, theta)
-        foc = shares + ownership * (jacobian @ (prices - mc))
+        prices_old = prices.copy()
         
-        # Newton step with damping
-        step = np.linalg.solve(jacobian, foc)
-        prices_new = prices - damping * step
+        for firm in firms:
+            # Firm's products
+            firm_mask = results.product_data['firm_ids'] == firm
+            
+            # Objective: total profit across markets
+            def profit(p_uniform):
+                # Set uniform price for firm's products
+                prices_temp = prices.copy()
+                prices_temp[firm_mask] = p_uniform
+                
+                # Compute quantities with new prices
+                delta = results.compute_delta(prices=prices_temp)
+                shares = results.compute_shares(delta=delta)
+                quantities = shares * results.product_data['market_size']
+                
+                # Profit = (price - mc) * quantity, summed across markets
+                firm_profit = ((p_uniform - mc[firm_mask]) * quantities[firm_mask]).sum()
+                return -firm_profit  # Minimize negative profit
+            
+            # Optimize
+            from scipy.optimize import minimize_scalar
+            res = minimize_scalar(profit, bounds=(mc[firm_mask].min(), prices[firm_mask].max()*2))
+            prices[firm_mask] = res.x
         
-        if np.max(np.abs(prices_new - prices)) < 1e-6:
-            return prices_new
-        prices = prices_new
-    raise ValueError("Pricing equilibrium did not converge")
+        # Check convergence
+        if np.abs(prices - prices_old).max() < tol:
+            print(f"Converged in {iteration+1} iterations")
+            break
+    
+    return prices
+
+# Run counterfactual
+uniform_prices = compute_uniform_pricing_equilibrium(results, mc, markets)
+
+# Welfare analysis
+baseline_cs = results.consumer_surplus.sum()
+counterfactual_cs = results.compute_consumer_surplus(prices=uniform_prices).sum()
+
+print(f"Consumer surplus change: ${(counterfactual_cs - baseline_cs)/1e6:.1f}M")
 ```
 
-## Reference Files
+### Step 4: Welfare Decomposition
+- **Consumer surplus**: $\Delta CS = CS_{uniform} - CS_{baseline}$
+- **Producer profit**: $\Delta \pi = \pi_{uniform} - \pi_{baseline}$
+- **Total welfare**: $\Delta W = \Delta CS + \Delta \pi$
 
-When user asks domain-specific questions, consult:
+### Step 5: Heterogeneous Effects
+Break down by market demographics:
+```python
+# Compute CS change by market income quartile
+market_data = results.product_data.groupby('market_ids').agg({
+    'median_income': 'first',
+    'consumer_surplus_baseline': 'sum',
+    'consumer_surplus_counterfactual': 'sum'
+})
 
-- `references/journal-characteristics.md` → journal selection, editorial priorities
-- `references/modeling-conventions.md` → utility specs, demand systems, notation
-- `references/identification-guide.md` → DID, RDD, IV, structural identification
-- `references/estimation-guide.md` → BLP, GMM, MLE, Bayesian methods
-- `references/counterfactual-guide.md` → equilibrium computation, welfare analysis
-- `references/conjoint-analysis.md` → conjoint design, WTP estimation
-- `references/reviewer-expectations.md` → rebuttal strategies, common critiques
-- `references/writing-patterns.md` → introduction templates, transition phrases
+market_data['cs_change'] = (market_data['consumer_surplus_counterfactual'] 
+                             - market_data['consumer_surplus_baseline'])
 
-## Additional Resources
+# Regression: CS change ~ market income
+import statsmodels.api as sm
+X = sm.add_constant(market_data['median_income'])
+model = sm.OLS(market_data['cs_change'], X).fit()
+print(model.summary())
+```
 
-**BLP Estimation:**
-- PyBLP documentation: https://pyblp.readthedocs.io
-- Conlon & Gortmaker (2020) tutorial
+## Result Interpretation
+- **Sign of $\Delta CS$**: Positive → consumers benefit from uniform pricing
+- **Distributional effects**: Low-income markets likely gain (were charged high prices before)
+- **Producer response**: Firms may reduce product variety under uniform pricing
+```
 
-**Causal Inference:**
-- Angrist & Pischke (2009) *Mostly Harmless Econometrics*
-- Cunningham (2021) *Causal Inference: The Mixtape*
+### Pattern 6: Journal Selection & Positioning
 
-**Marketing Journals:**
-- Marketing Science: https://pubsonline.informs.org/journal/mksc
-- JMR: https://journals.sagepub.com/home/mrj
+**Trigger**: "Which marketing journal should I target?"
 
-**LaTeX:**
-- INFORMS style files: https://pubsonline.informs.org/page/authors/style-guide
+**Decision Framework**:
+```
+User: "I have a structural demand model with field experiment validation. 
+      Where should I submit?"
 
----
+Agent:
+# Journal Selection: Decision Tree
 
-**When to trigger this skill:**
+## Your Paper Profile
+- **Method**: Structural (BLP) + Field Experiment
+- **Contribution**: Methodological + Substantive
+- **Data**: Proprietary industry data + RCT
 
-User mentions writing for marketing journals (Marketing Science, JMR, JM, JCR, JAMS, IJRM, QME, Marketing Letters), structural modeling, BLP estimation, consumer utility models, causal identification strategies, counterfactual simulations, conjoint analysis, or asks for help with any stage of the marketing paper pipeline.
+## Journal Matching
+
+### Tier 1 Options
+
+**Marketing Science**
+- ✅ Structural modeling (perfect fit)
+- ✅ Quantitative rigor (BLP estimation)
+- ✅ Field experiment (adds credibility)
+- ⚠️  Need strong theoretical contribution beyond estimation
+- **Recommendation**: Top choice if you have novel identification strategy or methodological innovation
+
+**Journal of Marketing Research (JMR)**
+- ✅ Field experiment (strong fit)
+- ✅ Structural model (increasingly common)
+- ✅ Managerial relevance (JMR values actionability)
+- ⚠️  May need to emphasize behavioral insights from experiment
+- **Recommendation**: Strong alternative if experiment is primary contribution
+
+**Journal of Marketing (JM)**
+- ⚠️  Structural models less common (more conceptual focus)
+- ✅ Field experiment with strategic implications
+- ⚠️  Need transformative substantive contribution (not just methodological)
+- **Recommendation**: Only if findings have broad strategic impact
+
+**Journal of Consumer Research (JCR)**
+- ❌ Structural modeling rare (psychological focus)
+- ⚠️  Field experiment must reveal consumer psychology
+- **Recommendation**: Not a good fit unless uncovering behavioral mechanisms
+
+### Tier 2 Options (if Tier 1 not ready)
+
+**Quantitative Marketing and Economics (QME)**
+- ✅✅ Perfect fit for structural + IO
+- ✅ Shorter, more technical papers accepted
+- **Recommendation**: Safe choice for purely methodological contribution
+
+**International Journal of Research in Marketing (IJRM)**
+- ✅ Broad methodological acceptance
+- ✅ Faster turnaround than Tier 1
+- **Recommendation**: Good backup option
+
+## Positioning Strategy for Marketing Science
+
+### Contribution Statements
+1. **Methodological**: "We extend BLP to incorporate [specific innovation: e.g., supply-side learning, dynamic pricing]"
+2. **Identification**: "We exploit a novel natural experiment [describe setting] combined with industry cost data to overcome traditional BLP identification challenges"
+3. **Substantive**: "We quantify [specific marketing phenomenon: e.g., cross-channel substitution] in a setting where prior work lacked micro-data"
+4. **Validation**: "We validate structural estimates with a randomized field experiment, demonstrating out-of-sample predictive accuracy"
+
+### Gap Table (8-12 papers)
+| Paper | Method | Data | Gap |
+|-------|--------|------|-----|
+| Nair (2007, MS) | BLP | Video game consoles | No field experiment validation |
+| Datta & Sudhir (2013, MktSci) | Structural | CPG | No supply-side |
+| [Your paper] | BLP + RCT | [Your setting] | First to validate BLP with experiment |
+
+### Writing Plan
+1. Introduction: Start with field experiment result (surprising finding), then motivate need for structural model
+2. Model: Standard BLP with [your innovation]
+3. Identification: Emphasize what makes your setting special
+4. Estimation: Micro moments from experiment
+5. Counterfactuals: Policy-relevant simulations
+6. Conclusion: Methodological takeaway + managerial implications
+
+## Final Recommendation
+**Target**: Marketing Science
+**Backup**: QME (if MS rejects on "insufficient contribution")
+**Positioning**: Lead with methodological innovation, support with substantive application
+```
+
+## Covered Journals
+
+### Tier 1 (UTD-24)
+- **Marketing Science**: Structural models, analytical rigor, IO approach
+- **Journal of Marketing Research (JMR)**: Experiments, empirical marketing, broad methods
+- **Journal of Marketing (JM)**: Strategy, substantive contributions, managerial relevance
+- **Journal of Consumer Research (JCR)**: Consumer psychology, behavioral foundations
+
+### Tier 2 (Strong Field Journals)
+- **Quantitative Marketing and Economics (QME)**: Structural econometrics, IO
+- **International Journal of Research in Marketing (IJRM)**: Diverse methods, European audience
+- **Journal of the Academy of Marketing Science (JAMS)**: Broad marketing science
+- **Marketing Letters**: Concise methodological advances
+
+## Common Troubleshooting
+
+### "My identification strategy is weak"
+
+**Problem**: Endogeneity not convincingly addressed.
+
+**Solution checklist**:
+1. **For IV**: 
+   - First-stage F-stat > 10
+   - Exclusion restriction narrative (economic story for why IV affects outcome only through endogenous variable)
+   - Overidentification test (if multiple IVs)
+2. **For DID**:
+   - Parallel trends event study (pre-treatment coefficients near zero)
+   - Callaway-Sant'Anna estimator (robust to staggered treatment)
+   - Placebo tests (wrong treatment timing, wrong outcomes)
+3. **For RDD**:
+   - Continuity of covariates at cutoff (McCrary test)
+   - Sensitivity to bandwidth choice
+   - Donut RDD (exclude observations near cutoff)
+
+**Code example (DID parallel trends test)**:
+```python
+import pandas as pd
+import statsmodels.formula.api as smf
+
+# Event study specification
+df['rel_time'] = df['year'] - df['treatment_year']
+df['rel_time'] = df['rel_time'].clip(-5, 5)  # Clip to ±5 years
+
+# Create dummies for each rel_time (omit -1 as baseline)
+for k in range(-5, 6):
+    if k != -1:
+        df[f'lead_lag_{k}'] = (df['rel_time'] == k).astype(int)
+
+# Regression
+formula = 'log_sales ~ ' + ' + '.join([f'lead_lag_{k}' for k in range(-5, 6) if k != -1])
+formula += ' + C(city_id) + C(year)'
+
+model = smf.ols(formula, data=df).fit(cov_type='cluster', cov_kwds={'groups': df['city_id']})
+print(model.summary())
+
+# Test pre-trends: H0: lead_lag_-5 = ... = lead_lag_-2 = 0
+from scipy.stats import f as f_dist
+pre_trend_coefs = [f'lead_lag_{k}' for k in range(-5, -1)]
+r_matrix = np.eye(len(model.params))[[model.params.index.get_loc(c) for c in pre_trend_coefs]]
+f_stat = model.f_test(r_matrix).fvalue[0][0]
+print(f"\nPre-trends F-stat: {f_stat:.2f} (reject if > 2.5)")
+```
+
+### "Reviewers say my contribution is incremental"
+
+**Problem**: Paper feels like "BLP applied to new dataset" without sufficient innovation.
+
+**Solution strategies**:
+1. **Methodological hook**: Add a novel estimation technique (e.g., Bayesian BLP with hierarchical priors, machine learning for nonparametric heterogeneity)
+2. **Substantive hook**: Frame around a first-order marketing question (e.g., "How much do consumers value privacy?" vs. "Estimate demand for smartphones")
+3. **Data hook**: Emphasize unique data access (e.g., "First paper with cost data from manufacturer", "Click-stream data reveals consideration sets")
+4. **Validation hook**: Out-of-sample predictions, field experiment validation, structural break analysis
+
+**Reframing example**:
+```
+❌ Weak framing:
+"We estimate a BLP model of demand for smartphones."
+
+✅ Strong framing:
+"We quantify consumers' willingness-to-pay for privacy features using a structural model validated by a randomized pricing experiment. Our estimates reveal that privacy-conscious consumers have WTP of $150 for enhanced encryption, implying a $12B untapped market for privacy-focused devices."
+```
+
+### "My counterfactual results seem unrealistic"
+
+**Problem**: Simulated equilibrium prices/quantities are implausible.
+
+**Debugging checklist**:
+1. **Check marginal costs**: Are recovered marginal costs positive? Reasonable magnitude?
+   ```python
+   mc = results.compute_costs()
+   print(f"MC range: ${mc.min():.2f} - ${mc.max():.2f}")
+   print(f"Markup range: {((prices - mc) / prices).min():.1%} - {((prices - mc) / prices).max():.1%}")
+   ```
+2. **Elasticity magnitudes**: Own-price elasticities should be negative and > 1 in absolute value for differentiated goods
+   ```python
+   elast = results.compute_elasticities()
+   print(f"Own-price elasticity range: {np.diag(elast).min():.2f} - {np.diag(elast).max():.2f}")
+   # Should be roughly -2 to -5 for typical markets
+   ```
+3. **Equilibrium convergence**: Did counterfactual optimization converge?
+   ```python
+   # Add diagnostics to equilibrium solver
+   print(f"Iterations: {iteration}, Max price change: {np.abs(prices - prices_old).max():.4f}")
+   ```
+4. **Boundary solutions**: Are firms hitting corner solutions (price = MC)?
+
+### "I don't have good instruments"
+
+**Problem**: No credible cost shifters or differentiation instruments.
+
+**Alternative strategies**:
+1. **Control function approach**: Model the endogeneity explicitly
+   ```python
+   # Two-stage control function
+   # Stage 1: Price regression
+   stage1 = smf.ols('price ~ x1 + x2 + x3 + instrument1 + instrument2', data=df).fit()
+   df['price_residual'] = stage1.resid
+   
+   # Stage 2: Include residual as control
+   stage2 = smf.ols('log_share ~ price + x1 + x2 + price_residual', data=df).fit()
+   ```
+2. **Micro moments**: Use additional data moments to identify parameters (clickstream, survey WTP)
+3. **Panel data**: Within-product variation + fixed effects
+   ```python
+   formula = 'log_share ~ price + x1 + x2 + C(product_id) + C(time_id)'
+   model = smf.ols(formula, data=df).fit(cov_type='cluster', cov_kwds={'groups': df['product_id']})
+   ```
+4. **Supply-side moments**: Joint estimation of demand + supply (supply shifters as instruments)
+
+### "I need to write the paper faster"
+
+**Template-driven approach**:
+1. Use `examples/manuscript_template.tex` as starting point
+2. For each section, reference `references/writing-patterns.md` for reusable templates
+3. Generate section drafts in order:
+   - Model section first (easiest, most formulaic)
+   - Identification section second (follows from model)
+   - Results section third (tables + interpretation)
+   - Introduction last (now you know what the paper says)
+
+**Time-saving code generation**:
+```python
+# Auto-generate LaTeX tables from estimation results
+results.to_latex('tables/blp_estimates.tex', 
+                 caption='Demand Estimation Results',
+                 label='tab:blp')
+
+# Auto-generate elasticity table
+elasticities_df = pd.DataFrame(
+    elasticities, 
+    index=product_names, 
+    columns=product_names
+)
+elasticities_df.to_latex('tables/elasticities.tex', float_format='%.2f')
+```
+
+## Configuration
+
+This skill has no runtime configuration — it's a reference system. However, for BLP estimation workflows:
+
+**Environment variables**:
+```bash
+# Computation
+export OMP_NUM_THREADS=8              # Parallel cores for pyblp
+export PYBLP_CACHE_DIR=/scratch/blp   # Cache directory for large problems
+
+# Reproducibility
+export PYTHONHASHSEED=0               # Deterministic hashing
+export PYBLP_RANDOM_SEED=12345        # Monte Carlo integration seed
+```
+
+**pyblp configuration file** (`~/.pyblp/config.json`):
+```json
+{
+  "integration": {
+    "method": "monte_carlo",
+    "size": 1000
+  },
+  "optimization": {
+    "method": "l-bfgs-b",
+    "options": {
+      "maxiter": 1
