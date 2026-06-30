@@ -113,6 +113,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketing-analytics-lab-engine](skills/marketing-analytics-lab-engine/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-analytics-lab-engine) | [shayantimes/marketing-analytics-lab](https://github.com/shayantimes/marketing-analytics-lab) | 2026-06-29 |
 | [salesforce-marketing-cloud-mcp](skills/salesforce-marketing-cloud-mcp/) | [install](https://skills.sh/aradotso/marketing-skills/salesforce-marketing-cloud-mcp) | [vinkius-labs/salesforce-marketing-mcp](https://github.com/vinkius-labs/salesforce-marketing-mcp) | 2026-06-29 |
 | [brand-marketing-strategy-proposal-generator](skills/brand-marketing-strategy-proposal-generator/) | [install](https://skills.sh/aradotso/marketing-skills/brand-marketing-strategy-proposal-generator) | [yuleiwang156-a11y/brand-marketing-strategy-proposal-skill](https://github.com/yuleiwang156-a11y/brand-marketing-strategy-proposal-skill) | 2026-06-29 |
+| [powerbi-campaign-roi-analyzer](skills/powerbi-campaign-roi-analyzer/) | [install](https://skills.sh/aradotso/marketing-skills/powerbi-campaign-roi-analyzer) | [thanhtu150/powerbi-campaign-roi-analyzer](https://github.com/thanhtu150/powerbi-campaign-roi-analyzer) | 2026-06-30 |
 <!-- SKILL_INDEX -->
 
 ---
