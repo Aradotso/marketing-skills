@@ -114,6 +114,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [salesforce-marketing-cloud-mcp](skills/salesforce-marketing-cloud-mcp/) | [install](https://skills.sh/aradotso/marketing-skills/salesforce-marketing-cloud-mcp) | [vinkius-labs/salesforce-marketing-mcp](https://github.com/vinkius-labs/salesforce-marketing-mcp) | 2026-06-29 |
 | [brand-marketing-strategy-proposal-generator](skills/brand-marketing-strategy-proposal-generator/) | [install](https://skills.sh/aradotso/marketing-skills/brand-marketing-strategy-proposal-generator) | [yuleiwang156-a11y/brand-marketing-strategy-proposal-skill](https://github.com/yuleiwang156-a11y/brand-marketing-strategy-proposal-skill) | 2026-06-29 |
 | [powerbi-campaign-roi-analyzer](skills/powerbi-campaign-roi-analyzer/) | [install](https://skills.sh/aradotso/marketing-skills/powerbi-campaign-roi-analyzer) | [thanhtu150/powerbi-campaign-roi-analyzer](https://github.com/thanhtu150/powerbi-campaign-roi-analyzer) | 2026-06-30 |
+| [image-to-campaign-funnel-generator](skills/image-to-campaign-funnel-generator/) | [install](https://skills.sh/aradotso/marketing-skills/image-to-campaign-funnel-generator) | [Arnie936/image-to-campaign](https://github.com/Arnie936/image-to-campaign) | 2026-06-30 |
 <!-- SKILL_INDEX -->
 
 ---
