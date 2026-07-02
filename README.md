@@ -118,6 +118,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [scrapebox-seo-automation](skills/scrapebox-seo-automation/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-seo-automation) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
 | [scrapebox-seo-automation-toolkit](skills/scrapebox-seo-automation-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-seo-automation-toolkit) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
 | [scrapebox-seo-automation-tools](skills/scrapebox-seo-automation-tools/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-seo-automation-tools) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
+| [scrapebox-ultimate-seo-automation](skills/scrapebox-ultimate-seo-automation/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-ultimate-seo-automation) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
 <!-- SKILL_INDEX -->
 
 ---
