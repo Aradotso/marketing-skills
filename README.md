@@ -116,6 +116,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [powerbi-campaign-roi-analyzer](skills/powerbi-campaign-roi-analyzer/) | [install](https://skills.sh/aradotso/marketing-skills/powerbi-campaign-roi-analyzer) | [thanhtu150/powerbi-campaign-roi-analyzer](https://github.com/thanhtu150/powerbi-campaign-roi-analyzer) | 2026-06-30 |
 | [image-to-campaign-funnel-generator](skills/image-to-campaign-funnel-generator/) | [install](https://skills.sh/aradotso/marketing-skills/image-to-campaign-funnel-generator) | [Arnie936/image-to-campaign](https://github.com/Arnie936/image-to-campaign) | 2026-06-30 |
 | [scrapebox-seo-automation](skills/scrapebox-seo-automation/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-seo-automation) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
+| [scrapebox-seo-automation-toolkit](skills/scrapebox-seo-automation-toolkit/) | [install](https://skills.sh/aradotso/marketing-skills/scrapebox-seo-automation-toolkit) | [OutpostBull93/ScrapeBox-Ultimate-SEO-Automation](https://github.com/OutpostBull93/ScrapeBox-Ultimate-SEO-Automation) | 2026-07-02 |
 <!-- SKILL_INDEX -->
 
 ---
