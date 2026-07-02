@@ -1,419 +1,544 @@
 ---
 name: scrapebox-seo-automation
-description: ScrapeBox Ultimate SEO Automation for large-scale search optimization, link building, backlink analysis, and rank tracking workflows on Windows
+description: SEO automation toolkit for harvesting URLs, analyzing backlinks, building links, and tracking rankings at scale for Windows marketing workflows.
 triggers:
   - how do I use ScrapeBox for SEO automation
-  - set up ScrapeBox for link building and harvesting
-  - automate backlink analysis with ScrapeBox
-  - configure ScrapeBox rank tracking
-  - use ScrapeBox for keyword harvesting
-  - run ScrapeBox SEO automation workflows
-  - integrate ScrapeBox into my marketing pipeline
-  - troubleshoot ScrapeBox automation issues
+  - scrape URLs and build backlinks with ScrapeBox
+  - automate SEO tasks with ScrapeBox
+  - harvest keywords and track rankings
+  - analyze backlinks with ScrapeBox
+  - set up ScrapeBox for link building campaigns
+  - use ScrapeBox harvester for URLs
+  - configure ScrapeBox automation workflows
 ---
 
 # ScrapeBox SEO Automation
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-ScrapeBox Ultimate SEO Automation is a comprehensive Windows-based SEO toolkit for large-scale search optimization workflows. It provides professional-grade tools for link building, backlink analysis, keyword harvesting, rank tracking, and automated SEO campaign management.
+ScrapeBox is a Windows-based SEO automation platform that enables large-scale search optimization workflows including URL harvesting, backlink analysis, link building, rank tracking, and keyword research. This skill covers installation, configuration, and automation patterns for marketing teams.
 
 ## What ScrapeBox Does
 
-- **Link Building & Harvesting**: Scrape URLs, harvest email addresses, and build targeted link lists
-- **Backlink Analysis**: Analyze competitor backlinks and monitor your link profile
-- **Rank Tracking**: Monitor keyword rankings across search engines
-- **SEO Automation**: Automate repetitive SEO tasks at scale
-- **Content Management**: Bulk operations for blogs, comments, and submissions
+- **URL Harvesting**: Scrape search engines for URLs matching specific keywords
+- **Backlink Analysis**: Analyze competitor backlinks and link profiles
+- **Link Building**: Automate link submission and outreach workflows
+- **Rank Tracking**: Monitor keyword positions across search engines
+- **Keyword Research**: Generate and analyze keyword opportunities
+- **Proxy Management**: Rotate proxies for large-scale operations
+- **Content Scraping**: Extract content from target URLs
 
 ## Installation
 
 ### System Requirements
 
-- Windows 7/8/10/11 (64-bit recommended)
-- .NET Framework 4.5 or higher
-- Minimum 4GB RAM (8GB+ recommended for large-scale operations)
+- Windows 7 or later (32-bit or 64-bit)
+- .NET Framework 4.5+
+- Minimum 2GB RAM (4GB+ recommended for large operations)
 - Stable internet connection
-- Administrator privileges for initial setup
 
-### Installation Steps
+### Setup Steps
 
-1. Download the Complete Edition from your licensed source
-2. Extract the installation package to your desired directory
-3. Run `ScrapeBox.exe` as Administrator
-4. Complete the initial configuration wizard
-5. Enter your license key when prompted
+1. Download the installer from the official distribution
+2. Run the installer with administrator privileges
+3. Complete the installation wizard
+4. Launch ScrapeBox from the desktop shortcut or Start menu
+5. Enter license key when prompted (stored in environment variables)
 
-```batch
-REM Install to Program Files
-cd "C:\Program Files\ScrapeBox"
-ScrapeBox.exe /install
+### License Configuration
 
-REM Verify installation
-ScrapeBox.exe /version
+Store your license key securely:
+
+```bash
+# Windows Environment Variable
+setx SCRAPEBOX_LICENSE_KEY "your-license-key-here"
 ```
 
-## Configuration
+On first launch, ScrapeBox will read from `SCRAPEBOX_LICENSE_KEY` environment variable.
 
-### Initial Setup
+## Core Features & Workflows
 
-Configure proxy settings and connection limits for optimal performance:
+### 1. URL Harvester
+
+The harvester scrapes search engines for URLs matching target keywords.
+
+**Basic Harvesting Configuration**:
+
+```
+Keywords File: keywords.txt
+Search Engines: Google, Bing, Yahoo
+Results Per Keyword: 100
+Timeout: 30 seconds
+Proxy: Use proxy list from proxies.txt
+```
+
+**Keywords File Format** (`keywords.txt`):
+```
+seo services
+link building tools
+backlink checker
+keyword research software
+```
+
+**Automation Script Pattern**:
+
+Create a harvester configuration file `harvest_config.ini`:
 
 ```ini
-# config.ini
-[Connection]
-MaxThreads=100
-ConnectionTimeout=30000
-RetryAttempts=3
-
-[Proxy]
-UseProxies=true
+[Settings]
+Keywords=keywords.txt
+Engines=Google,Bing,Yahoo
+ResultsPerKeyword=100
+Timeout=30
 ProxyFile=proxies.txt
-ProxyType=HTTP
-TestProxies=true
-
-[General]
-UserAgent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)
-CacheEnabled=true
-CacheDirectory=cache/
+OutputFile=harvested_urls.txt
+RemoveDuplicates=true
+FilterAdults=true
 ```
 
-### Proxy Configuration
+### 2. Backlink Checker
 
-```txt
-# proxies.txt - One proxy per line
+Analyze backlinks for URLs to understand link profiles.
+
+**Backlink Analysis Workflow**:
+
+1. Load URLs to analyze (File → Load URLs)
+2. Configure Settings → Backlink Checker
+3. Set concurrency level (10-50 threads)
+4. Enable proxy rotation
+5. Start analysis
+
+**Output Format** (`backlinks_report.csv`):
+```csv
+Target URL,Backlink URL,Anchor Text,Page Authority,Domain Authority,Link Type
+https://example.com,https://source1.com/page,SEO Tools,45,62,Dofollow
+https://example.com,https://source2.com/blog,Best SEO,38,55,Nofollow
+```
+
+### 3. Rank Tracker
+
+Monitor keyword rankings across search engines.
+
+**Rank Tracking Configuration**:
+
+```
+Keywords: target_keywords.txt
+URLs: tracked_urls.txt
+Search Engines: Google (US), Google (UK), Bing
+Check Frequency: Daily
+Depth: Top 100 results
+Proxy Rotation: Enabled
+```
+
+**Keywords Format** (`target_keywords.txt`):
+```
+domain.com | seo automation tools
+domain.com | backlink checker
+domain.com | rank tracker software
+```
+
+### 4. Proxy Management
+
+Essential for large-scale operations to avoid rate limiting.
+
+**Proxy List Format** (`proxies.txt`):
+```
 http://proxy1.example.com:8080
-http://username:password@proxy2.example.com:8080
+http://proxy2.example.com:3128
 socks5://proxy3.example.com:1080
+http://username:password@proxy4.example.com:8080
 ```
 
-### Environment Variables
+**Proxy Testing Configuration**:
 
-Set up environment variables for automation scripts:
-
-```batch
-REM Set ScrapeBox home directory
-set SCRAPEBOX_HOME=C:\Program Files\ScrapeBox
-set SCRAPEBOX_CONFIG=%SCRAPEBOX_HOME%\config.ini
-set SCRAPEBOX_PROXIES=%SCRAPEBOX_HOME%\proxies.txt
+```
+Test URL: http://www.google.com
+Timeout: 10 seconds
+Remove Dead Proxies: Yes
+Test Type: HTTP GET
+Export Working: working_proxies.txt
 ```
 
-## Key Commands & CLI
+## Automation Patterns
 
-### Command Line Operations
+### Batch URL Processing
 
-ScrapeBox supports command-line automation for scripting and batch operations:
+For processing large URL lists programmatically:
 
-```batch
-REM Harvest URLs from keywords
-ScrapeBox.exe /harvest /keywords="keywords.txt" /output="harvested.txt" /engines="google,bing"
-
-REM Check backlinks
-ScrapeBox.exe /backlinks /urls="urls.txt" /output="backlinks.csv" /threads=50
-
-REM Rank tracker
-ScrapeBox.exe /ranktrack /keywords="keywords.txt" /urls="target-urls.txt" /output="rankings.csv"
-
-REM Proxy harvester
-ScrapeBox.exe /proxyharvest /output="proxies.txt" /test=true
-
-REM Scrape specific search engine
-ScrapeBox.exe /scrape /keyword="digital marketing tools" /engine=google /pages=10 /output="results.txt"
-```
-
-### Batch Automation Script
-
-```batch
-@echo off
-REM SEO Automation Daily Script
-
-set SCRAPEBOX="C:\Program Files\ScrapeBox\ScrapeBox.exe"
-set DATE=%date:~-4,4%%date:~-10,2%%date:~-7,2%
-set OUTPUT_DIR=C:\SEO_Reports\%DATE%
-
-mkdir %OUTPUT_DIR%
-
-REM Step 1: Harvest fresh proxies
-%SCRAPEBOX% /proxyharvest /output="%OUTPUT_DIR%\proxies.txt" /test=true
-
-REM Step 2: Harvest URLs for keyword list
-%SCRAPEBOX% /harvest /keywords="keywords.txt" /output="%OUTPUT_DIR%\urls.txt" /engines="google,bing,yahoo" /proxies="%OUTPUT_DIR%\proxies.txt"
-
-REM Step 3: Check rankings
-%SCRAPEBOX% /ranktrack /keywords="keywords.txt" /urls="mysite-urls.txt" /output="%OUTPUT_DIR%\rankings.csv" /proxies="%OUTPUT_DIR%\proxies.txt"
-
-REM Step 4: Analyze competitor backlinks
-%SCRAPEBOX% /backlinks /urls="competitor-urls.txt" /output="%OUTPUT_DIR%\competitor-backlinks.csv" /threads=50
-
-echo Automation complete. Reports saved to %OUTPUT_DIR%
-```
-
-## API Integration
-
-### PowerShell Integration
-
-Automate ScrapeBox operations using PowerShell:
+**PowerShell Automation Script**:
 
 ```powershell
-# ScrapBoxAutomation.ps1
+# ScrapeBox automation via command line
+$scrapeboxPath = "C:\Program Files\ScrapeBox\ScrapeBox.exe"
+$configFile = "harvest_config.ini"
+$outputLog = "automation_log.txt"
 
-$ScrapeBoxPath = "C:\Program Files\ScrapeBox\ScrapeBox.exe"
-$WorkingDir = "C:\SEO_Projects"
+# Start ScrapeBox with configuration
+Start-Process -FilePath $scrapeboxPath `
+    -ArgumentList "/config=$configFile", "/autostart", "/log=$outputLog" `
+    -NoNewWindow -Wait
 
-function Invoke-ScrapeBox {
-    param(
-        [string]$Command,
-        [hashtable]$Parameters
-    )
-    
-    $args = "/$Command"
-    foreach($key in $Parameters.Keys) {
-        $args += " /$key=`"$($Parameters[$key])`""
-    }
-    
-    Start-Process -FilePath $ScrapeBoxPath -ArgumentList $args -Wait -NoNewWindow
-}
+# Parse results
+$results = Get-Content "harvested_urls.txt"
+Write-Host "Harvested $($results.Count) URLs"
 
-# Harvest keywords
-$harvestParams = @{
-    keywords = "$WorkingDir\keywords.txt"
-    output = "$WorkingDir\harvested_urls.txt"
-    engines = "google,bing"
-    threads = 100
-}
-
-Invoke-ScrapeBox -Command "harvest" -Parameters $harvestParams
-
-# Track rankings
-$rankParams = @{
-    keywords = "$WorkingDir\keywords.txt"
-    urls = "$WorkingDir\target_urls.txt"
-    output = "$WorkingDir\rankings.csv"
-    proxies = "$WorkingDir\proxies.txt"
-}
-
-Invoke-ScrapeBox -Command "ranktrack" -Parameters $rankParams
-
-Write-Host "SEO automation tasks completed successfully"
+# Filter and process results
+$filtered = $results | Where-Object { $_ -match "^https?://" } | Sort-Object -Unique
+$filtered | Out-File "filtered_urls.txt" -Encoding UTF8
 ```
 
-### Python Wrapper
+### Scheduled Rank Tracking
 
-```python
-# scrapebox_wrapper.py
-import subprocess
-import os
-from pathlib import Path
+**Windows Task Scheduler Integration**:
 
-class ScrapeBoxAutomation:
-    def __init__(self, scrapebox_path=None):
-        self.scrapebox_path = scrapebox_path or os.getenv(
-            'SCRAPEBOX_HOME', 
-            r'C:\Program Files\ScrapeBox\ScrapeBox.exe'
-        )
-    
-    def execute(self, command, **kwargs):
-        """Execute ScrapeBox command with parameters"""
-        args = [self.scrapebox_path, f'/{command}']
-        
-        for key, value in kwargs.items():
-            args.append(f'/{key}={value}')
-        
-        result = subprocess.run(args, capture_output=True, text=True)
-        return result
-    
-    def harvest_urls(self, keywords_file, output_file, engines='google,bing', threads=50):
-        """Harvest URLs from search engines"""
-        return self.execute(
-            'harvest',
-            keywords=keywords_file,
-            output=output_file,
-            engines=engines,
-            threads=threads
-        )
-    
-    def track_rankings(self, keywords_file, urls_file, output_file, proxies=None):
-        """Track keyword rankings"""
-        params = {
-            'keywords': keywords_file,
-            'urls': urls_file,
-            'output': output_file
-        }
-        if proxies:
-            params['proxies'] = proxies
-        
-        return self.execute('ranktrack', **params)
-    
-    def analyze_backlinks(self, urls_file, output_file, threads=50):
-        """Analyze backlinks for URL list"""
-        return self.execute(
-            'backlinks',
-            urls=urls_file,
-            output=output_file,
-            threads=threads
-        )
+```powershell
+# rank_tracking_job.ps1
+$env:SCRAPEBOX_LICENSE_KEY = $env:SCRAPEBOX_LICENSE_KEY
 
-# Usage example
-if __name__ == '__main__':
-    sb = ScrapeBoxAutomation()
-    
-    # Harvest URLs
-    sb.harvest_urls(
-        keywords_file='keywords.txt',
-        output_file='harvested_urls.txt',
-        engines='google,bing,yahoo',
-        threads=100
-    )
-    
-    # Track rankings
-    sb.track_rankings(
-        keywords_file='keywords.txt',
-        urls_file='target_urls.txt',
-        output_file='rankings.csv',
-        proxies='proxies.txt'
-    )
-    
-    print("Automation completed successfully")
-```
+$scrapeboxExe = "C:\Program Files\ScrapeBox\ScrapeBox.exe"
+$rankConfig = "C:\ScrapeBox\Configs\rank_tracking.ini"
+$timestamp = Get-Date -Format "yyyy-MM-dd_HHmmss"
+$outputFile = "C:\ScrapeBox\Reports\ranks_$timestamp.csv"
 
-## Common Patterns
+# Run rank tracking
+& $scrapeboxExe /config=$rankConfig /output=$outputFile /exit
 
-### Keyword Harvesting Workflow
+# Email results if significant changes
+$results = Import-Csv $outputFile
+$changes = $results | Where-Object { [Math]::Abs($_.PositionChange) -gt 5 }
 
-```batch
-REM 1. Start with seed keywords
-echo "digital marketing" > seeds.txt
-echo "seo tools" >> seeds.txt
-
-REM 2. Expand keyword list
-ScrapeBox.exe /keywordexpand /seeds="seeds.txt" /output="expanded_keywords.txt" /sources="google_suggest,bing_suggest"
-
-REM 3. Harvest URLs for expanded keywords
-ScrapeBox.exe /harvest /keywords="expanded_keywords.txt" /output="urls.txt" /engines="google,bing,yahoo" /pages=5
-
-REM 4. Filter and deduplicate
-ScrapeBox.exe /filter /input="urls.txt" /output="filtered_urls.txt" /remove_duplicates=true /domain_only=false
-```
-
-### Competitor Analysis
-
-```batch
-REM competitor_analysis.bat
-
-REM Define competitor domains
-echo competitor1.com > competitors.txt
-echo competitor2.com >> competitors.txt
-
-REM Harvest competitor backlinks
-ScrapeBox.exe /backlinks /urls="competitors.txt" /output="competitor_backlinks.csv" /depth=2
-
-REM Scrape competitor pages
-ScrapeBox.exe /scrape /urls="competitors.txt" /output="competitor_pages.txt" /depth=2 /follow_links=true
-
-REM Extract emails and contacts
-ScrapeBox.exe /extract /input="competitor_pages.txt" /output="competitor_contacts.txt" /type="email,phone"
+if ($changes.Count -gt 0) {
+    Send-MailMessage `
+        -To $env:ALERT_EMAIL `
+        -From "scrapebox@company.com" `
+        -Subject "Rank Changes Detected" `
+        -Body "Significant position changes for $($changes.Count) keywords" `
+        -Attachments $outputFile `
+        -SmtpServer $env:SMTP_SERVER
+}
 ```
 
 ### Link Building Campaign
 
-```batch
-REM link_building.bat
+**Automated Blog Commenting Workflow**:
 
-set CAMPAIGN_DIR=C:\LinkBuilding\Campaign_001
+```
+Target URLs: blog_comment_targets.txt
+Comments Template: comments_template.txt
+Name: {Your Name|Your Company|Brand Name}
+Website: https://yoursite.com
+Email: noreply@yoursite.com
+Comment Variation: Enabled (spin syntax)
+Captcha Service: 2Captcha API
+Success Log: successful_comments.txt
+```
 
-REM Step 1: Find relevant blogs
-ScrapeBox.exe /harvest /keywords="blog_keywords.txt" /output="%CAMPAIGN_DIR%\blogs.txt" /engines="google" /footprint="powered by wordpress"
+**Comment Template with Spin Syntax** (`comments_template.txt`):
+```
+{Great|Excellent|Interesting} {post|article|content}! {I found|This was} {very useful|extremely helpful|really informative}. {Thanks for sharing|Keep up the good work|Looking forward to more}.
+```
 
-REM Step 2: Check blog availability
-ScrapeBox.exe /check /urls="%CAMPAIGN_DIR%\blogs.txt" /output="%CAMPAIGN_DIR%\active_blogs.txt" /check_type="http_status"
+## Advanced Configuration
 
-REM Step 3: Extract contact information
-ScrapeBox.exe /extract /input="%CAMPAIGN_DIR%\active_blogs.txt" /output="%CAMPAIGN_DIR%\contacts.csv" /type="email"
+### Database Integration
 
-REM Step 4: Export for outreach
-ScrapeBox.exe /export /input="%CAMPAIGN_DIR%\contacts.csv" /output="%CAMPAIGN_DIR%\outreach_list.csv" /format="csv"
+Export results to database for analysis:
+
+**CSV to Database Import** (Python):
+
+```python
+import csv
+import sqlite3
+import os
+
+def import_scrapebox_results(csv_file, db_file):
+    """Import ScrapeBox CSV results into SQLite database"""
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    
+    # Create table for harvested URLs
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS harvested_urls (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            url TEXT UNIQUE,
+            keyword TEXT,
+            search_engine TEXT,
+            position INTEGER,
+            harvested_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    
+    # Import CSV
+    with open(csv_file, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                cursor.execute('''
+                    INSERT OR IGNORE INTO harvested_urls 
+                    (url, keyword, search_engine, position)
+                    VALUES (?, ?, ?, ?)
+                ''', (
+                    row.get('URL'),
+                    row.get('Keyword'),
+                    row.get('Engine'),
+                    int(row.get('Position', 0))
+                ))
+            except Exception as e:
+                print(f"Error importing row: {e}")
+    
+    conn.commit()
+    conn.close()
+    print(f"Imported results to {db_file}")
+
+# Usage
+import_scrapebox_results(
+    'harvested_urls.csv',
+    'scrapebox_data.db'
+)
+```
+
+### API Integration Patterns
+
+**Webhook Notifications** (Node.js):
+
+```javascript
+const fs = require('fs');
+const axios = require('axios');
+const csv = require('csv-parser');
+
+// Monitor ScrapeBox output and send webhooks
+async function monitorResults(csvFile, webhookUrl) {
+    const results = [];
+    
+    fs.createReadStream(csvFile)
+        .pipe(csv())
+        .on('data', (row) => results.push(row))
+        .on('end', async () => {
+            console.log(`Processed ${results.length} results`);
+            
+            // Send to webhook
+            try {
+                await axios.post(webhookUrl, {
+                    timestamp: new Date().toISOString(),
+                    source: 'ScrapeBox',
+                    results_count: results.length,
+                    data: results.slice(0, 100) // First 100 results
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.WEBHOOK_TOKEN}`
+                    }
+                });
+                console.log('Webhook sent successfully');
+            } catch (error) {
+                console.error('Webhook failed:', error.message);
+            }
+        });
+}
+
+// Monitor harvested URLs
+monitorResults(
+    'C:/ScrapeBox/Results/harvested_urls.csv',
+    process.env.RESULTS_WEBHOOK_URL
+);
+```
+
+## Common Workflows
+
+### 1. Competitor Analysis Pipeline
+
+```powershell
+# competitor_analysis.ps1
+
+# Step 1: Harvest competitor URLs
+$competitors = @(
+    "competitor1.com",
+    "competitor2.com",
+    "competitor3.com"
+)
+
+$keywords = Get-Content "target_keywords.txt"
+$allUrls = @()
+
+foreach ($competitor in $competitors) {
+    $siteUrls = & scrapebox.exe /scrape /site=$competitor /depth=3
+    $allUrls += $siteUrls
+}
+
+# Step 2: Analyze backlinks
+$allUrls | Out-File "competitor_urls.txt"
+& scrapebox.exe /backlinks /input="competitor_urls.txt" /output="competitor_backlinks.csv"
+
+# Step 3: Generate report
+$backlinks = Import-Csv "competitor_backlinks.csv"
+$topDomains = $backlinks | Group-Object "Source Domain" | 
+    Sort-Object Count -Descending | Select-Object -First 50
+
+$topDomains | Export-Csv "top_backlink_sources.csv" -NoTypeInformation
+```
+
+### 2. Content Discovery Workflow
+
+```python
+# content_discovery.py
+import pandas as pd
+import os
+
+def analyze_scraped_content(input_csv):
+    """Analyze content patterns from scraped URLs"""
+    df = pd.read_csv(input_csv)
+    
+    # Filter high-performing content
+    top_content = df[df['Backlinks'] > 50].copy()
+    
+    # Extract patterns
+    top_content['title_length'] = top_content['Title'].str.len()
+    top_content['has_number'] = top_content['Title'].str.contains(r'\d+')
+    top_content['has_question'] = top_content['Title'].str.contains(r'\?')
+    
+    # Statistical analysis
+    analysis = {
+        'avg_title_length': top_content['title_length'].mean(),
+        'pct_with_numbers': (top_content['has_number'].sum() / len(top_content)) * 100,
+        'pct_with_questions': (top_content['has_question'].sum() / len(top_content)) * 100,
+        'avg_backlinks': top_content['Backlinks'].mean()
+    }
+    
+    print("Content Pattern Analysis:")
+    for key, value in analysis.items():
+        print(f"  {key}: {value:.2f}")
+    
+    return top_content
+
+# Process ScrapeBox content export
+top_performing = analyze_scraped_content('scraped_content.csv')
+top_performing.to_csv('content_insights.csv', index=False)
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-**Problem: Proxies timing out**
-```batch
-REM Test and filter working proxies
-ScrapeBox.exe /proxytest /input="proxies.txt" /output="working_proxies.txt" /timeout=5000 /threads=50
+**1. Proxy Connection Failures**
 
-REM Increase timeout in config
-echo ConnectionTimeout=60000 >> config.ini
+```powershell
+# Test proxies before use
+$proxies = Get-Content "proxies.txt"
+$working = @()
+
+foreach ($proxy in $proxies) {
+    try {
+        $response = Invoke-WebRequest -Uri "http://www.google.com" `
+            -Proxy $proxy -TimeoutSec 10 -ErrorAction Stop
+        if ($response.StatusCode -eq 200) {
+            $working += $proxy
+            Write-Host "✓ $proxy" -ForegroundColor Green
+        }
+    } catch {
+        Write-Host "✗ $proxy" -ForegroundColor Red
+    }
+}
+
+$working | Out-File "verified_proxies.txt"
 ```
 
-**Problem: Rate limiting from search engines**
-```ini
-# Adjust config.ini
-[Connection]
-MaxThreads=20
-RequestDelay=2000
-RandomizeDelay=true
-UseProxies=true
+**2. Rate Limiting / Captchas**
+
+- Reduce thread count (Settings → Connection → Max Connections)
+- Increase delays between requests (Settings → Delays)
+- Enable captcha solving service (2Captcha, Anti-Captcha)
+- Rotate more proxies frequently
+
+**3. Memory Issues with Large Lists**
+
+```powershell
+# Process URLs in batches
+$allUrls = Get-Content "large_url_list.txt"
+$batchSize = 1000
+
+for ($i = 0; $i -lt $allUrls.Count; $i += $batchSize) {
+    $batch = $allUrls[$i..([Math]::Min($i + $batchSize - 1, $allUrls.Count - 1))]
+    $batch | Out-File "batch_$([Math]::Floor($i / $batchSize)).txt"
+    
+    # Process each batch separately
+    & scrapebox.exe /process /input="batch_$([Math]::Floor($i / $batchSize)).txt"
+}
 ```
 
-**Problem: High memory usage**
-```batch
-REM Clear cache regularly
-del /Q cache\*.*
+**4. License Activation Issues**
 
-REM Reduce thread count
-ScrapeBox.exe /harvest /keywords="keywords.txt" /output="urls.txt" /threads=25
-```
+```bash
+# Verify environment variable
+echo %SCRAPEBOX_LICENSE_KEY%
 
-**Problem: Invalid URLs in results**
-```batch
-REM Filter URLs
-ScrapeBox.exe /filter /input="raw_urls.txt" /output="clean_urls.txt" /validate_urls=true /remove_duplicates=true
-```
-
-### Performance Optimization
-
-```ini
-# config_optimized.ini
-[Connection]
-MaxThreads=50
-ConnectionTimeout=30000
-KeepAliveConnections=true
-ConnectionPoolSize=100
-
-[Cache]
-CacheEnabled=true
-CacheSize=1000
-CacheTTL=3600
-
-[Processing]
-BatchSize=1000
-ParallelProcessing=true
-MaxMemoryUsage=4096
-```
-
-### Logging and Debugging
-
-```batch
-REM Enable verbose logging
-ScrapeBox.exe /harvest /keywords="keywords.txt" /output="urls.txt" /log="harvest.log" /verbose=true
-
-REM Review logs
-type harvest.log | findstr "ERROR"
+# Re-activate license
+scrapebox.exe /activate /key=%SCRAPEBOX_LICENSE_KEY%
 ```
 
 ## Best Practices
 
 1. **Always use proxies** for large-scale operations to avoid IP bans
-2. **Respect rate limits** - configure appropriate delays between requests
-3. **Test proxies regularly** - maintain a list of working proxies
-4. **Schedule operations** during off-peak hours for better success rates
-5. **Export and backup data** regularly - automate database backups
-6. **Monitor resource usage** - adjust thread counts based on system capacity
-7. **Validate results** - filter and clean data before using in campaigns
-8. **Keep software updated** - check for updates and security patches
+2. **Test configurations** on small datasets before full campaigns
+3. **Schedule operations** during off-peak hours to reduce detection
+4. **Export results regularly** to prevent data loss
+5. **Monitor success rates** and adjust settings accordingly
+6. **Respect robots.txt** and site terms of service
+7. **Use delays** between requests to avoid overwhelming servers
+8. **Keep proxies fresh** - rotate and test regularly
+9. **Back up configurations** before making major changes
+10. **Log all operations** for debugging and auditing
 
----
+## Environment Variables
 
-This skill covers the essential operations for ScrapeBox SEO Automation. For advanced features and plugin-specific functionality, refer to the official ScrapeBox documentation and community forums.
+Store sensitive configuration in environment variables:
+
+```bash
+SCRAPEBOX_LICENSE_KEY      # License key
+CAPTCHA_API_KEY            # 2Captcha or similar service
+PROXY_SERVICE_URL          # Proxy provider API
+SMTP_SERVER               # Email notification server
+ALERT_EMAIL               # Notification recipient
+WEBHOOK_TOKEN             # API authentication token
+RESULTS_WEBHOOK_URL       # Results notification endpoint
+```
+
+## Integration Examples
+
+### Dashboard Reporting
+
+```python
+# generate_dashboard.py
+import pandas as pd
+import matplotlib.pyplot as plt
+from datetime import datetime
+
+def create_seo_dashboard(ranks_file, backlinks_file):
+    """Generate visual dashboard from ScrapeBox exports"""
+    
+    # Load data
+    ranks = pd.read_csv(ranks_file)
+    backlinks = pd.read_csv(backlinks_file)
+    
+    # Rank trends
+    plt.figure(figsize=(12, 6))
+    plt.subplot(1, 2, 1)
+    ranks.groupby('Date')['Position'].mean().plot()
+    plt.title('Average Keyword Position Over Time')
+    plt.ylabel('Position')
+    plt.xlabel('Date')
+    
+    # Backlink growth
+    plt.subplot(1, 2, 2)
+    backlinks.groupby('Discovery_Date').size().cumsum().plot()
+    plt.title('Cumulative Backlinks Growth')
+    plt.ylabel('Total Backlinks')
+    plt.xlabel('Date')
+    
+    plt.tight_layout()
+    plt.savefig(f'seo_dashboard_{datetime.now().strftime("%Y%m%d")}.png')
+    print("Dashboard generated successfully")
+
+# Usage
+create_seo_dashboard('ranks_export.csv', 'backlinks_export.csv')
+```
+
+This skill provides comprehensive guidance for automating SEO workflows with ScrapeBox, including harvesting, analysis, rank tracking, and integration patterns for marketing automation pipelines.
