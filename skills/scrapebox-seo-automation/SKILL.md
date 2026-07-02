@@ -1,366 +1,572 @@
 ---
 name: scrapebox-seo-automation
-description: Automate SEO tasks including link building, backlink analysis, rank tracking, and keyword harvesting with ScrapeBox desktop tools
+description: Professional SEO automation toolkit for large-scale link building, backlink analysis, rank tracking, and keyword harvesting on Windows
 triggers:
   - how do I use ScrapeBox for SEO automation
-  - set up ScrapeBox for link building and backlink analysis
-  - automate rank tracking with ScrapeBox
-  - harvest keywords using ScrapeBox tools
-  - configure ScrapeBox for large-scale SEO workflows
-  - use ScrapeBox desktop for professional SEO campaigns
-  - scrape search results with ScrapeBox
-  - build backlinks using ScrapeBox automation
+  - automate backlink analysis with ScrapeBox
+  - use ScrapeBox for link building and harvesting
+  - set up ScrapeBox SEO tools
+  - ScrapeBox rank tracking and keyword research
+  - configure ScrapeBox for bulk SEO operations
+  - troubleshoot ScrapeBox automation workflows
+  - ScrapeBox proxy configuration and scraping
 ---
 
 # ScrapeBox SEO Automation
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection.
 
-ScrapeBox Ultimate SEO Automation is a Windows desktop application designed for large-scale search optimization workflows. It provides tools for link building, backlink analysis, rank tracking, keyword harvesting, and automated SEO tasks for marketing teams and SEO professionals.
+ScrapeBox is a professional-grade Windows desktop application for large-scale SEO automation including link building, backlink analysis, keyword harvesting, rank tracking, and bulk operations. This skill covers installation, core functionality, automation workflows, and integration patterns for marketing teams.
 
-## Overview
+## What It Does
 
-ScrapeBox is a professional SEO automation toolkit that enables:
+ScrapeBox provides comprehensive SEO automation capabilities:
 
-- **Keyword Harvesting**: Extract keywords from search engines and competitor sites
-- **Link Building**: Automated submission and link prospecting
-- - **Backlink Analysis**: Discover and analyze competitor backlinks
-- **Rank Tracking**: Monitor search engine rankings across keywords
-- **Content Scraping**: Harvest URLs, content, and metadata at scale
-- **Proxy Management**: Rotate proxies for large-scale operations
+- **Keyword Harvesting**: Scrape search engines for keywords and related terms
+- **Link Building**: Automated footprint-based link prospecting
+- - **Backlink Analysis**: Analyze competitor backlinks and link profiles
+- **Rank Tracking**: Monitor search engine rankings for target keywords
+- **Bulk Operations**: Mass URL checking, PageRank analysis, and site metrics
+- **Proxy Management**: Rotate proxies for large-scale scraping operations
+- **Plugin System**: Extend functionality with add-ons
 
 ## Installation
 
-ScrapeBox is a Windows desktop application:
-
-1. Download the Complete Edition installer from the official release
-2. Run the installer as Administrator on Windows
-3. Complete the installation wizard
-4. Launch ScrapeBox from the Start Menu or Desktop shortcut
-5. Activate with your license key if required
-
 ### System Requirements
 
-- **OS**: Windows 7/8/10/11 (64-bit recommended)
-- **RAM**: Minimum 4GB, 8GB+ recommended for large operations
-- **Storage**: 500MB+ free disk space
-- **Network**: Stable internet connection for scraping operations
+- Windows 7/8/10/11 (64-bit recommended)
+- .NET Framework 4.5 or higher
+- Minimum 2GB RAM (4GB+ recommended for large operations)
+- Active internet connection
 
-## Core Features & Usage
+### Installation Steps
 
-### 1. Keyword Harvester
+1. Download the installer from the official release or repository
+2. Run the installer with administrator privileges
+3. Follow the setup wizard to complete installation
+4. Launch ScrapeBox from the Start Menu or desktop shortcut
+5. Enter license key when prompted (or use trial mode if available)
 
-The Keyword Harvester module extracts keywords from search engines:
+### Initial Configuration
 
-**Basic Keyword Harvesting:**
-1. Open **Harvester** → **Keyword Scraper**
+```
+Settings → General Settings:
+- Set thread count (10-50 for most operations)
+- Configure timeout settings (30-60 seconds recommended)
+- Enable/disable JavaScript rendering
+- Set user agent rotation
+
+Settings → Proxy Settings:
+- Import proxy list (HTTP/SOCKS5)
+- Enable proxy rotation
+- Set proxy test timeout
+```
+
+## Core Features
+
+### Keyword Harvesting
+
+Extract keywords from search engines, websites, and keyword tools:
+
+**Basic Keyword Scraping Workflow:**
+
+```
+1. Go to: Harvester → Keyword Scraper
 2. Enter seed keywords (one per line)
-3. Select search engines (Google, Bing, Yahoo, etc.)
-4. Set number of results to scrape per keyword
-5. Configure proxies if needed
-6. Click **Start** to begin harvesting
+3. Select search engines (Google, Bing, Yahoo)
+4. Set depth level (1-3 recommended)
+5. Configure results per keyword (50-100)
+6. Click "Start" to begin harvesting
 7. Export results to text file
+```
 
-**Configuration Tips:**
-- Use proxies to avoid IP blocking on large scrapes
-- Enable "Remove Duplicates" for cleaner results
-- Set delays between requests (3-5 seconds recommended)
-- Save keyword lists for future campaigns
+**Footprint-Based Harvesting:**
 
-### 2. Link Building & Prospecting
+```
+Footprints for blog commenting:
+"powered by wordpress" + "keyword"
+"leave a comment" + "keyword"
+inurl:blog "post a comment" + "keyword"
 
-Automate link building workflows:
+Footprints for guest posting:
+"write for us" + "keyword"
+"guest post guidelines" + "keyword"
+"contribute to" + "keyword"
+```
 
-**Finding Link Opportunities:**
-1. Go to **Harvester** → **URL Harvester**
-2. Enter footprints (e.g., "add url", "submit site", "powered by")
-3. Combine with your niche keywords
-4. Scrape search engines for prospects
-5. Export URL list
+### Link Building Automation
 
-**Checking Page Rank/Metrics:**
-1. Load your harvested URLs
-2. Use **Addon** → **Page Rank Checker** (or SEO metrics plugins)
-3. Filter URLs by minimum PR/DA/DR thresholds
-4. Export qualified prospects
+**Comment Poster Workflow:**
 
-**Automated Posting:**
-- Use form submission addons for automated submissions
-- Configure captcha solving services
-- Set up posting templates
-- Schedule batch operations
+```
+1. Load harvested URLs into URL list
+2. Go to: Addons → Comment Poster
+3. Configure comment template:
+   - Name: [randomize from list]
+   - Email: [email list or pattern]
+   - Website: [your target URL]
+   - Comment: [spin syntax with variations]
+4. Set posting threads (5-10 recommended)
+5. Enable CAPTCHA solving (if service integrated)
+6. Start posting campaign
+```
 
-### 3. Backlink Analysis
+**Link Prospecting Process:**
 
-Analyze competitor backlink profiles:
+```
+1. Harvester → Search for URLs using footprints
+2. Filter URLs by:
+   - Domain Authority (if scraping metrics)
+   - PageRank (if available)
+   - Response time
+   - Alive/dead status
+3. Remove duplicates: Tools → Remove Duplicate URLs
+4. Export clean list for outreach
+```
 
-**Competitor Backlink Discovery:**
-1. Enter competitor domains in main text box
-2. Select **Addon** → **Backlink Checker**
-3. Choose backlink source (Majestic, Ahrefs API, etc.)
-4. Run analysis to extract backlink URLs
-5. Export and filter by quality metrics
+### Backlink Analysis
 
-**Backlink Verification:**
-1. Load list of backlinks to verify
-2. Use **Link Checker** addon
-3. Verify which links are live/dead
-4. Filter by HTTP status codes
-5. Remove dead links from your database
+**Competitor Backlink Extraction:**
 
-### 4. Rank Tracking
+```
+1. Go to: Backlink Checker
+2. Enter competitor domain(s)
+3. Select backlink sources:
+   - Google
+   - Bing
+   - Third-party APIs (if configured)
+4. Set depth and result limits
+5. Start scraping
+6. Analyze results:
+   - Sort by domain authority
+   - Filter by link type (dofollow/nofollow)
+   - Identify link building opportunities
+```
 
-Monitor keyword rankings across search engines:
+### Rank Tracking
 
 **Setting Up Rank Tracking:**
-1. Open **Rank Checker** module
-2. Add keywords to track (one per line)
-3. Specify target URLs/domains
-4. Select search engines and locations
-5. Set tracking frequency (daily, weekly)
-6. Run initial rank check
-7. Export or schedule automated checks
 
-**Tracking Configuration:**
-- Use proxies matching target geo-location
-- Enable mobile vs desktop tracking separately
-- Set up alerts for ranking changes
-- Export reports to CSV for analysis
+```
+1. Go to: Rank Checker
+2. Import keyword list (one per line)
+3. Add target URLs to track
+4. Configure search engines and locations
+5. Set proxy rotation for larger lists
+6. Schedule automated checks:
+   - Daily: High-priority keywords
+   - Weekly: Long-tail terms
+7. Export reports to CSV
+```
 
-### 5. Content Scraping
-
-Extract content and metadata at scale:
-
-**Scraping Page Titles & Descriptions:**
-1. Load target URLs into main window
-2. Select **Scrape** → **Page Title Scraper**
-3. Run scraper to extract titles
-4. Repeat with **Meta Description Scraper**
-5. Export results with URLs
-
-**Email Harvesting:**
-1. Load website URLs
-2. Select **Harvester** → **Email Scraper**
-3. Configure email patterns to match
-4. Run scraper across all URLs
-5. De-duplicate and validate emails
-
-## Configuration & Best Practices
+## Proxy Configuration
 
 ### Proxy Setup
 
-Configure proxies to avoid IP blocking:
-
-1. Go to **ScrapeBox** → **Proxy Settings**
-2. Add proxies (format: `IP:PORT` or `IP:PORT:USER:PASS`)
-3. Test proxies before use
-4. Enable proxy rotation
-5. Set timeout values (15-30 seconds)
-
-**Proxy Recommendations:**
-- Use dedicated proxies for consistent operations
-- Rotate residential proxies for search engine scraping
-- Test proxy speed and anonymity regularly
-- Maintain backup proxy lists
-
-### Connection Settings
-
-Optimize scraping performance:
-
-- **Connection Threads**: 10-50 (balance speed vs. detection)
-- **Connection Timeout**: 15-30 seconds
-- **Delay Between Requests**: 3-10 seconds for search engines
-- **User-Agent Rotation**: Enable for better anonymity
-
-### Data Management
-
-Organize your SEO data:
+ScrapeBox requires proxies for large-scale operations to avoid IP blocks:
 
 ```
-/ScrapeBox/
-  /Keywords/
-    - seed-keywords.txt
-    - harvested-keywords.txt
-  /URLs/
-    - prospects.txt
-    - verified-links.txt
-  /Proxies/
-    - working-proxies.txt
-  /Results/
-    - rankings-2026-07-01.csv
-    - backlinks-competitor.txt
+Settings → Proxy Settings:
+
+1. Add Proxies:
+   - Import from file (IP:PORT format)
+   - Format: 123.45.67.89:8080
+   - SOCKS5: socks5://123.45.67.89:1080
+   - Authentication: user:pass@IP:PORT
+
+2. Test Proxies:
+   - Proxy → Test Proxies
+   - Select test URL (Google recommended)
+   - Set timeout (10-30 seconds)
+   - Remove dead proxies automatically
+
+3. Proxy Rotation:
+   - Enable "Use Random Proxy"
+   - Set rotation interval
+   - Configure failure threshold
+```
+
+### Environment Variables for Proxy Management
+
+```batch
+REM Set proxy list location
+SET SCRAPEBOX_PROXY_LIST=%USERPROFILE%\scrapebox\proxies.txt
+
+REM Proxy API credentials (if using proxy service)
+SET PROXY_SERVICE_API_KEY=your_api_key_here
+SET PROXY_SERVICE_URL=https://api.proxyservice.com/list
 ```
 
 ## Automation Workflows
 
-### Workflow 1: Comprehensive Keyword Research
+### Bulk URL Analysis
 
-1. Start with seed keywords in Keyword Scraper
-2. Harvest related keywords from multiple search engines
-3. Export and de-duplicate results
-4. Analyze keyword competition using addon tools
-5. Filter by search volume and difficulty
-6. Export final keyword list for content planning
+**Check URL Status and Metrics:**
 
-### Workflow 2: Link Building Campaign
-
-1. Create footprint combinations for your niche
-2. Harvest URLs using Harvester with footprints
-3. Check page authority/metrics on harvested URLs
-4. Filter and qualify prospects (DA > 20, DoFollow links)
-5. Verify contact information or submission forms
-6. Execute outreach or automated submissions
-7. Track and verify placed backlinks
-
-### Workflow 3: Competitor Analysis
-
-1. Identify top-ranking competitor domains
-2. Extract their backlink profiles using Backlink Checker
-3. Scrape their top-ranking pages for keywords
-4. Analyze their on-page SEO elements
-5. Create gap analysis report
-6. Build strategy to replicate successful tactics
-
-### Workflow 4: Rank Monitoring & Reporting
-
-1. Set up keyword tracking for target URLs
-2. Schedule automated daily/weekly rank checks
-3. Export ranking data to CSV
-4. Compare historical ranking trends
-5. Identify ranking opportunities and declines
-6. Adjust SEO strategy based on data
-
-## Advanced Features
-
-### Addon Plugins
-
-ScrapeBox supports numerous addon plugins:
-
-- **Broken Link Checker**: Find broken links on websites
-- **Anchor Text Cloud**: Analyze anchor text distribution
-- **Domain Availability Checker**: Find available domains
-- **Social Metrics Checker**: Get social share counts
-- **Indexed Pages Checker**: Verify search engine indexation
-- **Duplicate Content Checker**: Find content plagiarism
-
-### API Integration
-
-Connect external services for enhanced functionality:
-
-**Captcha Solving Services:**
-- DeathByCaptcha
-- 2Captcha
-- Anti-Captcha
-- Configure in Settings → Captcha Options
-
-**SEO Metrics APIs:**
-- Moz API for DA/PA scores
-- Majestic API for Trust Flow/Citation Flow
-- Ahrefs API for backlink data
-- Configure API keys in respective addon settings
-
-Environment variable references for API credentials:
 ```
-MOZ_ACCESS_ID=%MOZ_ACCESS_ID%
-MOZ_SECRET_KEY=%MOZ_SECRET_KEY%
-MAJESTIC_API_KEY=%MAJESTIC_API_KEY%
+1. Load URL list
+2. Go to: Tools → Alive Check
+3. Configure settings:
+   - Threads: 20-50
+   - Timeout: 30 seconds
+   - Follow redirects: Yes
+4. Start checking
+5. Filter results (200, 404, etc.)
+6. Export alive URLs
+
+Additional checks:
+- PageRank Check (if service available)
+- Alexa Rank
+- Domain Age
+- Social Signals
+```
+
+### Content Scraping
+
+**Extract Content from URLs:**
+
+```
+1. Load target URLs
+2. Go to: Scraper → Page Scraper
+3. Configure extraction rules:
+   - Start tag: <div class="content">
+   - End tag: </div>
+   - Or use XPath/CSS selectors
+4. Set processing threads
+5. Start scraping
+6. Export to CSV/TXT
+```
+
+### Automated Scheduling
+
+Create batch scripts for scheduled operations:
+
+**Windows Batch Script Example:**
+
+```batch
+@echo off
+REM scrapebox_automation.bat
+
+REM Set paths
+SET SCRAPEBOX_PATH="C:\Program Files\ScrapeBox\ScrapeBox.exe"
+SET PROJECT_PATH="%USERPROFILE%\Documents\ScrapeBox\Projects"
+
+REM Run ScrapeBox with specific project
+start "" %SCRAPEBOX_PATH% /load:%PROJECT_PATH%\rank_tracking.sbx /auto
+
+REM Wait for completion (adjust timeout as needed)
+timeout /t 3600 /nobreak
+
+REM Process results
+echo "Rank tracking complete - check results folder"
+```
+
+**Windows Task Scheduler Setup:**
+
+```
+1. Open Task Scheduler
+2. Create Basic Task
+3. Set trigger (daily, weekly)
+4. Action: Start a program
+5. Program: C:\path\to\scrapebox_automation.bat
+6. Configure conditions (run on AC power, etc.)
+```
+
+## Integration Patterns
+
+### API Integration (Plugin Development)
+
+While ScrapeBox is primarily GUI-based, plugins can be developed for integration:
+
+**C# Plugin Example Structure:**
+
+```csharp
+using System;
+using ScrapeBox.PluginSDK;
+
+namespace CustomScrapeBoxPlugin
+{
+    public class MyPlugin : IPlugin
+    {
+        public string PluginName => "Custom SEO Analyzer";
+        public string PluginVersion => "1.0";
+        
+        public void Initialize()
+        {
+            // Plugin initialization
+            Console.WriteLine("Plugin loaded");
+        }
+        
+        public void ProcessURLs(string[] urls)
+        {
+            foreach (string url in urls)
+            {
+                // Custom processing logic
+                var metrics = AnalyzeURL(url);
+                SaveResults(metrics);
+            }
+        }
+        
+        private object AnalyzeURL(string url)
+        {
+            // Implement custom analysis
+            return new { Url = url, Score = 85 };
+        }
+        
+        private void SaveResults(object metrics)
+        {
+            // Export to file or database
+            string outputPath = Environment.GetEnvironmentVariable("SCRAPEBOX_OUTPUT_PATH");
+            // Save logic here
+        }
+    }
+}
+```
+
+### Data Export Automation
+
+**PowerShell Script for Result Processing:**
+
+```powershell
+# process_scrapebox_results.ps1
+
+$ResultsPath = "$env:USERPROFILE\Documents\ScrapeBox\Results"
+$OutputPath = "$env:USERPROFILE\Documents\SEO_Reports"
+$Date = Get-Date -Format "yyyy-MM-dd"
+
+# Process rank tracking results
+$RankData = Import-Csv "$ResultsPath\rank_tracking_$Date.csv"
+
+# Filter and analyze
+$TopRankings = $RankData | Where-Object { [int]$_.Position -le 10 }
+
+# Generate report
+$Report = @{
+    Date = $Date
+    TotalKeywords = $RankData.Count
+    Top10Rankings = $TopRankings.Count
+    AveragePosition = ($RankData.Position | Measure-Object -Average).Average
+}
+
+# Export report
+$Report | ConvertTo-Json | Out-File "$OutputPath\daily_report_$Date.json"
+
+# Send notification (example)
+Send-MailMessage -To $env:ALERT_EMAIL `
+    -Subject "Daily SEO Report - $Date" `
+    -Body "Top 10 Rankings: $($TopRankings.Count)" `
+    -SmtpServer $env:SMTP_SERVER
+```
+
+## Configuration Best Practices
+
+### Performance Optimization
+
+```
+Thread Configuration:
+- Light scraping (Google): 10-20 threads
+- Medium operations (URL checking): 30-50 threads
+- Heavy bulk operations: 50-100 threads (with proxies)
+
+Timeout Settings:
+- Search engine scraping: 30-45 seconds
+- URL alive checks: 15-30 seconds
+- Content scraping: 45-60 seconds
+
+Memory Management:
+- Process URLs in batches (1000-5000)
+- Clear results between operations
+- Restart application for very large jobs (100k+ URLs)
+```
+
+### Avoiding Blocks and Bans
+
+```
+Proxy Strategy:
+- Use at least 10 proxies for operations >1000 URLs
+- Test proxies before each major operation
+- Rotate user agents with proxies
+- Implement delays between requests (2-5 seconds)
+
+Request Patterns:
+- Randomize request timing
+- Use realistic user agents
+- Enable JavaScript rendering only when needed
+- Respect robots.txt for legitimate operations
+```
+
+## Common Workflows
+
+### Full SEO Audit Workflow
+
+```
+1. Keyword Research:
+   - Harvest keywords for target niche
+   - Filter by search volume (if using addon)
+   - Export keyword list
+
+2. Competitor Analysis:
+   - Extract competitor backlinks
+   - Analyze linking domains
+   - Identify link opportunities
+
+3. Link Prospecting:
+   - Use footprints to find target sites
+   - Filter by quality metrics
+   - Remove duplicates and dead URLs
+
+4. Outreach Campaign:
+   - Export clean prospect list
+   - Integrate with email tools
+   - Track response rates
+
+5. Rank Tracking:
+   - Set up automated rank checking
+   - Monitor keyword movements
+   - Generate weekly reports
+```
+
+### Link Building Campaign
+
+```
+Day 1: Prospecting
+- Run footprint searches for target keywords
+- Harvest 5000+ potential link sources
+- Filter by alive status and metrics
+
+Day 2-3: Qualification
+- Check domain authority (if integrated)
+- Verify contact forms/comment sections
+- Categorize by link type (guest post, comment, etc.)
+
+Day 4-7: Outreach/Posting
+- Automated comment posting (where appropriate)
+- Manual guest post outreach
+- Track submission URLs
+
+Day 8+: Monitoring
+- Check link indexation
+- Monitor referral traffic
+- Track rank improvements
 ```
 
 ## Troubleshooting
 
-### Connection Issues
+### Common Issues
 
-**Problem**: "Connection timeout" errors during scraping
-**Solutions:**
-- Increase timeout value (Settings → Connection Timeout)
-- Reduce number of concurrent threads
-- Check proxy functionality and speed
-- Verify internet connection stability
+**Application Crashes or Freezes:**
+```
+Solutions:
+1. Reduce thread count
+2. Clear temporary files: Tools → Clear Cache
+3. Update .NET Framework
+4. Run as administrator
+5. Disable antivirus temporarily (may flag automation tools)
+```
 
-**Problem**: Getting blocked by search engines
-**Solutions:**
-- Enable proxy rotation
-- Increase delay between requests (10+ seconds)
-- Use residential proxies instead of datacenter
-- Reduce concurrent connections
-- Rotate user-agents
+**Proxies Not Working:**
+```
+Diagnostics:
+1. Test proxies individually: Proxy → Test Proxies
+2. Check proxy format (IP:PORT or user:pass@IP:PORT)
+3. Verify proxy type (HTTP vs SOCKS5)
+4. Increase timeout settings
+5. Try different proxy provider
+```
 
-### Performance Issues
+**Search Engines Blocking Requests:**
+```
+Solutions:
+1. Increase proxy count (minimum 10)
+2. Add delays between requests (3-5 seconds)
+3. Rotate user agents more frequently
+4. Use private/residential proxies
+5. Reduce thread count
+6. Enable JavaScript rendering for Google
+```
 
-**Problem**: ScrapeBox running slowly
-**Solutions:**
-- Close unnecessary addons and windows
-- Reduce thread count for complex operations
-- Clear result cache (Tools → Clear Cache)
-- Increase allocated RAM if possible
-- Process smaller batches of URLs
+**No Results from Scraping:**
+```
+Checklist:
+1. Verify internet connection
+2. Test URLs manually in browser
+3. Check if target site structure changed
+4. Update extraction rules/XPath
+5. Disable SSL verification if needed
+6. Clear DNS cache
+```
 
-**Problem**: High CPU usage
-**Solutions:**
-- Reduce concurrent threads
-- Disable resource-intensive addons
-- Process data in smaller batches
-- Close other applications
+**High Memory Usage:**
+```
+Solutions:
+1. Process URLs in smaller batches
+2. Clear results after export
+3. Restart application between large jobs
+4. Increase virtual memory/page file
+5. Close other applications
+6. Upgrade RAM if running frequent large operations
+```
 
-### Data Quality Issues
+### Error Messages
 
-**Problem**: Duplicate results in harvested data
-**Solutions:**
-- Enable "Remove Duplicates" in scraper settings
-- Use built-in de-duplication tool (Tools → Remove Duplicates)
-- Filter results by domain to remove multiple pages from same site
+**"Connection Timeout":**
+- Increase timeout in settings (60+ seconds)
+- Check proxy functionality
+- Verify target site is accessible
 
-**Problem**: Inaccurate ranking data
-**Solutions:**
-- Use geo-targeted proxies matching target location
-- Clear browser cache and cookies
-- Verify search engine settings (domain, language)
-- Check for personalized search interference
+**"Access Denied" / 403 Errors:**
+- Rotate proxies more frequently
+- Change user agent
+- Add delays between requests
+- Use residential proxies
 
-## Compliance & Ethics
+**"Out of Memory":**
+- Reduce batch size
+- Restart application
+- Clear cache and temporary files
+- Process in multiple sessions
 
-### Responsible Usage
+## Environment Variables
 
-- **Respect robots.txt**: Configure ScrapeBox to honor robots.txt directives
-- **Rate Limiting**: Use appropriate delays to avoid overloading servers
-- **Terms of Service**: Review and comply with search engine TOS
-- **Data Privacy**: Handle scraped data responsibly per GDPR/privacy laws
-- **Avoid Spam**: Use link building ethically, avoid automated spam
+Set these for automated workflows:
 
-### Legal Considerations
+```batch
+REM Core paths
+SET SCRAPEBOX_PATH=C:\Program Files\ScrapeBox
+SET SCRAPEBOX_PROJECTS=%USERPROFILE%\Documents\ScrapeBox\Projects
+SET SCRAPEBOX_RESULTS=%USERPROFILE%\Documents\ScrapeBox\Results
+SET SCRAPEBOX_PROXIES=%USERPROFILE%\Documents\ScrapeBox\proxies.txt
 
-- Automated scraping may violate some website terms of service
-- Use ScrapeBox for legitimate SEO research and analysis
-- Obtain permission when scraping proprietary data
-- Comply with anti-spam laws (CAN-SPAM, GDPR)
-- Consult legal counsel for commercial use cases
+REM API integrations (if using external services)
+SET SEO_METRICS_API_KEY=your_key_here
+SET CAPTCHA_SERVICE_API_KEY=your_key_here
+SET PROXY_SERVICE_API_KEY=your_key_here
 
-## Integration Tips
+REM Email notifications
+SET ALERT_EMAIL=alerts@yourdomain.com
+SET SMTP_SERVER=smtp.yourdomain.com
+SET SMTP_PORT=587
 
-### Export Data for Analysis
+REM Output and reporting
+SET SCRAPEBOX_OUTPUT_PATH=%USERPROFILE%\Documents\SEO_Reports
+SET REPORT_FORMAT=CSV
+```
 
-Export ScrapeBox results to other tools:
+## Security and Legal Considerations
 
-1. Export to CSV for Excel/Google Sheets analysis
-2. Import into SEO platforms (SEMrush, Ahrefs)
-3. Load into database for custom reporting
-4. Connect with Google Sheets API for automation
-5. Feed data into BI tools (Tableau, Power BI)
+- Always comply with website Terms of Service
+- Respect robots.txt and rate limits
+- Use legitimate SEO research purposes only
+- Store credentials in environment variables, never in scripts
+- Rotate and protect proxy credentials
+- Keep software and plugins updated
+- Use licensed version for commercial operations
 
-### Batch Processing Scripts
+## Additional Resources
 
-Automate repetitive tasks:
+- Official documentation (check repository/installation folder)
+- Community forums for plugin development
+- Video tutorials for specific workflows
+- Proxy service recommendations for large-scale operations
 
-- Use Windows Task Scheduler for scheduled operations
-- Create batch files (.bat) to launch specific ScrapeBox operations
-- Combine with scripting languages (Python, PowerShell) for pre/post processing
-- Set up automated report generation and email delivery
-
-## Resources
-
-- Official documentation and tutorials (check ScrapeBox website)
-- Community forums for tips and troubleshooting
-- Video tutorials for advanced workflows
-- Addon marketplace for extended functionality
-
-This skill enables AI coding agents to guide users through comprehensive ScrapeBox SEO automation workflows for professional marketing campaigns.
+This skill enables AI coding agents to guide users through ScrapeBox SEO automation workflows, from basic setup to advanced bulk operations and integrations.
