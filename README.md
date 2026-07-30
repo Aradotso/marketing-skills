@@ -126,6 +126,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [atlas-marketing-studio](skills/atlas-marketing-studio/) | [install](https://skills.sh/aradotso/marketing-skills/atlas-marketing-studio) | [AtlasCloudAI/atlas-marketing-studio](https://github.com/AtlasCloudAI/atlas-marketing-studio) | 2026-07-30 |
 | [genpark-marketing-banner-agent-skill](skills/genpark-marketing-banner-agent-skill/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-banner-agent-skill) | [alphaparkinc/genpark-marketing-banner-agent-skill](https://github.com/alphaparkinc/genpark-marketing-banner-agent-skill) | 2026-07-30 |
 | [genpark-marketing-email-spamprevent-skill](skills/genpark-marketing-email-spamprevent-skill/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-email-spamprevent-skill) | [alphaparkinc/genpark-marketing-email-spamprevent-skill](https://github.com/alphaparkinc/genpark-marketing-email-spamprevent-skill) | 2026-07-30 |
+| [email-marketing-regulations-compliance](skills/email-marketing-regulations-compliance/) | [install](https://skills.sh/aradotso/marketing-skills/email-marketing-regulations-compliance) | [threeheartsdigital/email-marketing-regulations](https://github.com/threeheartsdigital/email-marketing-regulations) | 2026-07-30 |
 <!-- SKILL_INDEX -->
 
 ---
