@@ -122,6 +122,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketing-studio-agent](skills/marketing-studio-agent/) | [install](https://skills.sh/aradotso/marketing-skills/marketing-studio-agent) | [ucsandman/marketing-studio](https://github.com/ucsandman/marketing-studio) | 2026-07-10 |
 | [growth-marketing-os-prompts](skills/growth-marketing-os-prompts/) | [install](https://skills.sh/aradotso/marketing-skills/growth-marketing-os-prompts) | [growthack88/growth-marketing-os](https://github.com/growthack88/growth-marketing-os) | 2026-07-13 |
 | [ai-marketing-kit-orchestrator](skills/ai-marketing-kit-orchestrator/) | [install](https://skills.sh/aradotso/marketing-skills/ai-marketing-kit-orchestrator) | [crealwork/ai-marketing-kit](https://github.com/crealwork/ai-marketing-kit) | 2026-07-18 |
+| [genpark-automated-email-marketing-agent](skills/genpark-automated-email-marketing-agent/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-automated-email-marketing-agent) | [alphaparkinc/genpark-automated-email-marketing-agent-skill](https://github.com/alphaparkinc/genpark-automated-email-marketing-agent-skill) | 2026-07-30 |
 <!-- SKILL_INDEX -->
 
 ---
