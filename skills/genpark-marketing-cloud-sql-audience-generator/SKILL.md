@@ -1,355 +1,405 @@
 ---
 name: genpark-marketing-cloud-sql-audience-generator
-description: Natural language audience intent to Marketing Cloud SQL generator for creating targeted audience segments
+description: Natural language to Marketing Cloud SQL converter for building targeted audience segments
 triggers:
-  - generate Marketing Cloud SQL from audience description
-  - create audience segment query for Salesforce Marketing Cloud
-  - convert natural language to Marketing Cloud SQL
-  - build audience filter using GenPark
-  - generate SQL for marketing cloud audience
-  - create targeted audience segment with natural language
-  - translate audience intent to SFMC SQL
-  - build marketing cloud data extension query
+  - generate marketing cloud sql query
+  - create audience segment query
+  - build marketing cloud audience
+  - convert audience intent to sql
+  - generate sfmc sql query
+  - create data extension query for marketing cloud
+  - build audience segment with natural language
+  - translate marketing criteria to sql
 ---
 
-# GenPark Marketing Cloud SQL Audience Generator Skill
+# GenPark Marketing Cloud SQL Audience Generator
 
 > Skill by [ara.so](https://ara.so) — Marketing Skills collection
 
-This skill enables AI agents to generate Salesforce Marketing Cloud SQL queries from natural language audience intent descriptions. It translates marketing team requests like "customers who purchased in the last 30 days" into valid Marketing Cloud SQL syntax for audience segmentation and data extension queries.
-
-## What It Does
-
-The GenPark Marketing Cloud SQL Audience Generator converts natural language descriptions of target audiences into properly formatted SQL queries compatible with Salesforce Marketing Cloud (SFMC). This bridges the gap between marketing intent and technical implementation, allowing marketers to define audiences in plain English while generating production-ready SQL.
-
-**Key capabilities:**
-- Natural language to Marketing Cloud SQL translation
-- Audience segmentation query generation
-- Data extension filtering logic
-- Support for temporal, behavioral, and demographic criteria
-- SFMC-specific SQL syntax compliance
+This project converts natural language audience intent into Marketing Cloud SQL queries, enabling marketers and developers to build targeted audience segments without deep SQL knowledge. It translates plain English descriptions of target audiences into valid Salesforce Marketing Cloud (SFMC) SQL queries for data extensions.
 
 ## Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill.git
 cd genpark-marketing-cloud-sql-audience-generator-skill
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-**Dependencies typically include:**
-- Python 3.8+
-- OpenAI API or compatible LLM endpoint
-- Standard libraries (requests, json, etc.)
+## Core Functionality
 
-## Configuration
-
-Set up your environment variables for LLM API access:
-
-```bash
-# .env file
-OPENAI_API_KEY=your_api_key_here
-GENPARK_API_ENDPOINT=https://api.genpark.ai  # if using GenPark hosted service
-MODEL_NAME=gpt-4  # or your preferred model
-```
-
-Load environment variables in your code:
-
-```python
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-api_key = os.getenv('OPENAI_API_KEY')
-```
+The skill generates SQL queries for Marketing Cloud data extensions based on natural language input. It understands common marketing segmentation criteria like demographics, behavior, engagement, and purchase history.
 
 ## Basic Usage
 
-### Running the Example
-
-```bash
-python example_usage.py
-```
-
-### Python API Usage
-
 ```python
-from genpark_audience_generator import AudienceQueryGenerator
+from genpark_audience_generator import AudienceGenerator
 
 # Initialize the generator
-generator = AudienceQueryGenerator(
-    api_key=os.getenv('OPENAI_API_KEY'),
-    model='gpt-4'
-)
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
 
 # Generate SQL from natural language
-audience_intent = "Find all customers who opened an email in the last 7 days but didn't click"
-sql_query = generator.generate_sql(audience_intent)
+intent = "customers who purchased in the last 30 days and opened at least 3 emails"
+sql_query = generator.generate_sql(intent)
 
 print(sql_query)
 ```
 
-**Expected output:**
-```sql
-SELECT 
-    s.SubscriberKey,
-    s.EmailAddress,
-    s.FirstName,
-    s.LastName
-FROM _Subscribers s
-INNER JOIN _Open o ON s.SubscriberKey = o.SubscriberKey
-LEFT JOIN _Click c ON s.SubscriberKey = c.SubscriberKey 
-    AND c.EventDate >= DATEADD(day, -7, GETDATE())
-WHERE 
-    o.EventDate >= DATEADD(day, -7, GETDATE())
-    AND c.SubscriberKey IS NULL
-```
-
-## Common Patterns
-
-### Purchase Behavior Segmentation
-
-```python
-# Recent purchasers
-intent = "Customers who made a purchase over $100 in the last 30 days"
-query = generator.generate_sql(intent)
-
-# Example output targets Purchase data extension
-```
-
+Expected output:
 ```sql
 SELECT 
     c.SubscriberKey,
     c.EmailAddress,
-    SUM(p.PurchaseAmount) as TotalSpend
+    c.FirstName,
+    c.LastName
 FROM Customers c
-INNER JOIN Purchases p ON c.CustomerID = p.CustomerID
-WHERE 
-    p.PurchaseDate >= DATEADD(day, -30, GETDATE())
-GROUP BY 
-    c.SubscriberKey,
-    c.EmailAddress
-HAVING 
-    SUM(p.PurchaseAmount) > 100
+INNER JOIN Purchases p ON c.SubscriberKey = p.SubscriberKey
+INNER JOIN EmailEngagement e ON c.SubscriberKey = e.SubscriberKey
+WHERE p.PurchaseDate >= DATEADD(day, -30, GETDATE())
+AND e.EventType = 'Open'
+GROUP BY c.SubscriberKey, c.EmailAddress, c.FirstName, c.LastName
+HAVING COUNT(DISTINCT e.EventDate) >= 3
 ```
 
-### Engagement-Based Audiences
+## Configuration
+
+Set up environment variables:
+
+```bash
+export GENPARK_API_KEY=your_api_key_here
+export SFMC_SCHEMA=your_schema_name  # Optional: default schema for data extensions
+export GENPARK_MODEL=gpt-4  # Optional: specify LLM model
+```
+
+Configuration file example (`config.yaml`):
+
+```yaml
+api:
+  endpoint: https://genpark.ai/api/v1
+  timeout: 30
+
+marketing_cloud:
+  default_schema: "ENT.Customers"
+  data_extensions:
+    - Customers
+    - Purchases
+    - EmailEngagement
+    - WebActivity
+    - Subscriptions
+
+query_options:
+  include_comments: true
+  format_output: true
+  max_results: 5000
+```
+
+## Common Audience Patterns
+
+### High-Value Customer Segment
 
 ```python
-# High engagement subscribers
-intent = "Subscribers who clicked at least 3 emails in the past month"
-query = generator.generate_sql(intent)
-```
+from genpark_audience_generator import AudienceGenerator
 
-```sql
-SELECT 
-    s.SubscriberKey,
-    s.EmailAddress,
-    COUNT(DISTINCT c.JobID) as EmailsClicked
-FROM _Subscribers s
-INNER JOIN _Click c ON s.SubscriberKey = c.SubscriberKey
-WHERE 
-    c.EventDate >= DATEADD(month, -1, GETDATE())
-GROUP BY 
-    s.SubscriberKey,
-    s.EmailAddress
-HAVING 
-    COUNT(DISTINCT c.JobID) >= 3
-```
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
 
-### Churn Prevention
-
-```python
-# At-risk customers
-intent = "Active customers who haven't purchased in 60 days but were previously monthly buyers"
-query = generator.generate_sql(intent)
-```
-
-### Multi-Criteria Segmentation
-
-```python
-# Complex audience definition
+# High-value customers based on purchase behavior
 intent = """
-Find subscribers who:
-- Live in California, New York, or Texas
-- Have lifetime value over $500
-- Opened at least one email in the last 14 days
-- Are subscribed to the newsletter
+Find customers who:
+- Made purchases totaling over $1000 in the last 6 months
+- Have purchased at least 3 times
+- Are subscribed to the premium newsletter
 """
-query = generator.generate_sql(intent)
+
+sql = generator.generate_sql(intent)
+print(sql)
+```
+
+### Re-engagement Campaign
+
+```python
+# Identify customers to re-engage
+intent = """
+Target customers who:
+- Haven't purchased in 60-90 days
+- Previously purchased more than twice
+- Have opened emails in the last 30 days
+- Are not unsubscribed
+"""
+
+sql = generator.generate_sql(
+    intent,
+    output_fields=['SubscriberKey', 'EmailAddress', 'LastPurchaseDate']
+)
+```
+
+### Geographic Targeting
+
+```python
+# Location-based segment
+intent = """
+Customers in California or New York
+who have purchased outdoor gear
+and have a lifetime value over $500
+"""
+
+sql = generator.generate_sql(intent, schema='ENT.RetailCustomers')
 ```
 
 ## Advanced Usage
 
-### Custom Data Extensions
+### Custom Data Extension Mapping
 
 ```python
-# Specify your data extension schema
-context = {
-    "data_extensions": {
-        "CustomerProfile": ["SubscriberKey", "Email", "State", "LTV", "MemberSince"],
-        "EmailEngagement": ["SubscriberKey", "JobID", "EventDate", "EventType"],
-        "Preferences": ["SubscriberKey", "NewsletterOptIn", "Category"]
-    }
-}
+from genpark_audience_generator import AudienceGenerator, DataExtensionConfig
 
-generator = AudienceQueryGenerator(
-    api_key=os.getenv('OPENAI_API_KEY'),
-    context=context
+# Define your data extension schema
+de_config = DataExtensionConfig(
+    name='CustomersDE',
+    fields={
+        'SubscriberKey': 'Text',
+        'EmailAddress': 'EmailAddress',
+        'FirstName': 'Text',
+        'LastName': 'Text',
+        'City': 'Text',
+        'State': 'Text',
+        'LTV': 'Decimal',
+        'LastPurchase': 'Date'
+    },
+    primary_key='SubscriberKey'
 )
 
-intent = "Newsletter subscribers in California with LTV over $500"
-query = generator.generate_sql(intent)
+generator = AudienceGenerator(
+    api_key=os.getenv('GENPARK_API_KEY'),
+    data_extensions=[de_config]
+)
+
+intent = "Customers in Texas with LTV over $1000"
+sql = generator.generate_sql(intent, target_de='CustomersDE')
+```
+
+### Batch Processing
+
+```python
+import json
+from genpark_audience_generator import AudienceGenerator
+
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
+
+# Process multiple audience definitions
+audience_intents = [
+    "Active customers in the last 30 days",
+    "Abandoned cart in the last 7 days",
+    "VIP customers with 10+ purchases",
+    "Newsletter subscribers who never purchased"
+]
+
+results = []
+for intent in audience_intents:
+    try:
+        sql = generator.generate_sql(intent)
+        results.append({
+            'intent': intent,
+            'sql': sql,
+            'status': 'success'
+        })
+    except Exception as e:
+        results.append({
+            'intent': intent,
+            'error': str(e),
+            'status': 'failed'
+        })
+
+# Save results
+with open('audience_queries.json', 'w') as f:
+    json.dump(results, f, indent=2)
 ```
 
 ### Query Validation
 
 ```python
-# Validate generated SQL before use
-from genpark_audience_generator import validate_query
+from genpark_audience_generator import AudienceGenerator, QueryValidator
 
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
+validator = QueryValidator()
+
+intent = "Customers who clicked on Black Friday email"
 sql = generator.generate_sql(intent)
-is_valid, errors = validate_query(sql)
 
-if is_valid:
-    print("Query is valid")
+# Validate before using in Marketing Cloud
+validation = validator.validate(sql)
+if validation.is_valid:
+    print(f"Valid SQL: {sql}")
 else:
-    print(f"Validation errors: {errors}")
+    print(f"Validation errors: {validation.errors}")
 ```
 
-### Batch Generation
+## API Reference
+
+### AudienceGenerator Class
 
 ```python
-# Generate multiple audience queries
-audience_definitions = [
-    "VIP customers with purchases over $1000 this year",
-    "Engaged subscribers who opened 5+ emails this month",
-    "Inactive subscribers with no opens in 90 days"
-]
-
-queries = {}
-for intent in audience_definitions:
-    queries[intent] = generator.generate_sql(intent)
+class AudienceGenerator:
+    def __init__(
+        self,
+        api_key: str,
+        endpoint: str = None,
+        data_extensions: list = None,
+        model: str = 'gpt-4'
+    ):
+        """Initialize the audience generator"""
+        pass
     
-# Export queries
-import json
-with open('audience_queries.json', 'w') as f:
-    json.dump(queries, f, indent=2)
+    def generate_sql(
+        self,
+        intent: str,
+        schema: str = None,
+        target_de: str = None,
+        output_fields: list = None,
+        validate: bool = True
+    ) -> str:
+        """Generate Marketing Cloud SQL from natural language"""
+        pass
+    
+    def explain_query(self, sql: str) -> dict:
+        """Get natural language explanation of SQL query"""
+        pass
 ```
 
-## Integration with Marketing Cloud
+### Key Methods
 
-### Using Generated SQL in SFMC
+- `generate_sql()`: Converts natural language to SQL
+- `explain_query()`: Reverse operation - SQL to natural language
+- `validate_schema()`: Check data extension schema compatibility
+- `optimize_query()`: Suggest query optimizations
+
+## CLI Usage
+
+```bash
+# Generate SQL from command line
+python genpark_audience_generator.py --intent "customers who purchased last week"
+
+# With custom schema
+python genpark_audience_generator.py \
+  --intent "high-value customers" \
+  --schema "ENT.RetailCustomers" \
+  --output output.sql
+
+# Batch mode
+python genpark_audience_generator.py --batch intents.txt --output-dir ./queries/
+
+# Validate existing query
+python genpark_audience_generator.py --validate existing_query.sql
+```
+
+## Example: Complete Workflow
 
 ```python
-# Generate and format for SFMC Query Activity
-intent = "Customers who abandoned cart in last 24 hours"
-sql = generator.generate_sql(intent)
+import os
+from genpark_audience_generator import AudienceGenerator
+from sfmc_client import MarketingCloudClient  # Hypothetical SFMC client
 
-# Add target data extension reference
-sfmc_query = f"""
--- Target DE: AbandonedCartAudience
-{sql}
+# Initialize
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
+mc_client = MarketingCloudClient(
+    client_id=os.getenv('SFMC_CLIENT_ID'),
+    client_secret=os.getenv('SFMC_CLIENT_SECRET')
+)
+
+# Define audience intent
+intent = """
+Create a segment of customers who:
+- Purchased women's apparel in Q4 2025
+- Have an email open rate above 25%
+- Live in metro areas
+- Are not currently in any active campaign
 """
 
-print("Copy this SQL into Marketing Cloud Query Activity:")
-print(sfmc_query)
-```
+# Generate SQL
+sql_query = generator.generate_sql(
+    intent,
+    schema='ENT.CustomerMaster',
+    output_fields=['SubscriberKey', 'EmailAddress', 'FirstName', 'City']
+)
 
-### Automation Studio Integration
+# Create data extension and execute query
+de_name = 'Q4_WomensApparel_Engaged_Metro'
+mc_client.create_data_extension(de_name, sql_query)
+mc_client.execute_query(sql_query, target_de=de_name)
 
-```python
-# Generate queries for multiple audience steps
-workflow = {
-    "step_1_engaged": "Opened email in last 7 days",
-    "step_2_not_purchased": "No purchases in last 30 days from step 1",
-    "step_3_high_value": "Lifetime value over $200 from step 2"
-}
-
-for step_name, intent in workflow.items():
-    print(f"\n--- {step_name} ---")
-    print(generator.generate_sql(intent))
+print(f"Audience segment created: {de_name}")
 ```
 
 ## Troubleshooting
 
-### Common Issues
+### API Authentication Errors
 
-**API Key Errors**
 ```python
-# Check environment variable is set
+# Check API key configuration
 import os
-if not os.getenv('OPENAI_API_KEY'):
-    raise ValueError("OPENAI_API_KEY not set in environment")
+if not os.getenv('GENPARK_API_KEY'):
+    raise ValueError("GENPARK_API_KEY environment variable not set")
+
+# Test connection
+from genpark_audience_generator import AudienceGenerator
+generator = AudienceGenerator(api_key=os.getenv('GENPARK_API_KEY'))
+generator.test_connection()
 ```
 
-**Invalid SQL Output**
-- Ensure your intent is specific and includes timeframes
-- Provide data extension context for better accuracy
-- Validate generated SQL before deploying to SFMC
+### Invalid SQL Generated
 
-**Model Timeout**
 ```python
-# Increase timeout for complex queries
-generator = AudienceQueryGenerator(
-    api_key=os.getenv('OPENAI_API_KEY'),
-    timeout=60  # seconds
+# Enable debug mode for detailed logging
+generator = AudienceGenerator(
+    api_key=os.getenv('GENPARK_API_KEY'),
+    debug=True
 )
+
+# Add more context to intent
+intent = """
+Data extension: Customers (fields: SubscriberKey, EmailAddress, City, State, LTV)
+Find: Customers in California with LTV > 1000
+"""
+sql = generator.generate_sql(intent)
 ```
 
-**SFMC System Table References**
-- Use `_Subscribers`, `_Open`, `_Click`, `_Bounce`, `_Sent` for engagement data
-- Ensure date functions use `GETDATE()` and `DATEADD()` (SFMC syntax)
-- Avoid unsupported SQL functions
-
-### Debugging Generated Queries
+### Query Performance Issues
 
 ```python
-# Enable verbose output
-generator = AudienceQueryGenerator(
-    api_key=os.getenv('OPENAI_API_KEY'),
-    verbose=True
+# Request optimized query
+sql = generator.generate_sql(
+    intent,
+    optimize=True,
+    max_complexity='medium'
 )
 
-# See the full prompt and response
-sql = generator.generate_sql(intent, debug=True)
+# Or optimize existing query
+optimized_sql = generator.optimize_query(sql)
+```
+
+### Schema Mismatch
+
+```python
+# Explicitly define schema
+from genpark_audience_generator import DataExtensionConfig
+
+schema = DataExtensionConfig.from_file('my_schema.json')
+generator = AudienceGenerator(
+    api_key=os.getenv('GENPARK_API_KEY'),
+    data_extensions=[schema]
+)
 ```
 
 ## Best Practices
 
-1. **Be specific with intent**: Include timeframes, metrics, and thresholds
-2. **Validate before deployment**: Always test queries in SFMC Query Studio
-3. **Provide schema context**: Better results with data extension definitions
-4. **Use system tables correctly**: Reference SFMC system views appropriately
-5. **Test with sample data**: Verify logic with small data sets first
-6. **Document generated queries**: Keep track of audience definitions and SQL
+1. **Be specific**: More detailed intents produce better SQL
+2. **Define schema**: Provide data extension schema for accuracy
+3. **Validate queries**: Always validate before executing in production
+4. **Use environment variables**: Never hardcode API keys
+5. **Test with small datasets**: Validate logic before full execution
+6. **Monitor performance**: Track query execution times in Marketing Cloud
 
-## Example Workflow
+## Resources
 
-```python
-import os
-from genpark_audience_generator import AudienceQueryGenerator
-
-# Initialize
-generator = AudienceQueryGenerator(api_key=os.getenv('OPENAI_API_KEY'))
-
-# Define audience
-intent = "Email subscribers who clicked a product link in the last 14 days but haven't purchased"
-
-# Generate SQL
-sql = generator.generate_sql(intent)
-
-# Review and save
-print("Generated SQL:")
-print(sql)
-
-with open('product_interest_audience.sql', 'w') as f:
-    f.write(f"-- Audience: {intent}\n")
-    f.write(f"-- Generated: {datetime.now()}\n\n")
-    f.write(sql)
-
-print("\nReady to import into Marketing Cloud Query Activity")
-```
+- Homepage: https://genpark.ai
+- Repository: https://github.com/alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill
+- Marketing Cloud SQL Reference: Salesforce Marketing Cloud SQL documentation
