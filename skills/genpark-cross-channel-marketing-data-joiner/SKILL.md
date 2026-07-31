@@ -1,15 +1,15 @@
 ---
 name: genpark-cross-channel-marketing-data-joiner
-description: Join programmatic ad data with retail & inventory sources to calculate unified ROAS metrics across channels
+description: Join programmatic ad data with retail & inventory systems to calculate unified ROAS across marketing channels
 triggers:
-  - join marketing data from multiple channels
-  - calculate cross-channel ROAS for my campaigns
-  - merge programmatic ad data with retail sales
-  - combine advertising spend with inventory data
-  - unify marketing attribution across platforms
-  - consolidate ad performance with revenue metrics
-  - integrate cross-channel marketing analytics
-  - merge ad platform data with sales results
+  - join ad data with sales data
+  - calculate cross-channel ROAS
+  - merge programmatic advertising with inventory
+  - connect marketing spend to retail performance
+  - unify ad platform data with e-commerce
+  - combine Google Ads Facebook Ads with Shopify data
+  - aggregate marketing attribution across channels
+  - reconcile advertising costs with actual revenue
 ---
 
 # genpark-cross-channel-marketing-data-joiner
@@ -18,7 +18,7 @@ triggers:
 
 ## Overview
 
-The GenPark Cross-Channel Marketing Data Joiner is a Python-based skill that consolidates programmatic advertising data with retail sales and inventory information to provide unified Return on Ad Spend (ROAS) calculations. This tool enables marketers to understand true campaign performance by connecting ad spend across platforms (Google Ads, Facebook, programmatic DSPs) with actual sales outcomes and inventory availability.
+The GenPark Cross-Channel Marketing Data Joiner is a Python library that consolidates programmatic advertising data from multiple platforms (Google Ads, Facebook Ads, TikTok, etc.) with retail sales and inventory data to compute unified Return on Ad Spend (ROAS) metrics. It handles data normalization, attribution modeling, and cross-channel reconciliation to provide accurate marketing performance insights.
 
 ## Installation
 
@@ -29,415 +29,386 @@ cd genpark-cross-channel-marketing-data-joiner-skill
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Or install as a package
+pip install genpark-marketing-joiner
 ```
 
-**Common dependencies include:**
-```
-pandas>=2.0.0
-numpy>=1.24.0
-sqlalchemy>=2.0.0
-requests>=2.31.0
-python-dotenv>=1.0.0
+## Core Concepts
+
+### Data Sources
+- **Programmatic Ad Platforms**: Google Ads, Facebook Ads, TikTok Ads, LinkedIn Ads
+- **Retail Systems**: Shopify, WooCommerce, BigCommerce, custom e-commerce
+- **Inventory Systems**: Internal SKU databases, warehouse management systems
+- **Attribution Windows**: First-touch, last-touch, multi-touch attribution
+
+### Key Metrics
+- **ROAS**: Revenue / Ad Spend
+- **Attributed Revenue**: Sales linked to specific campaigns
+- **Cross-Channel Attribution**: Revenue distributed across multiple touchpoints
+
+## Basic Usage
+
+```python
+from genpark_joiner import MarketingDataJoiner, AdPlatform, RetailSource
+
+# Initialize the joiner
+joiner = MarketingDataJoiner(
+    attribution_window_days=7,
+    attribution_model='linear'  # Options: 'first_touch', 'last_touch', 'linear', 'time_decay'
+)
+
+# Connect ad platforms
+joiner.add_ad_platform(
+    platform=AdPlatform.GOOGLE_ADS,
+    credentials={
+        'developer_token': os.getenv('GOOGLE_ADS_DEVELOPER_TOKEN'),
+        'client_id': os.getenv('GOOGLE_ADS_CLIENT_ID'),
+        'client_secret': os.getenv('GOOGLE_ADS_CLIENT_SECRET'),
+        'refresh_token': os.getenv('GOOGLE_ADS_REFRESH_TOKEN'),
+        'customer_id': os.getenv('GOOGLE_ADS_CUSTOMER_ID')
+    }
+)
+
+joiner.add_ad_platform(
+    platform=AdPlatform.FACEBOOK_ADS,
+    credentials={
+        'access_token': os.getenv('FACEBOOK_ACCESS_TOKEN'),
+        'account_id': os.getenv('FACEBOOK_AD_ACCOUNT_ID')
+    }
+)
+
+# Connect retail/e-commerce data
+joiner.add_retail_source(
+    source=RetailSource.SHOPIFY,
+    credentials={
+        'shop_url': os.getenv('SHOPIFY_SHOP_URL'),
+        'api_key': os.getenv('SHOPIFY_API_KEY'),
+        'password': os.getenv('SHOPIFY_PASSWORD')
+    }
+)
+
+# Fetch and join data for date range
+from datetime import datetime, timedelta
+
+end_date = datetime.now()
+start_date = end_date - timedelta(days=30)
+
+unified_data = joiner.fetch_and_join(
+    start_date=start_date,
+    end_date=end_date
+)
+
+# Calculate unified ROAS
+roas_report = joiner.calculate_roas(unified_data)
+print(f"Overall ROAS: {roas_report.overall_roas:.2f}")
+print(f"Total Ad Spend: ${roas_report.total_spend:.2f}")
+print(f"Total Attributed Revenue: ${roas_report.total_revenue:.2f}")
 ```
 
 ## Configuration
 
-Create a `.env` file in the project root with your data source credentials:
+### Attribution Models
 
-```bash
-# Ad Platform API Keys
-GOOGLE_ADS_DEVELOPER_TOKEN=your_token_here
-GOOGLE_ADS_CLIENT_ID=your_client_id
-GOOGLE_ADS_CLIENT_SECRET=your_secret
-FACEBOOK_ACCESS_TOKEN=your_fb_token
+```python
+from genpark_joiner import AttributionModel
 
-# Retail/Sales Database
-RETAIL_DB_HOST=localhost
-RETAIL_DB_PORT=5432
-RETAIL_DB_NAME=retail_data
-RETAIL_DB_USER=your_username
-RETAIL_DB_PASSWORD=your_password
+# First-touch attribution (all credit to first interaction)
+joiner.set_attribution_model(AttributionModel.FIRST_TOUCH)
 
-# Inventory System API
-INVENTORY_API_URL=https://api.inventory.example.com
-INVENTORY_API_KEY=your_inventory_key
+# Last-touch attribution (all credit to last interaction)
+joiner.set_attribution_model(AttributionModel.LAST_TOUCH)
+
+# Linear attribution (equal credit across touchpoints)
+joiner.set_attribution_model(AttributionModel.LINEAR)
+
+# Time-decay attribution (more credit to recent touchpoints)
+joiner.set_attribution_model(
+    AttributionModel.TIME_DECAY,
+    decay_rate=0.5  # Half-life in days
+)
+
+# Position-based attribution (40% first, 40% last, 20% middle)
+joiner.set_attribution_model(AttributionModel.POSITION_BASED)
 ```
 
-## Core Components
+### Custom Attribution Windows
 
-### 1. Data Source Connectors
-
-**Ad Platform Connector:**
 ```python
-from genpark_joiner.connectors import AdPlatformConnector
-
-# Initialize connector
-ad_connector = AdPlatformConnector(
-    platform='google_ads',
-    credentials={
-        'developer_token': os.getenv('GOOGLE_ADS_DEVELOPER_TOKEN'),
-        'client_id': os.getenv('GOOGLE_ADS_CLIENT_ID'),
-        'client_secret': os.getenv('GOOGLE_ADS_CLIENT_SECRET')
-    }
-)
-
-# Fetch ad performance data
-ad_data = ad_connector.fetch_campaign_data(
-    start_date='2026-07-01',
-    end_date='2026-07-31',
-    metrics=['spend', 'impressions', 'clicks', 'conversions']
-)
+# Set different windows for different platforms
+joiner.set_platform_window(AdPlatform.GOOGLE_ADS, days=7)
+joiner.set_platform_window(AdPlatform.FACEBOOK_ADS, days=28)
+joiner.set_platform_window(AdPlatform.TIKTOK_ADS, days=7)
 ```
 
-**Retail Sales Connector:**
+## Advanced Features
+
+### Custom Data Mapping
+
 ```python
-from genpark_joiner.connectors import RetailConnector
+from genpark_joiner import FieldMapper
 
-retail_connector = RetailConnector(
-    db_type='postgresql',
-    host=os.getenv('RETAIL_DB_HOST'),
-    port=os.getenv('RETAIL_DB_PORT'),
-    database=os.getenv('RETAIL_DB_NAME'),
-    user=os.getenv('RETAIL_DB_USER'),
-    password=os.getenv('RETAIL_DB_PASSWORD')
+# Map custom fields from your retail system
+custom_mapper = FieldMapper()
+custom_mapper.add_mapping(
+    source_field='order_total',
+    target_field='revenue',
+    transform=lambda x: float(x) * 1.0  # Convert to float
 )
 
-# Fetch sales data
-sales_data = retail_connector.fetch_sales(
-    start_date='2026-07-01',
-    end_date='2026-07-31',
-    groupby=['product_id', 'date']
+custom_mapper.add_mapping(
+    source_field='promo_code',
+    target_field='campaign_id',
+    transform=lambda code: extract_campaign_from_promo(code)
 )
+
+joiner.set_field_mapper(custom_mapper)
 ```
 
-### 2. Data Joiner
+### Inventory Integration
 
-**Basic Join Operation:**
 ```python
-from genpark_joiner import DataJoiner
+from genpark_joiner import InventorySource
 
-joiner = DataJoiner()
-
-# Join ad data with sales data
-unified_data = joiner.join(
-    ad_data=ad_data,
-    sales_data=sales_data,
-    join_keys=['product_id', 'date'],
-    join_type='left'
+# Add inventory data for stock-level analysis
+joiner.add_inventory_source(
+    source=InventorySource.CUSTOM,
+    connection_string=os.getenv('INVENTORY_DB_CONNECTION'),
+    query_template="""
+        SELECT sku, stock_level, reorder_point, last_updated
+        FROM inventory
+        WHERE last_updated >= :start_date
+    """
 )
+
+# Generate report with inventory context
+report = joiner.generate_inventory_aware_report(
+    start_date=start_date,
+    end_date=end_date,
+    include_out_of_stock=True
+)
+
+# Identify campaigns promoting out-of-stock items
+wasted_spend = report.campaigns_with_stock_issues()
 ```
 
-**Multi-Source Join:**
+### Multi-Touch Attribution Journey
+
 ```python
-from genpark_joiner.connectors import InventoryConnector
-
-inventory_connector = InventoryConnector(
-    api_url=os.getenv('INVENTORY_API_URL'),
-    api_key=os.getenv('INVENTORY_API_KEY')
+# Get customer journey data
+journeys = joiner.get_customer_journeys(
+    start_date=start_date,
+    end_date=end_date,
+    min_touchpoints=2
 )
 
-inventory_data = inventory_connector.fetch_inventory(
-    start_date='2026-07-01',
-    end_date='2026-07-31'
-)
-
-# Join all three data sources
-complete_data = joiner.join_multiple([
-    {'data': ad_data, 'name': 'ads'},
-    {'data': sales_data, 'name': 'sales'},
-    {'data': inventory_data, 'name': 'inventory'}
-], join_keys=['product_id', 'date'])
+for journey in journeys:
+    print(f"Customer: {journey.customer_id}")
+    print(f"Touchpoints: {len(journey.touchpoints)}")
+    for tp in journey.touchpoints:
+        print(f"  - {tp.platform} / {tp.campaign} / {tp.timestamp}")
+    print(f"Conversion Value: ${journey.conversion_value}")
+    print(f"Attribution: {journey.attribution_breakdown}")
 ```
 
-### 3. ROAS Calculator
+### Export and Reporting
 
-**Calculate Unified ROAS:**
 ```python
-from genpark_joiner.metrics import ROASCalculator
+# Export to CSV
+joiner.export_to_csv(
+    unified_data,
+    filename='cross_channel_roas.csv',
+    include_metadata=True
+)
 
-calculator = ROASCalculator()
+# Export to Google Sheets
+joiner.export_to_google_sheets(
+    unified_data,
+    spreadsheet_id=os.getenv('GOOGLE_SHEETS_ID'),
+    worksheet_name='ROAS Dashboard'
+)
 
-# Calculate ROAS from unified data
-roas_results = calculator.calculate_roas(
+# Generate PDF report
+from genpark_joiner import ReportGenerator
+
+report_gen = ReportGenerator(template='executive_summary')
+report_gen.generate_pdf(
     data=unified_data,
-    spend_column='ad_spend',
-    revenue_column='sales_revenue',
-    groupby=['campaign_id', 'product_category']
-)
-
-print(roas_results)
-# Output:
-# campaign_id  product_category  ad_spend  revenue  ROAS
-# 12345       Electronics        5000.00  25000.00  5.00
-# 12346       Apparel           3000.00   9000.00  3.00
-```
-
-**Advanced ROAS with Attribution:**
-```python
-# Apply attribution model before ROAS calculation
-attributed_data = calculator.apply_attribution(
-    data=unified_data,
-    model='linear',  # Options: 'first_touch', 'last_touch', 'linear', 'time_decay'
-    lookback_window=30  # days
-)
-
-roas_with_attribution = calculator.calculate_roas(
-    data=attributed_data,
-    spend_column='attributed_spend',
-    revenue_column='attributed_revenue'
+    output_path='monthly_roas_report.pdf',
+    include_charts=True
 )
 ```
 
-## Complete Example Usage
+## Campaign-Level Analysis
 
 ```python
-import os
-from dotenv import load_dotenv
-from genpark_joiner import DataJoiner
-from genpark_joiner.connectors import AdPlatformConnector, RetailConnector, InventoryConnector
-from genpark_joiner.metrics import ROASCalculator
-import pandas as pd
+# Get ROAS by campaign
+campaign_roas = joiner.get_campaign_roas(unified_data)
 
-# Load environment variables
-load_dotenv()
+for campaign in campaign_roas:
+    print(f"Campaign: {campaign.name}")
+    print(f"  Platform: {campaign.platform}")
+    print(f"  Spend: ${campaign.spend:.2f}")
+    print(f"  Revenue: ${campaign.attributed_revenue:.2f}")
+    print(f"  ROAS: {campaign.roas:.2f}")
+    print(f"  Conversions: {campaign.conversion_count}")
+    print()
 
-def main():
-    # 1. Fetch ad platform data
-    print("Fetching ad data...")
-    ad_connector = AdPlatformConnector(platform='google_ads')
-    ad_data = ad_connector.fetch_campaign_data(
-        start_date='2026-07-01',
-        end_date='2026-07-31'
-    )
-    
-    # 2. Fetch retail sales data
-    print("Fetching sales data...")
-    retail_connector = RetailConnector(db_type='postgresql')
-    sales_data = retail_connector.fetch_sales(
-        start_date='2026-07-01',
-        end_date='2026-07-31'
-    )
-    
-    # 3. Fetch inventory data
-    print("Fetching inventory data...")
-    inventory_connector = InventoryConnector()
-    inventory_data = inventory_connector.fetch_inventory(
-        start_date='2026-07-01',
-        end_date='2026-07-31'
-    )
-    
-    # 4. Join all data sources
-    print("Joining data sources...")
-    joiner = DataJoiner()
-    unified_data = joiner.join_multiple([
-        {'data': ad_data, 'name': 'ads'},
-        {'data': sales_data, 'name': 'sales'},
-        {'data': inventory_data, 'name': 'inventory'}
-    ], join_keys=['product_id', 'date'])
-    
-    # 5. Calculate ROAS
-    print("Calculating ROAS...")
-    calculator = ROASCalculator()
-    roas_results = calculator.calculate_roas(
-        data=unified_data,
-        spend_column='ad_spend',
-        revenue_column='sales_revenue',
-        groupby=['campaign_id', 'product_category']
-    )
-    
-    # 6. Export results
-    roas_results.to_csv('roas_report.csv', index=False)
-    print(f"ROAS report saved. Total campaigns: {len(roas_results)}")
-    print(f"Average ROAS: {roas_results['ROAS'].mean():.2f}")
-    
-    return roas_results
+# Filter underperforming campaigns
+low_roas = [c for c in campaign_roas if c.roas < 2.0]
+print(f"Found {len(low_roas)} campaigns with ROAS < 2.0")
+```
 
-if __name__ == '__main__':
-    results = main()
+## UTM Parameter Tracking
+
+```python
+from genpark_joiner import UTMTracker
+
+# Configure UTM parameter extraction
+utm_tracker = UTMTracker()
+joiner.set_utm_tracker(utm_tracker)
+
+# Analyze by UTM source/medium/campaign
+utm_breakdown = joiner.analyze_by_utm(
+    unified_data,
+    group_by=['utm_source', 'utm_medium', 'utm_campaign']
+)
+
+for group, metrics in utm_breakdown.items():
+    print(f"{group}: ROAS = {metrics.roas:.2f}, Spend = ${metrics.spend:.2f}")
+```
+
+## Scheduled Data Syncing
+
+```python
+from genpark_joiner import Scheduler
+
+# Set up automatic daily sync
+scheduler = Scheduler(joiner)
+
+scheduler.schedule_daily_sync(
+    time='02:00',  # 2 AM
+    timezone='America/New_York',
+    callback=lambda data: send_slack_notification(data)
+)
+
+scheduler.start()
+```
+
+## Error Handling
+
+```python
+from genpark_joiner.exceptions import (
+    PlatformConnectionError,
+    DataMismatchError,
+    AttributionError
+)
+
+try:
+    unified_data = joiner.fetch_and_join(start_date, end_date)
+except PlatformConnectionError as e:
+    print(f"Failed to connect to {e.platform}: {e.message}")
+    # Retry logic or fallback to cached data
+except DataMismatchError as e:
+    print(f"Data inconsistency: {e.details}")
+    # Log for manual review
+except AttributionError as e:
+    print(f"Attribution calculation failed: {e.reason}")
+    # Fall back to simpler attribution model
 ```
 
 ## Common Patterns
 
-### Pattern 1: Daily ROAS Dashboard
+### Daily ROAS Monitoring
 
 ```python
-from genpark_joiner.pipelines import DailyROASPipeline
+import schedule
+import time
 
-pipeline = DailyROASPipeline(
-    ad_sources=['google_ads', 'facebook_ads', 'dv360'],
-    retail_source='postgresql',
-    output_format='dashboard'
-)
+def daily_roas_check():
+    yesterday = datetime.now() - timedelta(days=1)
+    data = joiner.fetch_and_join(yesterday, yesterday)
+    roas = joiner.calculate_roas(data)
+    
+    if roas.overall_roas < 2.0:
+        send_alert(f"Low ROAS detected: {roas.overall_roas:.2f}")
 
-# Run daily pipeline
-daily_results = pipeline.run(date='2026-07-31')
-pipeline.export_to_dashboard(daily_results)
+schedule.every().day.at("09:00").do(daily_roas_check)
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
 ```
 
-### Pattern 2: Product-Level Attribution
+### Budget Allocation Recommendations
 
 ```python
-from genpark_joiner.attribution import ProductAttributor
+# Get platform performance
+platform_performance = joiner.get_platform_roas(unified_data)
 
-attributor = ProductAttributor()
+# Calculate optimal budget distribution
+from genpark_joiner import BudgetOptimizer
 
-# Attribute sales to specific ad touchpoints
-product_attribution = attributor.attribute(
-    ad_data=ad_data,
-    sales_data=sales_data,
-    product_id='SKU-12345',
-    attribution_model='time_decay',
-    lookback_days=30
+optimizer = BudgetOptimizer(platform_performance)
+recommended_allocation = optimizer.optimize(
+    total_budget=50000,
+    min_roas_threshold=1.5
 )
 
-# Get touchpoint contribution
-touchpoint_value = attributor.get_touchpoint_value(product_attribution)
-```
-
-### Pattern 3: Cross-Channel Budget Optimization
-
-```python
-from genpark_joiner.optimization import BudgetOptimizer
-
-optimizer = BudgetOptimizer()
-
-# Analyze current ROAS across channels
-channel_performance = optimizer.analyze_channels(unified_data)
-
-# Get budget reallocation recommendations
-recommendations = optimizer.optimize_budget(
-    current_allocation={'google_ads': 50000, 'facebook_ads': 30000, 'dv360': 20000},
-    target_roas=4.0,
-    constraints={'min_spend_per_channel': 10000}
-)
-
-print(recommendations)
-# Output: {'google_ads': 55000, 'facebook_ads': 35000, 'dv360': 10000}
-```
-
-### Pattern 4: Inventory-Aware Campaign Pausing
-
-```python
-from genpark_joiner.automation import InventoryAutomation
-
-automation = InventoryAutomation()
-
-# Automatically pause campaigns for out-of-stock products
-automation.pause_campaigns_for_oos(
-    unified_data=unified_data,
-    inventory_threshold=10,  # units
-    ad_platforms=['google_ads', 'facebook_ads']
-)
+print("Recommended Budget Allocation:")
+for platform, budget in recommended_allocation.items():
+    print(f"  {platform}: ${budget:.2f}")
 ```
 
 ## Troubleshooting
 
-### Issue: Data Join Returns Empty Results
-
-**Problem:** Join operation returns no rows despite data in both sources.
-
-**Solution:**
+### API Rate Limits
 ```python
-# Check data types of join keys
-print(ad_data['product_id'].dtype)  # Should match
-print(sales_data['product_id'].dtype)
-
-# Normalize join keys before joining
-ad_data['product_id'] = ad_data['product_id'].astype(str).str.strip()
-sales_data['product_id'] = sales_data['product_id'].astype(str).str.strip()
-
-# Use fuzzy matching if needed
-joiner = DataJoiner(fuzzy_match=True, match_threshold=0.85)
-```
-
-### Issue: ROAS Calculation Shows Null Values
-
-**Problem:** ROAS column contains NaN or None values.
-
-**Solution:**
-```python
-# Handle missing or zero spend
-calculator = ROASCalculator(handle_zero_spend='exclude')  # or 'fill_with_zero'
-
-# Filter out incomplete records before calculation
-complete_data = unified_data.dropna(subset=['ad_spend', 'sales_revenue'])
-roas_results = calculator.calculate_roas(complete_data)
-```
-
-### Issue: API Rate Limiting
-
-**Problem:** Ad platform API calls fail with rate limit errors.
-
-**Solution:**
-```python
-# Enable automatic retry with backoff
-ad_connector = AdPlatformConnector(
-    platform='google_ads',
-    retry_on_rate_limit=True,
-    max_retries=5,
-    backoff_factor=2
-)
-
-# Or batch requests
-ad_data = ad_connector.fetch_campaign_data_batch(
-    date_ranges=[
-        ('2026-07-01', '2026-07-10'),
-        ('2026-07-11', '2026-07-20'),
-        ('2026-07-21', '2026-07-31')
-    ],
-    batch_delay=2  # seconds between batches
+joiner.set_rate_limit(
+    platform=AdPlatform.GOOGLE_ADS,
+    requests_per_minute=50
 )
 ```
 
-### Issue: Memory Error with Large Datasets
-
-**Problem:** Out of memory when joining large datasets.
-
-**Solution:**
+### Missing Conversion Data
 ```python
-# Use chunked processing
-joiner = DataJoiner(chunk_size=10000)
-
-unified_data_generator = joiner.join_chunked(
-    ad_data=ad_data,
-    sales_data=sales_data,
-    join_keys=['product_id', 'date']
-)
-
-# Process chunks iteratively
-for chunk in unified_data_generator:
-    roas_chunk = calculator.calculate_roas(chunk)
-    roas_chunk.to_csv('roas_report.csv', mode='a', header=False)
-```
-
-### Issue: Date Timezone Mismatches
-
-**Problem:** Dates don't align due to timezone differences.
-
-**Solution:**
-```python
-# Normalize all dates to UTC before joining
-joiner = DataJoiner(normalize_timezone='UTC')
-
-# Or specify timezone for each source
-ad_data = ad_connector.fetch_campaign_data(
-    start_date='2026-07-01',
-    end_date='2026-07-31',
-    timezone='America/New_York'
-)
-
-sales_data = retail_connector.fetch_sales(
-    start_date='2026-07-01',
-    end_date='2026-07-31',
-    timezone='America/New_York'
+# Enable conversion import from Google Analytics
+joiner.enable_ga_conversion_import(
+    view_id=os.getenv('GA_VIEW_ID'),
+    credentials_path='ga_credentials.json'
 )
 ```
 
-## Best Practices
+### Data Sync Issues
+```python
+# Check sync status
+status = joiner.get_sync_status()
+print(f"Last successful sync: {status.last_sync}")
+print(f"Failed syncs: {status.failed_platforms}")
 
-1. **Always validate join keys** before performing joins to ensure data type and format consistency
-2. **Use attribution models** appropriate to your customer journey length
-3. **Set up automated alerts** for ROAS drops below threshold
-4. **Cache API responses** to reduce redundant calls and improve performance
-5. **Log all data transformations** for debugging and audit trails
-6. **Test with sample data** before processing full production datasets
+# Force resync for specific platform
+joiner.force_resync(AdPlatform.FACEBOOK_ADS, days_back=7)
+```
+
+## Environment Variables
+
+```bash
+# Google Ads
+GOOGLE_ADS_DEVELOPER_TOKEN=your_token
+GOOGLE_ADS_CLIENT_ID=your_client_id
+GOOGLE_ADS_CLIENT_SECRET=your_secret
+GOOGLE_ADS_REFRESH_TOKEN=your_refresh_token
+GOOGLE_ADS_CUSTOMER_ID=your_customer_id
+
+# Facebook Ads
+FACEBOOK_ACCESS_TOKEN=your_access_token
+FACEBOOK_AD_ACCOUNT_ID=act_123456789
+
+# Shopify
+SHOPIFY_SHOP_URL=yourstore.myshopify.com
+SHOPIFY_API_KEY=your_api_key
+SHOPIFY_PASSWORD=your_password
+
+# Database
+INVENTORY_DB_CONNECTION=postgresql://user:pass@host:5432/inventory
+```
