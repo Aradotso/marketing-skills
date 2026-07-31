@@ -127,6 +127,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [genpark-marketing-banner-agent-skill](skills/genpark-marketing-banner-agent-skill/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-banner-agent-skill) | [alphaparkinc/genpark-marketing-banner-agent-skill](https://github.com/alphaparkinc/genpark-marketing-banner-agent-skill) | 2026-07-30 |
 | [genpark-marketing-email-spamprevent-skill](skills/genpark-marketing-email-spamprevent-skill/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-email-spamprevent-skill) | [alphaparkinc/genpark-marketing-email-spamprevent-skill](https://github.com/alphaparkinc/genpark-marketing-email-spamprevent-skill) | 2026-07-30 |
 | [email-marketing-regulations-compliance](skills/email-marketing-regulations-compliance/) | [install](https://skills.sh/aradotso/marketing-skills/email-marketing-regulations-compliance) | [threeheartsdigital/email-marketing-regulations](https://github.com/threeheartsdigital/email-marketing-regulations) | 2026-07-30 |
+| [genpark-cross-channel-marketing-data-joiner](skills/genpark-cross-channel-marketing-data-joiner/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-cross-channel-marketing-data-joiner) | [alphaparkinc/genpark-cross-channel-marketing-data-joiner-skill](https://github.com/alphaparkinc/genpark-cross-channel-marketing-data-joiner-skill) | 2026-07-31 |
 <!-- SKILL_INDEX -->
 
 ---
