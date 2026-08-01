@@ -130,6 +130,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [genpark-cross-channel-marketing-data-joiner](skills/genpark-cross-channel-marketing-data-joiner/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-cross-channel-marketing-data-joiner) | [alphaparkinc/genpark-cross-channel-marketing-data-joiner-skill](https://github.com/alphaparkinc/genpark-cross-channel-marketing-data-joiner-skill) | 2026-07-31 |
 | [genpark-marketing-cloud-sql-audience-generator](skills/genpark-marketing-cloud-sql-audience-generator/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-cloud-sql-audience-generator) | [alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill](https://github.com/alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill) | 2026-07-31 |
 | [thebig-gavin-marketing-dashboard](skills/thebig-gavin-marketing-dashboard/) | [install](https://skills.sh/aradotso/marketing-skills/thebig-gavin-marketing-dashboard) | [theBigGavin/marketingdashboard](https://github.com/theBigGavin/marketingdashboard) | 2026-08-01 |
+| [marketingdashboard-financial-cockpit](skills/marketingdashboard-financial-cockpit/) | [install](https://skills.sh/aradotso/marketing-skills/marketingdashboard-financial-cockpit) | [theBigGavin/marketingdashboard](https://github.com/theBigGavin/marketingdashboard) | 2026-08-01 |
 <!-- SKILL_INDEX -->
 
 ---
