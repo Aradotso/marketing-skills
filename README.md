@@ -131,6 +131,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [genpark-marketing-cloud-sql-audience-generator](skills/genpark-marketing-cloud-sql-audience-generator/) | [install](https://skills.sh/aradotso/marketing-skills/genpark-marketing-cloud-sql-audience-generator) | [alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill](https://github.com/alphaparkinc/genpark-marketing-cloud-sql-audience-generator-skill) | 2026-07-31 |
 | [thebig-gavin-marketing-dashboard](skills/thebig-gavin-marketing-dashboard/) | [install](https://skills.sh/aradotso/marketing-skills/thebig-gavin-marketing-dashboard) | [theBigGavin/marketingdashboard](https://github.com/theBigGavin/marketingdashboard) | 2026-08-01 |
 | [marketingdashboard-financial-cockpit](skills/marketingdashboard-financial-cockpit/) | [install](https://skills.sh/aradotso/marketing-skills/marketingdashboard-financial-cockpit) | [theBigGavin/marketingdashboard](https://github.com/theBigGavin/marketingdashboard) | 2026-08-01 |
+| [ai-festival-campaign-generator](skills/ai-festival-campaign-generator/) | [install](https://skills.sh/aradotso/marketing-skills/ai-festival-campaign-generator) | [Chaitanyaa0406/AI-Festival-Campaign-Generator](https://github.com/Chaitanyaa0406/AI-Festival-Campaign-Generator) | 2026-08-01 |
 <!-- SKILL_INDEX -->
 
 ---
