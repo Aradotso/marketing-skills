@@ -133,6 +133,7 @@ npx skills add Aradotso/marketing-skills --skill <skill-name>
 | [marketingdashboard-financial-cockpit](skills/marketingdashboard-financial-cockpit/) | [install](https://skills.sh/aradotso/marketing-skills/marketingdashboard-financial-cockpit) | [theBigGavin/marketingdashboard](https://github.com/theBigGavin/marketingdashboard) | 2026-08-01 |
 | [ai-festival-campaign-generator](skills/ai-festival-campaign-generator/) | [install](https://skills.sh/aradotso/marketing-skills/ai-festival-campaign-generator) | [Chaitanyaa0406/AI-Festival-Campaign-Generator](https://github.com/Chaitanyaa0406/AI-Festival-Campaign-Generator) | 2026-08-01 |
 | [vercel-marketing-team-eve-template](skills/vercel-marketing-team-eve-template/) | [install](https://skills.sh/aradotso/marketing-skills/vercel-marketing-team-eve-template) | [vercel-labs/marketing-team-eve-template](https://github.com/vercel-labs/marketing-team-eve-template) | 2026-08-02 |
+| [awesome-growth-hacking-skills-directory](skills/awesome-growth-hacking-skills-directory/) | [install](https://skills.sh/aradotso/marketing-skills/awesome-growth-hacking-skills-directory) | [mikiarlo3/awesome-growth-hacking-skills](https://github.com/mikiarlo3/awesome-growth-hacking-skills) | 2026-08-05 |
 <!-- SKILL_INDEX -->
 
 ---
